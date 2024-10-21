@@ -3,8 +3,8 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import 'github-markdown-css'
-import './github-markdown-plus.css'
+import '../../styles/github-markdown.css'
+import '../../styles/github-markdown-plus.css'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
 

@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.13",
-    "github-markdown-css": "^5.7.0",
     "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
