@@ -18,16 +18,14 @@ interface PostPageProps {
 export default async function PostPage({ params: { slugs }}: PostPageProps) {
   const markdownText = await getPostData(slugs.join('/') + '.md');
   return (
-    <div>
-      <div className="min-h-[95vh] bg-gradient-to-br from-gray-900 to-black text-gray-100 flex flex-col items-center p-3 md:p-6">
+    <>
       <div className="w-full max-w-full md:max-w-3xl"> 
-      <div className="bg-gray-800 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg border border-gray-700 md:border-none">
-      <div className="markdown-body bg-transparent text-gray-100">
-      <MarkdownRender markdownText={markdownText} />
+        <div className="bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg border border-gray-700 md:border-none">
+          <div className="markdown-body bg-transparent text-gray-100">
+            <MarkdownRender markdownText={markdownText} />
+          </div>
+        </div>
       </div>
-      </div>
-      </div>
-      </div>
-    </div>
+    </>
   );
 }
