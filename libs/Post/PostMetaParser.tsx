@@ -4,7 +4,6 @@
 export interface PostMeta {
   title: string;
   description: string;
-  author: string;
   date: string;
   tags: string[];
   cover: string;
@@ -19,7 +18,6 @@ export const parsePost = (
   const meta: PostMeta = {
     title: "",
     description: "",
-    author: "",
     cover: "",
     date: "",
     tags: [],
@@ -47,8 +45,6 @@ export const parsePost = (
       meta.title = value;
     } else if (key === "description") {
       meta.description = value;
-    } else if (key === "author") {
-      meta.author = value;
     } else if (key === "cover") {
       meta.cover = value;
     } else if (key === "date") {
