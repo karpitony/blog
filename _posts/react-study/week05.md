@@ -1,4 +1,13 @@
-# [5주차] Axios API 통신 라이브러리 + OpenAPI 사용해보기
+---
+title: [5주차] Axios API 통신 라이브러리 + OpenAPI 사용해보기
+description: JS에서 API 통신 기초 다지기
+cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week05_01.jpg
+tags: axios, openapi
+date: 2024-10-14
+series: react-study
+seriesIndex: 4
+---
+
 저번 `구름톤 유니브 3기 연합 해커톤`과 이번 `동국 x 숙명 x 경기 연합 CRUD 스터디`를 하며 백엔드와 API로 통신하거나, OpenApi를 사용하는 경험을 자주 하게 되었습니다. 보통 프로젝트는 프론트와 백엔드가 있고, 서로 통신해야하다보니 중요하다고 생각해 까먹지 않으려고 배운 내용들을 정리해봤습니다.
 
 1. [Axios 사용해서 백엔드와 API 통신 해보기](#1-axios-사용해서-백엔드와-api-통신-해보기)

@@ -1,4 +1,12 @@
-# [4주차] 🏆 구름톤 연합 해커톤 참가 및 대상 후기
+---
+title: [4주차] 🏆 구름톤 연합 해커톤 참가 및 대상 후기
+description: 해커톤 참가 및 수상 후기
+cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_03.webp
+tags: react, 9oormthonuniv, hackerthon
+date: 2024-10-01
+series: react-study
+seriesIndex: 3
+---
 
 ![뜬구름](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_03.webp)
 

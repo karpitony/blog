@@ -1,4 +1,12 @@
-# [2주차] 리액트 복습 + 미니 사이드 프로젝트
+---
+title: [2주차] 리액트 복습 + 미니 사이드 프로젝트
+description: 도시 이름 워들 게임을 제작하며 리액트 복습하기
+cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week02_01.png
+tags: react, sideproject, dodle
+date: 2024-09-15
+series: react-study
+seriesIndex: 1
+---
 
 이번 주는 지난주에 배운 리액트의 기본 문법을 복습하고, 리액트로 간단한 사이드 프로젝트를 해보았습니다. 리액트 문법으로는 비동기 처리에 중요한 async와 await 키워드를 알게 되었고, React Router로 링크를 만드는 방법도 알게되었습니다.
 

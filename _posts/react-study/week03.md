@@ -1,4 +1,12 @@
-# [3주차] TypeScript 기본 문법과 활용
+---
+title: [3주차] TypeScript 기본 문법과 활용
+description: 원활한 협업 준비를 위해 TypeScript 배우기
+cover: 
+tags: typescript
+date: 2024-09-23
+series: react-study
+seriesIndex: 2
+---
 
 다음주부터 구름톤 3기 연합 해커톤 시작이라서 이번 주는 협업에서 많이 쓰이고, 유용하다는 평가를 받는 TypeScript의 기본 문법과 개념을 공부했습니다. 특히 암묵적 타입과 명시적 타입의 차이, `unknown`, `void`, `never` 타입의 사용 방법, 그리고 함수의 오버로딩과 다형성에 대해 배웠습니다.
 

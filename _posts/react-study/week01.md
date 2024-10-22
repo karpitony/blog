@@ -1,4 +1,12 @@
-# [1주차] 리액트 웹 예제 클론코딩
+---
+title: [1주차] 리액트 웹 예제 클론코딩
+description: 클론코딩으로 배우는 리액트 기초
+cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week01_01.png
+tags: react
+date: 2024-09-08
+series: react-study
+seriesIndex: 0
+---
 
 노마드 코더님의 [ReactJS로 영화 웹 서비스 만들기](https://nomadcoders.co/react-for-beginners/)를 들으며 방학동안 리액트 기본문법을 배운 후 이번주는 Todo리스트, 코인 트래커를 따라 만들어보았습니다. 원래는 영화 서비스 페이지도 클론코딩해볼 계획이였으나, 개강 첫주라 시간이 부족했었습니다. 또한 전체적인 학습 계획을 조금 수정해보았습니다. [README.md](https://karpitony.github.io/9roomthonUniv-React-Study/)에 주차별로 어떤 내용을 배울지 업데이트 해봤습니다.
 

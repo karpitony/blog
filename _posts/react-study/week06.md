@@ -1,4 +1,12 @@
-# [6주차] 동국x숙명x경기 연합 CRUD 스터디 회고
+---
+title: [6주차] 동국x숙명x경기 연합 CRUD 스터디 회고
+description: 클론코딩으로 배우는 리액트 기초
+cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week01_01.png
+tags: react, 9oormthonuniv
+date: 2024-10-15
+series: react-study
+seriesIndex: 5
+---
 
 ![week06_01](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_01.png)
 
