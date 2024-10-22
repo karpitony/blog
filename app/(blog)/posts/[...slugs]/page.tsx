@@ -27,6 +27,8 @@ export default async function PostPage({ params: { slugs }}: PostPageProps) {
       <div className="w-full max-w-full md:max-w-3xl">
         <div className="bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg border border-gray-700 md:border-none">
           <PostInfoHeader meta={meta} />
+        </div>
+        <div className="bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg border border-gray-700 md:border-none mt-4">
           { /* 게시글 내용 */ }
           <div className="markdown-body bg-transparent text-gray-100">
             <MarkdownRender markdownText={body.join("\n")} />

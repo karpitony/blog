@@ -4,7 +4,7 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
   return (
     <div>
       { /* 게시글 정보 헤더 */ }
-      <div className="flex-row mb-4">
+      <div className="flex-row">
         <p className="mb-2 text-blue-500 dark:text-blue-300 hover:underline">
           [{meta.series}] - ({meta.seriesIndex + 1})
         </p>
