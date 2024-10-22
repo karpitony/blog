@@ -1,5 +1,5 @@
 ---
-title: [2주차] 리액트 복습 + 미니 사이드 프로젝트
+title: 리액트 복습 + 미니 사이드 프로젝트
 description: 도시 이름 워들 게임을 제작하며 리액트 복습하기
 cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week02_01.png
 tags: react, sideproject, dodle

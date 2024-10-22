@@ -1,5 +1,5 @@
 ---
-title: [3주차] TypeScript 기본 문법과 활용
+title: TypeScript 기본 문법과 활용
 description: 원활한 협업 준비를 위해 TypeScript 배우기
 cover: 
 tags: typescript

@@ -1,5 +1,5 @@
 ---
-title: [1주차] 리액트 웹 예제 클론코딩
+title: 리액트 웹 예제 클론코딩
 description: 클론코딩으로 배우는 리액트 기초
 cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week01_01.png
 tags: react

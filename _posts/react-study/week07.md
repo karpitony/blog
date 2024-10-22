@@ -1,7 +1,7 @@
 ---
-title: [7주차] 리액트로 미니 블로그 만들기
+title: 리액트로 미니 블로그 만들기
 description: 스터디 성과 발표를 위한 리액트 미니 블로그 제작기
-cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week01_01.png
+cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_07.png
 tags: react, blog, 9oormthonuniv
 date: 2024-10-22
 series: react-study

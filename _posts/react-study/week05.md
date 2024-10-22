@@ -1,5 +1,5 @@
 ---
-title: [5주차] Axios API 통신 라이브러리 + OpenAPI 사용해보기
+title: Axios API 통신 라이브러리 + OpenAPI 사용해보기
 description: JS에서 API 통신 기초 다지기
 cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week05_01.jpg
 tags: axios, openapi
