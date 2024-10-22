@@ -19,11 +19,11 @@ export default function MarkdownRender({ markdownText }: MarkdownRenderProps) {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug, rehypeAutolinkHeadings]}
         components={{
-          h1: ({ node, ...props }) => <h1 className="text-4xl font-bold mb-4 text-blue-400" {...props} />,
-          h2: ({ node, ...props }) => <h2 className="text-3xl font-semibold mb-3 mt-6 text-blue-300" {...props} />,
-          h3: ({ node, ...props }) => <h3 className="text-2xl font-medium mb-2 mt-4 text-blue-200" {...props} />,
-          a: ({ node, ...props }) => <a className="text-blue-400 hover:text-blue-300 transition-colors duration-200" {...props} />,
-          code({ node, className, children, ...props }) {
+          h1: ({ ...props }) => <h1 className="text-4xl font-bold mb-4 text-blue-400" {...props} />,
+          h2: ({ ...props }) => <h2 className="text-3xl font-semibold mb-3 mt-6 text-blue-300" {...props} />,
+          h3: ({ ...props }) => <h3 className="text-2xl font-medium mb-2 mt-4 text-blue-200" {...props} />,
+          a: ({ ...props }) => <a className="text-blue-400 hover:text-blue-300 transition-colors duration-200" {...props} />,
+          code({ className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || '');
             return match ? (
               <SyntaxHighlighter
