@@ -54,7 +54,7 @@ export default async function PostPage({ params: { slugs }}: PostPageProps) {
           <FaHome className='mr-2 w-6 h-6'/>
           Back to Posts
         </Link>
-        <div className="bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg border border-gray-700 md:border-none">
+        <div>
           <PostInfoHeader meta={meta} />
         </div>
         <div className="bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg border border-gray-700 md:border-none mt-4">
