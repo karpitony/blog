@@ -16,6 +16,7 @@ export default function MarkdownRender({ markdownText }: MarkdownRenderProps) {
   return (
     <div className="markdown-body bg-transparent text-gray-100">
       <ReactMarkdown
+        className="leading-6 space-y-6"
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug, rehypeAutolinkHeadings]}
         components={{
@@ -30,6 +31,7 @@ export default function MarkdownRender({ markdownText }: MarkdownRenderProps) {
                 style={nightOwl}
                 showLineNumbers
                 language={match[1]}
+                customStyle={{ background: 'none', padding: '0', margin: '0' }}
                 PreTag="pre"
               >
                 {String(children).trim()}
