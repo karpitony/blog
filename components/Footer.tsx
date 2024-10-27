@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="flex justify-center items-center">
       <div className="w-full max-w-4xl text-gray-200 px-4 border-t-2">
         <div className='pt-10 pb-10 flex justify-between items-center'>
-          <p>&copy; {new Date().getFullYear()} 개발 블로그</p>
+          <p>&copy; {new Date().getFullYear()} Yunseok Song</p>
           <Link href="https://github.com/karpitony/blog">
             <FaGithub className="w-6 md:w-8 h-6 md:h-8"/>
           </Link>
