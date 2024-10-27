@@ -5,21 +5,25 @@ import { PostMeta } from '@/libs/Post/PostMetadataParser';
 export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
   return (
     <div className={cn(
-      "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg",
+      "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-6 shadow-lg",
       "border border-gray-700 md:border-none"
     )}
     >
       <div className="flex justify-between items-start">
         {/* 텍스트 영역 */}
         <div className="flex-1">
-          <p className="mb-2 text-blue-500 dark:text-blue-300 hover:underline">
+          <p className={cn(
+            "mb-2 text-blue-500 dark:text-blue-300 hover:underline",
+            "text-sm md:text-base"
+          )}
+          >
             <FaFolderOpen className='inline mr-2'/>
             [{meta.series}] - ({meta.seriesIndex + 1})
           </p>
           <h1
             className={cn(
-              "text-xl md:text-2xl font-bold mt-2",
-              "tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-teal-400"
+              "text-lg md:text-2xl font-bold mt-2",
+              // "tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-teal-400"
             )}
           >
             {meta.title}
@@ -29,7 +33,7 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
             <p>{meta.date}</p>
           </div>
           {meta.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2">
+            <div className="hidden md:flex flex-wrap gap-2 mt-2">
               {meta.tags.map((tag, index) => (
                 <span
                   key={index}
