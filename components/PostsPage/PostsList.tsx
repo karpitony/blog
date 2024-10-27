@@ -14,7 +14,7 @@ interface PostsListProps {
 export default function PostsList({ posts }: PostsListProps) {
   const [viewPostList, setViewPostList] = useState(posts);
   const [viewPage, setViewPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(5);
+  const postsPerPage = 5;
   const totalPages = Math.ceil(posts.length / postsPerPage);
 
   useEffect(() => {
@@ -25,6 +25,7 @@ export default function PostsList({ posts }: PostsListProps) {
 
   return (
     <div className="flex flex-col min-h-screen">
+
       {/* 게시글 리스트 */}
       <div className="flex-grow">
         {viewPostList.map(({ meta, slug }) => (
