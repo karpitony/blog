@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
+import SimpleNavBar from "@/components/SimpleNavBar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -19,8 +19,8 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="bg-gradient-to-br from-blue-950 to-gray-900">
-        <NavBar />
-        <div className="min-h-[95vh] text-gray-100 flex flex-col items-center p-3 md:p-6">
+        <SimpleNavBar />
+        <div className="min-h-[85vh] text-gray-100 flex flex-col items-center p-3 md:p-6">
           {children}
         </div>
         <Footer />
