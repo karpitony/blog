@@ -10,14 +10,12 @@ const LinkData = [
 
 export default function NavBar() {
   return (
-    <nav className="text-white max-w-3xl mx-auto border-b-2">
+    <nav className="text-white max-w-3xl mx-4 md:mx-auto border-b-2">
       <div className="flex items-center justify-between py-6">
-        <div className="flex items-center">
-          <Link href="/" className="flex items-center">
-            <SpinningReactSm />
-            <p className="font-bold text-lg md:text-xl">개발 블로그</p>
-          </Link>
-        </div>
+        <Link href="/" className="flex items-center">
+          <SpinningReactSm />
+          <p className="font-bold text-lg md:text-xl">개발 블로그</p>
+        </Link>
         <div className="flex items-center">
         {LinkData.map(({ href, label }) => (
           <Link

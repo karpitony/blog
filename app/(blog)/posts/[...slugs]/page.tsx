@@ -2,7 +2,7 @@ import path from 'path';
 import Link from 'next/link';
 import { readFile } from "fs/promises";
 import { parsePost, PostMeta } from '@/libs/Post/PostMetadataParser';
-import { FaHome } from "react-icons/fa";
+import { FiArrowLeft } from "react-icons/fi";
 import PostInfoHeader from "@/components/PostsPage/PostInfoHeader";
 import MarkdownRender from "@/components/MarkdownRender/MarkdownRender";
 import TableOfContent from '@/components/MarkdownRender/TableOfContent';
@@ -52,7 +52,7 @@ export default async function PostPage({ params: { slugs }}: PostPageProps) {
           href="/posts" 
           className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-200 mb-3 md:mb-6"
         >
-          <FaHome className="mr-2 w-6 h-6"/>
+          <FiArrowLeft className="mr-1 w-6 h-6"/>
           Back to Posts
         </Link>
         {/* Post Info and Article */}
