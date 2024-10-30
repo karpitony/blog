@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="flex justify-center items-center p-4">
-      <div className="w-full max-w-3xl text-gray-200 px-2 border-t-2">
+      <div className="w-full max-w-3xl text-gray-200 px-3 border-t-2">
         <div className='py-6 flex justify-between items-center'>
           <p>
             &copy; Yunseok Song {new Date().getFullYear()}

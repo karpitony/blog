@@ -8,9 +8,9 @@ export default async function Home() {
   const posts = await getPostList();
   return (
     <div className="w-full max-w-full md:max-w-3xl space-y-8">
-      <div>
+      <div className="px-2">
         <div className="flex flex-row justify-between">
-          <div className="text-4xl font-bold">
+          <div className="text-3xl md:text-4xl font-bold">
             <h1 className="mb-2 mt-8">안녕하세요!</h1>
             <h1 className="mb-6">
               대학생 개발자 <span className="tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-teal-400">송윤석</span>입니다.

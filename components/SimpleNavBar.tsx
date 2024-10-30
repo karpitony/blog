@@ -10,7 +10,7 @@ const LinkData = [
 
 export default function NavBar() {
   return (
-    <nav className="text-white max-w-3xl mx-4 md:mx-auto border-b-2">
+    <nav className="text-white max-w-3xl mx-3 md:mx-auto border-b-2">
       <div className="flex items-center justify-between py-6">
         <Link href="/" className="flex items-center">
           <SpinningReactSm />
