@@ -26,7 +26,7 @@ export default function PostsList({ posts, postPerPage, showPrevNext }: PostsLis
   }, [viewPage, postsPerPage, posts]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col">
 
       {/* 게시글 리스트 */}
       <div className="flex-grow">

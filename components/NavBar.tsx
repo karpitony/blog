@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { SpinningReactSm } from './SpinningReactLogo';
+import { SpinningReactSm } from './SpinningLogo';
 
 export default function NavBar() {
   return (

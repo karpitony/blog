@@ -17,3 +17,19 @@ export function SpinningReactSm() {
     </div>
   );
 }
+
+export function SpinningSvelteLg() {
+  return (
+    <div className="w-24 h-24 animate-spin">
+      <Image src="/svelte-logo.svg" alt="Svelte Logo" fill />
+    </div>
+  );
+}
+
+export function SpinningNextjsLg() {
+  return (
+    <div className="w-24 h-24 animate-spin">
+      <Image src="/nextjs-logo.svg" alt="Next.js Logo" fill />
+    </div>
+  );
+}
