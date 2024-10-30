@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { SpinningReactSm } from './SpinningReactLogo';
+import { SpinningReactSm } from './SpinningLogo';
 import cn from '@yeahx4/cn';
 
 const LinkData = [
