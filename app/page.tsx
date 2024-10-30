@@ -22,14 +22,16 @@ export default async function Home() {
             <SpinningSvelteLg />
           </div>
         </div>
+
         <p>웹 프론트엔드와 응용 프로그램 개발에 흥미가 있는 대학생입니다.</p>
         <p>프론트엔드, 공부한 것, 회고 등을 주로 업로드 할 계획입니다!</p>
-        <Link href="/about" className="flex justify-center items-center">
+        <Link href="/about" className="flex justify-center items-center mt-4">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
             자세히 보기 <FaArrowRight className='inline ml-2'/>
           </button>
         </Link>
       </div>
+
       <div className="border-t-2">
         <h2 className="text-3xl font-bold mb-6 mt-8">최신 글</h2>
         <div className="space-y-4">
