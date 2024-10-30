@@ -14,7 +14,10 @@ export interface PostMeta {
 export const parsePost = (
   content: string
 ): { meta: PostMeta; body: string[] } => {
-  const lines = content.split("\n");
+  // 모든 줄바꿈 문자를 \n으로 통일
+  const normalizedContent = content.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  const lines = normalizedContent.split("\n");
+
   const meta: PostMeta = {
     title: "",
     description: "",
@@ -27,7 +30,7 @@ export const parsePost = (
 
   let body: string[] = [];
   for (let i = 1; i < lines.length; i++) {
-    const line = lines[i];
+    const line = lines[i].trim(); // 각 라인을 trim 처리
 
     if (line === "---") {
       body = lines.slice(i + 1);
