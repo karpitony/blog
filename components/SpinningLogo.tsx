@@ -3,7 +3,7 @@ import Image from 'next/image';
 export  function SpinningReactLg() {
   return (
     <div 
-      className="w-24 h-24 animate-spin"
+      className="w-20 h-20 animate-spin"
       style={{ animationDuration: '2s' }}
     >
       <Image src="/react-logo.svg" alt="React Logo" fill />
@@ -24,7 +24,7 @@ export function SpinningReactSm() {
 export function SpinningSvelteLg() {
   return (
     <div 
-      className="w-24 h-24 animate-spin"
+      className="w-20 h-20 animate-spin"
       style={{ animationDuration: '2s' }}
     >
       <Image src="/svelte-logo.svg" alt="Svelte Logo" fill />
@@ -35,7 +35,7 @@ export function SpinningSvelteLg() {
 export function SpinningNextjsLg() {
   return (
     <div 
-      className="w-24 h-24 animate-spin"
+      className="w-20 h-20 animate-spin"
       style={{ animationDuration: '2s' }}
     >
       <Image src="/nextjs-logo.svg" alt="Next.js Logo" fill />
