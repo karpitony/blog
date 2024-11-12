@@ -5,7 +5,7 @@ import SimpleNavBar from "@/components/SimpleNavBar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "개발 블로그",
+  title: "Yuniverse",
   description: "개발 블로그는 사서 드세요.",
   icons: {
     icon: "/react-logo.svg",

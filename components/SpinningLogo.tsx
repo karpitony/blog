@@ -14,7 +14,10 @@ export  function SpinningReactLg() {
 export function SpinningReactSm() {
   return (
     <div className='bg-[#222222] rounded-lg p-[0.125rem] mr-1 md:mr-2'>
-      <div className="h-6 w-6 md:h-8 md:w-8 animate-spin">
+      <div 
+        className="h-6 w-6 md:h-8 md:w-8 animate-spin"
+        style={{ animationDuration: '1.5s' }}
+      >
         <Image src="/react-logo.svg" alt="React Logo" fill />
       </div>
     </div>

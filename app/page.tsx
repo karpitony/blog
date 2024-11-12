@@ -3,8 +3,6 @@ import { getPostList } from "@/libs/Post/GetPostList";
 import Link from 'next/link';
 import { FaArrowRight } from "react-icons/fa";
 import Image from 'next/image';
-import { SpinningReactLg, SpinningReactSm } from "@/components/SpinningLogo";
-import cn from '@yeahx4/cn';
 
 export default async function Home() {
   const posts = await getPostList();
