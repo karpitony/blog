@@ -1,4 +1,5 @@
 import cn from '@yeahx4/cn';
+import Image from 'next/image';
 import { FaFolderOpen, FaCalendarAlt } from "react-icons/fa";
 import { PostMeta } from '@/libs/Post/PostMetadataParser';
 
@@ -48,9 +49,11 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
         {/* 이미지 영역 */}
         {meta.cover && (
           <div className="ml-4 flex-shrink-0">
-            <img
-              src={meta.cover}
+            <Image
+              src={meta.cover} // GitHub 이미지 URL
               alt={meta.title}
+              width={128} // 적절한 고정 크기 설정
+              height={128}
               className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg max-w-full max-h-full"
             />
           </div>

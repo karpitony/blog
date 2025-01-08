@@ -6,17 +6,19 @@ import { FiArrowLeft } from "react-icons/fi";
 import PostInfoHeader from "@/components/PostsPage/PostInfoHeader";
 import MarkdownRender from "@/components/MarkdownRender/MarkdownRender";
 import TableOfContent from '@/components/MarkdownRender/TableOfContent';
+import cn from '@yeahx4/cn';
 
 interface PostPageProps {
-  params: {
+  params: Promise<{
     slugs: string[];
-  };
+  }>;
 }
 
 const postsDirectory = path.join(process.cwd(), '_posts');
 
-export async function generateMetadata({ params: { slugs }}: PostPageProps) {
-  const { meta:metaData } = await getPostData(slugs.join('/') + '.md');
+export async function generateMetadata({ params }: PostPageProps) {
+  const { slugs } = await params;
+  const { meta: metaData } = await getPostData(slugs.join('/') + '.md');
   
   return {
     title: metaData.title || "Not Found",
@@ -42,27 +44,33 @@ const getPostData = async (fileName: string): Promise<{ meta: PostMeta; body: st
   return { meta, body };
 };
 
-export default async function PostPage({ params: { slugs }}: PostPageProps) {
+export default async function PostPage({ params }: PostPageProps) {
+  const { slugs } = await params;
   const { meta, body } = await getPostData(slugs.join('/') + '.md');
   
   return (
     <>
       <div className="w-full max-w-full md:max-w-3xl">
-        <Link 
-          href="/posts" 
-          className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-200 mb-3 md:mb-6"
+      <Link href="/posts">
+        <p 
+          className={cn(
+            "inline-flex items-center text-blue-400 hover:text-blue-300",
+            "transition-colors duration-200 mb-3 md:mb-6"
+          )}
         >
           <FiArrowLeft className="mr-1 w-6 h-6"/>
           Back to Posts
-        </Link>
+        </p>
+      </Link>
         {/* Post Info and Article */}
         <div>
           <PostInfoHeader meta={meta} />
         </div>
-        <div className="bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg border border-gray-700 md:border-none mt-4">
-          <div className="markdown-body bg-transparent text-gray-100">
-            <MarkdownRender markdownText={body.join("\n")} />
-          </div>
+        <div className={cn(
+          "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg", 
+          "border border-gray-700 md:border-none mt-4"
+        )}>
+          <MarkdownRender markdownText={body.join("\n")} />
         </div>
       </div>
       
