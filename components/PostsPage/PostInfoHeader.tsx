@@ -1,4 +1,5 @@
 import cn from '@yeahx4/cn';
+import Image from 'next/image';
 import { FaFolderOpen, FaCalendarAlt } from "react-icons/fa";
 import { PostMeta } from '@/libs/Post/PostMetadataParser';
 
@@ -11,7 +12,7 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
     >
       <div className="flex justify-between items-start">
         {/* 텍스트 영역 */}
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <p className={cn(
             "mb-2 text-blue-500 dark:text-blue-300 hover:underline",
             "text-sm md:text-base"
@@ -22,8 +23,7 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
           </p>
           <h1
             className={cn(
-              "text-lg md:text-2xl font-bold mt-2",
-              // "tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-teal-400"
+              "text-lg md:text-2xl font-bold mt-2 overflow-hidden line-clamp-2"
             )}
           >
             {meta.title}
@@ -37,7 +37,7 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
               {meta.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className="bg-gray-700 text-gray-300 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm"
+                  className="bg-gray-700 text-gray-300 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm overflow-hidden text-ellipsis whitespace-nowrap"
                 >
                   #{tag}
                 </span>
@@ -45,13 +45,16 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
             </div>
           )}
         </div>
+
         {/* 이미지 영역 */}
         {meta.cover && (
-          <div className="ml-4">
-            <img
-              src={meta.cover}
+          <div className="ml-4 flex-shrink-0">
+            <Image
+              src={meta.cover} // GitHub 이미지 URL
               alt={meta.title}
-              className="hidden md:block w-32 h-32 object-cover rounded-lg"
+              width={128} // 적절한 고정 크기 설정
+              height={128}
+              className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg max-w-full max-h-full"
             />
           </div>
         )}
