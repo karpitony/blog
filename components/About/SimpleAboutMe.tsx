@@ -13,7 +13,7 @@ export default function SimpleAboutMe() {
           )}>
             <h1>안녕하세요!</h1>
             <h1 className="md:mt-2">
-              개발자, <span className="sm:pl-1 highlight-blue">송윤석</span> 입니다.
+              개발자, <span className="sm:pl-1 highlight-blue">송윤석</span>입니다.
             </h1>
           </div>
           <div className="flex justify-end flex-shrink-0 ml-2">
