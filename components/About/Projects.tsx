@@ -1,3 +1,4 @@
+import SplitTextNoSSR from "../common/SplitTextNoSSR";
 import MarkdownBox from "../common/MarkdownBox";
 
 const ProjectData = [
@@ -49,7 +50,7 @@ const ProjectData = [
 export default function Projects() {
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">프로젝트</h2>
+      <SplitTextNoSSR text="프로젝트" />
       <div className="flex flex-col space-y-6">
         {ProjectData.map((project, index) => (
           <MarkdownBox key={index} data={project} />

@@ -1,3 +1,4 @@
+import SplitTextNoSSR from "../common/SplitTextNoSSR";
 import MarkdownBox from "../common/MarkdownBox";
 
 const ActivitiyData = [
@@ -18,7 +19,7 @@ const ActivitiyData = [
 export default function Activities() {
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">대외활동</h2>
+      <SplitTextNoSSR text="대외활동" />
       <div className="flex flex-col space-y-6">
         {ActivitiyData.map((activitiy, index) => (
           <MarkdownBox key={index} data={activitiy} />

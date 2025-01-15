@@ -1,3 +1,4 @@
+import SplitTextNoSSR from "../common/SplitTextNoSSR";
 import SimpleBox from "../common/SimpleBox";
 
 const EducationData = [
@@ -19,7 +20,7 @@ const EducationData = [
 export default function Educations() {
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">교육</h2>
+      <SplitTextNoSSR text="교육" />
       <div className="flex flex-col space-y-6">
         {EducationData.map((education, index) => (
           <SimpleBox key={index}>
