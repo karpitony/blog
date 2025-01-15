@@ -10,13 +10,14 @@ import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 interface MarkdownRenderProps {
   markdownText: string;
+  enableGap?: boolean;
 }
 
-export default function MarkdownRender({ markdownText }: MarkdownRenderProps) {
+export default function MarkdownRender({ markdownText, enableGap=true }: MarkdownRenderProps) {
   return (
     <div className="markdown-body bg-transparent text-gray-100">
       <ReactMarkdown
-        className="leading-6 space-y-6"
+        className={`${enableGap ? 'leading-6 space-y-6' : ''}`}
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug, rehypeAutolinkHeadings]}
         components={{
