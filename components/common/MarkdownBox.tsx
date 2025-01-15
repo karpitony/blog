@@ -29,24 +29,24 @@ export default function SimpleBox({ data }: { data?: BoxData }) {
           <h2 className="text-lg font-bold mb-2 md:w-1/5">{data.title}</h2>
           <div className="flex flex-col w-full md:w-4/5 space-y-2">
             {data.programs.map((program, programIndex) => (
-              <>
-              <p className="text-xs text-left opacity-80 whitespace-pre-wrap md:hidden">
-                {program.year}
-              </p>
-              <div key={programIndex} className="grid grid-cols-12 items-start w-full">
-                {/* 내용 */}
-                <div className="col-span-12 md:col-span-9">
-                  <MarkdownRender markdownText={program.description} enableGap={false}/>
-                </div>
-                {/* 기간 */}
-                <p className={cn(
-                  "col-span-3 text-sm text-right", 
-                  "opacity-80 whitespace-pre-wrap hidden md:block"
-                )}>
+              <div key={programIndex}>
+                <p className="mb-1 text-xs text-left opacity-80 whitespace-pre-wrap md:hidden">
                   {program.year}
                 </p>
+                <div key={programIndex} className="grid grid-cols-12 items-start w-full">
+                  {/* 내용 */}
+                  <div className="col-span-12 md:col-span-9">
+                    <MarkdownRender markdownText={program.description} enableGap={false}/>
+                  </div>
+                  {/* 기간 */}
+                  <p className={cn(
+                    "col-span-3 text-sm text-right", 
+                    "opacity-80 whitespace-pre-wrap hidden md:block"
+                  )}>
+                    {program.year}
+                  </p>
+                </div>
               </div>
-              </>
             ))}
           </div>
         </div>
