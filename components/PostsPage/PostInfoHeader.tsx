@@ -52,8 +52,8 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
             <Image
               src={meta.cover} // GitHub 이미지 URL
               alt={meta.title}
-              width={128} // 적절한 고정 크기 설정
-              height={128}
+              width={512} // 적절한 고정 크기 설정
+              height={512}
               className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg max-w-full max-h-full"
             />
           </div>

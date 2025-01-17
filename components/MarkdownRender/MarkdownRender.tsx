@@ -7,6 +7,7 @@ import '../../styles/github-markdown.css'
 import '../../styles/github-markdown-plus.css'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { TbExternalLink } from "react-icons/tb";
 
 interface MarkdownRenderProps {
   markdownText: string;
@@ -21,10 +22,23 @@ export default function MarkdownRender({ markdownText, enableGap=true }: Markdow
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug, rehypeAutolinkHeadings]}
         components={{
-          h1: ({ ...props }) => <h1 className="text-4xl font-bold mb-4 text-blue-400" {...props} />,
-          h2: ({ ...props }) => <h2 className="text-3xl font-semibold mb-3 mt-6 text-blue-300" {...props} />,
-          h3: ({ ...props }) => <h3 className="text-2xl font-medium mb-2 mt-4 text-blue-200" {...props} />,
-          a: ({ ...props }) => <a className="text-blue-400 hover:text-blue-300 transition-colors duration-200" {...props} />,
+          h1: ({ ...props }) => <h1 className="text-4xl font-bold mb-4 mt-8 text-blue-400" {...props} />,
+          h2: ({ ...props }) => <h2 className="text-3xl font-semibold mb-4 mt-8 text-blue-300" {...props} />,
+          h3: ({ ...props }) => <h3 className="text-2xl font-medium mb-3 mt-6 text-blue-200" {...props} />,
+          a: ({ href, children, ...props }) => (
+            <a
+              className="text-blue-400 hover:text-blue-300 transition-colors duration-200 inline-flex items-center mr-1"
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              {...props}
+            >
+              {children}
+              {href && href.startsWith('http') && (
+                <TbExternalLink className="inline-block" aria-label="External link" />
+              )}
+            </a>
+          ),
           code({ className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || '');
             return match ? (
