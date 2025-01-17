@@ -8,11 +8,11 @@ import StickyNavBar from "@/components/About/StickyNavBar";
 
 const sections = [
   { id: "about", label: "자기소개" },
+  { id: "links", label: "링크" },
   { id: "techstacks", label: "기술스택" },
   { id: "educations", label: "교육" },
   { id: "projects", label: "프로젝트" },
   { id: "activities", label: "대외활동" },
-  { id: "links", label: "링크" },
 ];
 
 export default function About() {
@@ -30,6 +30,9 @@ export default function About() {
         <div className="px-2" id="techstacks">
           <TechStacks />
         </div>
+        <div className="px-2" id="links">
+          <Links />
+        </div>
         <div className="px-2" id="educations">
           <Educations />
         </div>
@@ -38,9 +41,6 @@ export default function About() {
         </div>
         <div className="px-2" id="activities">
           <Activities />
-        </div>
-        <div className="px-2" id="links">
-          <Links />
         </div>
       </div>
     </div>
