@@ -14,14 +14,14 @@ export default function NavBar() {
       <div className="flex items-center justify-between py-6">
         <Link href="/" className="flex items-center">
           <SpinningReactSm />
-          <p className="font-light text-lg md:text-2xl font-shrik">yuniverse</p>
+          <p className="font-light text-lg md:text-2xl font-shrik tracking-wider">yuniverse</p>
         </Link>
         <div className="flex items-center">
         {LinkData.map(({ href, label }) => (
           <Link
             href={href}
             className={cn(
-              "text-gray-300 px-3 py-2 font-bold text-base md:text-lg rounded-md",
+              "text-gray-300 px-2 md:px-3 py-2 font-bold text-base md:text-lg rounded-md",
               "ml-0 md:ml-4",
               "hover:text-transparent bg-clip-text hover:bg-gradient-to-r hover:from-blue-300 hover:to-teal-400"
             )}

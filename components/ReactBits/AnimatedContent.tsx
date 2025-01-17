@@ -65,9 +65,11 @@ const AnimatedContent = ({
   });
 
   return (
-    <animated.div ref={ref} style={springProps}>
-      {children}
-    </animated.div>
+    <div style={{ overflow: "hidden" }}>
+      <animated.div ref={ref} style={springProps}>
+        {children}
+      </animated.div>
+    </div>
   );
 };
 
