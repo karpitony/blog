@@ -85,7 +85,7 @@ export default function StickyNavBar({ sections }: StickyNavBarProps) {
             WebkitOverflowScrolling: "touch",
             WebkitScrollbar: "none",
           } as React.CSSProperties}
-          className="flex space-x-4 text-base md:text-lg whitespace-nowrap"
+          className="flex space-x-4 md:space-x-8 text-base md:text-lg whitespace-nowrap"
         >
           {sections.map((section) => (
             <li

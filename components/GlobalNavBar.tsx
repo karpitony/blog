@@ -14,7 +14,7 @@ export default function NavBar() {
       <div className="flex items-center justify-between py-6">
         <Link href="/" className="flex items-center">
           <SpinningReactSm />
-          <p className="font-light text-lg md:text-2xl font-shrik tracking-wider">yuniverse</p>
+          <p className="font-light text-2xl md:text-3xl font-shrik tracking-wider">yuniverse</p>
         </Link>
         <div className="flex items-center">
         {LinkData.map(({ href, label }) => (

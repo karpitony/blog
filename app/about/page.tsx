@@ -27,11 +27,11 @@ export default function About() {
       <hr className="border-t-2 mb-8" />
       {/* 섹션 별 내용 */}
       <div className="space-y-12 mt-4">
-        <div className="px-2" id="techstacks">
-          <TechStacks />
-        </div>
         <div className="px-2" id="links">
           <Links />
+        </div>
+        <div className="px-2" id="techstacks">
+          <TechStacks />
         </div>
         <div className="px-2" id="educations">
           <Educations />

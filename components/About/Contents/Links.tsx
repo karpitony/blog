@@ -11,7 +11,7 @@ const LinkData = [
   {
     icon: <PiLinkedinLogo />,
     text: "Linkedin",
-    url: "https://www.linkedin.com/in/%EC%9C%A4%EC%84%9D-%EC%86%A1-549286261/",
+    url: "https://www.linkedin.com/in/yunseok-song-549286261/",
   },
   {
     icon: <PiGlobe />,
