@@ -13,7 +13,7 @@ export default function LinkBox({ icon, text, url }: LinkBoxProps) {
         href={url}
         target="_blank"
         rel="noreferrer"
-        className="flex items-center space-x-2 text-2xl font-semibold"
+        className="flex items-center space-x-2 text-xl md:text-2xl font-semibold"
       >
         {icon}
         <span>{text}</span> 
