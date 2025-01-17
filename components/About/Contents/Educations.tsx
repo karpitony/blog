@@ -1,5 +1,5 @@
-import SplitTextNoSSR from "../common/SplitTextNoSSR";
-import SimpleBox from "../common/SimpleBox";
+import SplitTextNoSSR from "@/components/common/SplitTextNoSSR";
+import SimpleBox from "@/components/About/SimpleBox";
 
 const EducationData = [
   {

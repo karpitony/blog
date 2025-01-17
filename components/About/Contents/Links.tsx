@@ -1,5 +1,5 @@
 import SplitTextNoSSR from '@/components/common/SplitTextNoSSR';
-import LinkBox from '@/components/common/LinkBox';
+import LinkBox from '@/components/About/LinkBox';
 import { PiGithubLogo, PiLinkedinLogo, PiGlobe } from "react-icons/pi";
 
 const LinkData = [

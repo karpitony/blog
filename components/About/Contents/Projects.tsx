@@ -1,5 +1,5 @@
-import SplitTextNoSSR from "../common/SplitTextNoSSR";
-import MarkdownBox from "../common/MarkdownBox";
+import SplitTextNoSSR from "@/components/common/SplitTextNoSSR";
+import MarkdownBox from "@/components/About/MarkdownBox";
 
 const ProjectData = [
   {

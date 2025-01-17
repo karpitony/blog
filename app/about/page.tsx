@@ -1,9 +1,9 @@
-import SimpleAboutMe from "@/components/About/SimpleAboutMe";
-import TechStacks from "@/components/About/TechStacks";
-import Educations from "@/components/About/Educations";
-import Projects from "@/components/About/Projects";
-import Activities from "@/components/About/Activities";
-import Links from "@/components/About/Links";
+import SimpleAboutMe from "@/components/common/SimpleAboutMe";
+import TechStacks from "@/components/About/Contents/TechStacks";
+import Educations from "@/components/About/Contents/Educations";
+import Projects from "@/components/About/Contents/Projects";
+import Activities from "@/components/About/Contents/Activities";
+import Links from "@/components/About/Contents/Links";
 import StickyNavBar from "@/components/About/StickyNavBar";
 
 const sections = [

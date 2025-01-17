@@ -2,7 +2,7 @@ import PostsList from "@/components/PostsPage/PostsList";
 import { getPostList } from "@/libs/Post/GetPostList";
 import Link from 'next/link';
 import { FaArrowRight } from "react-icons/fa";
-import SimpleAboutMe from "@/components/About/SimpleAboutMe";
+import SimpleAboutMe from "@/components/common/SimpleAboutMe";
 
 export default async function Home() {
   const posts = await getPostList();

@@ -1,6 +1,6 @@
 import cn from '@yeahx4/cn';
 import AnimatedContent from '@/components/ReactBits/AnimatedContent';
-import MarkdownRender from '../MarkdownRender/MarkdownRender';
+import MarkdownRender from '@/components/MarkdownRender/MarkdownRender';
 import { BoxData } from '@/types/BoxData';
 
 export default function SimpleBox({ data }: { data?: BoxData }) {
