@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { SpinningReactSm } from './SpinningLogo';
 import cn from '@yeahx4/cn';
+import { SpinningReactSm } from '@/components/SpinningLogo';
 
 const LinkData = [
   { href: '/posts', label: '글 목록' },
@@ -14,7 +14,7 @@ export default function NavBar() {
       <div className="flex items-center justify-between py-6">
         <Link href="/" className="flex items-center">
           <SpinningReactSm />
-          <p className="font-bold text-lg md:text-xl">yuniverse</p>
+          <p className="font-light text-lg md:text-2xl font-shrik">yuniverse</p>
         </Link>
         <div className="flex items-center">
         {LinkData.map(({ href, label }) => (
