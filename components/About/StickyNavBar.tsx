@@ -14,6 +14,7 @@ export default function StickyNavBar({ sections }: StickyNavBarProps) {
   const [activeSection, setActiveSection] = useState(sections[0]?.id || "");
   const [isSticky, setIsSticky] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true); // 부드러운 복귀를 위한 상태 추가
+  const [tocHeight, setTocHeight] = useState(0); // 스티키 상태에서 레이아웃이 튀지 않도록 높이 설정
 
   useEffect(() => {
     let tocInitialOffset = 0;
@@ -25,6 +26,7 @@ export default function StickyNavBar({ sections }: StickyNavBarProps) {
         const tocElement = document.getElementById("toc");
         if (tocElement) {
           tocInitialOffset = tocElement.offsetTop;
+          setTocHeight(tocElement.offsetHeight);
         }
       }
 
@@ -63,6 +65,9 @@ export default function StickyNavBar({ sections }: StickyNavBarProps) {
   };
 
   return (
+    <>
+    {/* Placeholder for sticky navbar */}
+    {isSticky && <div style={{ height: tocHeight }} />}
     <div
       id="toc"
       className={`transition-all duration-300 ${
@@ -103,5 +108,6 @@ export default function StickyNavBar({ sections }: StickyNavBarProps) {
         </ul>
       </div>
     </div>
+    </>
   );
 }

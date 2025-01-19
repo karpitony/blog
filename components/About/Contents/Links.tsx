@@ -1,6 +1,7 @@
 import SplitTextNoSSR from '@/components/common/SplitTextNoSSR';
 import LinkBox from '@/components/About/LinkBox';
 import { PiGithubLogo, PiLinkedinLogo, PiGlobe } from "react-icons/pi";
+import { SiVelog } from "react-icons/si";
 
 const LinkData = [
   {
@@ -18,6 +19,11 @@ const LinkData = [
     text: "Portfolio",
     url: "https://yunseok.vercel.app/about",
   },
+  {
+    icon: <SiVelog />,
+    text: "Velog",
+    url: "https://velog.io/@karpitony/posts",
+  }
 ];
 
 
