@@ -1,6 +1,5 @@
 'use client';
 
-import Link from "next/link";
 import parseToc, { HeadingItem } from "@/libs/Post/parseToc";
 import { useHeadingsObserver } from "@/hooks/useHeadingsObserver";
 import cn from "@yeahx4/cn";
@@ -14,8 +13,8 @@ export default function TableOfContent({ content }: { content: string }) {
       <div className="text-lg mb-2 font-bold">Table of Contents</div>
       <ul className="text-sm space-y-1">
         {toc.map((item, index) => {
-          const id = item.text.replace(/ /g, "-");
-          const isActive = activeIdList.includes(`#${id}`) || activeIdList.includes(id);
+          //const id = item.text.trim().toLowerCase().replace(/\s+/g, "-");
+          const isActive = activeIdList.includes(item.link);
           let indentClass = "";
           if (item.indent === 1) {
             indentClass = "ml-4";
@@ -29,7 +28,8 @@ export default function TableOfContent({ content }: { content: string }) {
 
           return (
             <li key={index} className={cn("py-1 transition", indentClass)}>
-              <Link href={item.link}>
+              {/* 임시로 Link 대신 a 태그로 서버에 요청 안넣게 변경 */}
+              <a href={item.link}>
                 <p
                   className={`text-sm ${
                     isActive
@@ -39,7 +39,7 @@ export default function TableOfContent({ content }: { content: string }) {
                 >
                   {item.text}
                 </p>
-              </Link>
+              </a>
             </li>
           );
         })}
