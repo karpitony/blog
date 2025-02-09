@@ -83,7 +83,7 @@ export const searchBooks = async (params: BookSearchParams): Promise<BookSearchR
 
 해당 코드의 상단 `import`문과, `apiClient.~~`은 다음 항목인 인터셉터를 활용했습니다.
 
-## 3. 인터셉터 사용법
+### 3. 인터셉터 사용법
 
 인터셉터란, 모든 요청이 서버로 전송되기 전에 또는 응답이 반환되기 전에 특정 로직을 실행할 수 있게 해주는 기능입니다.
 
