@@ -72,14 +72,7 @@ export default async function PostPage({ params }: PostPageProps) {
         )}>
           <MarkdownRender markdownText={body.join("\n")} />
         </div>
-      
-      
-      {/* Table of Contents */}
-      <aside className='absolute -top-[200px] left-full -mb-[100px] hidden h-[calc(100%+150px)] xl:block '>
-        <div className='sticky bottom-0  top-[200px] z-10 ml-[5rem] mt-[200px] w-[200px]'>
-          <TableOfContent content={body.join("\n")} />
-        </div>
-      </aside>
+        <TableOfContent content={body.join("\n")} />
       </div>
     </>
   );
