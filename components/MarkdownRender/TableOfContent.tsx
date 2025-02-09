@@ -35,7 +35,7 @@ export default function TableOfContent({ content }: { content: string }) {
   }, [toc]);
 
   return (
-    <div className="text-left p-4 w-60 sticky top-20">
+    <div className="text-left w-[200px]">
       <div className="text-lg font-bold text-white mb-4">
         Table of Contents
       </div>

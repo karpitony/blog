@@ -50,7 +50,7 @@ export default async function PostPage({ params }: PostPageProps) {
   
   return (
     <>
-      <div className="w-full max-w-full md:max-w-3xl">
+      <div className="w-full mx-auto max-w-full md:max-w-3xl relative">
       <Link href="/posts">
         <p 
           className={cn(
@@ -72,11 +72,14 @@ export default async function PostPage({ params }: PostPageProps) {
         )}>
           <MarkdownRender markdownText={body.join("\n")} />
         </div>
-      </div>
+      
       
       {/* Table of Contents */}
-      <div className="hidden 2xl:block fixed top-1/2 right-8 transform -translate-y-1/2">
-        <TableOfContent content={body.join("\n")} />
+      <aside className='absolute -top-[200px] left-full -mb-[100px] hidden h-[calc(100%+150px)] xl:block '>
+        <div className='sticky bottom-0  top-[200px] z-10 ml-[5rem] mt-[200px] w-[200px]'>
+          <TableOfContent content={body.join("\n")} />
+        </div>
+      </aside>
       </div>
     </>
   );
