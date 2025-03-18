@@ -1,7 +1,7 @@
 import path from 'path';
 import Link from 'next/link';
 import { readFile } from "fs/promises";
-import { parsePost, PostMeta } from '@/libs/Post/PostMetadataParser';
+import { parsePost, PostMeta } from '@/libs/Post/postMetaDataParser';
 import { FiArrowLeft } from "react-icons/fi";
 import PostInfoHeader from "@/components/PostsPage/PostInfoHeader";
 import MarkdownRender from "@/components/MarkdownRender/MarkdownRender";

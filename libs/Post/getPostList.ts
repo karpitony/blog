@@ -1,7 +1,7 @@
 // libs/Post/GetPostList.ts
 import path from 'path';
 import fs from 'fs/promises';
-import { parsePost, PostMeta } from '@/libs/Post/PostMetadataParser';
+import { parsePost, PostMeta } from '@/libs/Post/postMetaDataParser';
 
 export interface PostData {
   meta: PostMeta;

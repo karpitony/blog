@@ -1,4 +1,4 @@
-import { getPostList } from '@/libs/Post/GetPostList';
+import { getPostList } from '@/libs/Post/getPostList';
 import PostsList from '@/components/PostsPage/PostsList';
 
 export const metadata = {
