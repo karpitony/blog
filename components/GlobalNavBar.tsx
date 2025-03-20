@@ -4,7 +4,7 @@ import { SpinningReactSm } from '@/components/SpinningLogo';
 
 const LinkData = [
   { href: '/posts', label: '글 목록' },
-  { href: '/tags', label: '태그' },
+  { href: '/diary', label: '일기' },
   { href: '/about', label: '소개' },
 ];
 
