@@ -7,7 +7,7 @@ interface WongojiTitleProps {
 
 function WongojiTitle({ text, size = 24 }: WongojiTitleProps) {
   const boxSize = `${size}px`;
-  const themeColor = 'red';
+  const themeHexaCode = '#9B111E';
 
   // 숫자 두 자리씩 묶고, 공백은 무시
   const tokens: string[] = [];
@@ -33,7 +33,10 @@ function WongojiTitle({ text, size = 24 }: WongojiTitleProps) {
   }
 
   return (
-    <div className={`flex flex-wrap w-fit py-1 bg-transparent border border-${themeColor}-500`}>
+    <div 
+      className='flex flex-wrap w-fit py-1 bg-transparent'
+      style={{ border: `1px solid ${themeHexaCode}` }}
+    >
       {tokens.map((token, idx) => {
         const isFirst = idx === 0;
 
@@ -46,9 +49,9 @@ function WongojiTitle({ text, size = 24 }: WongojiTitleProps) {
               height: boxSize,
               textAlign: 'center',
               backgroundColor: 'transparent',
-              borderTop: `1px solid ${themeColor}`,
-              borderBottom: `1px solid ${themeColor}`,
-              borderLeft: isFirst ? 'none' : `1px solid ${themeColor}`,
+              borderTop: `1px solid ${themeHexaCode}`,
+              borderBottom: `1px solid ${themeHexaCode}`,
+              borderLeft: isFirst ? 'none' : `1px solid ${themeHexaCode}`,
               borderRight: 'none',
             }}
           >

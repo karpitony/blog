@@ -1,5 +1,6 @@
 export interface DiaryMeta {
   title: string;
+  description: string;
   cover: string;
   date: string;
 }
@@ -13,6 +14,7 @@ export const parseDiary = (
 
   const meta: DiaryMeta = {
     title: "",
+    description: "",
     cover: "",
     date: "",
   };
@@ -38,6 +40,8 @@ export const parseDiary = (
 
     if (key === "title") {
       meta.title = value;
+    } else if (key === "description") {
+      meta.description = value;
     } else if (key === "cover") {
       meta.cover = value;
     } else if (key === "date") {
