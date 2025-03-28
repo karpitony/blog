@@ -27,7 +27,7 @@ async function getAllMarkdownFiles(dir: string): Promise<string[]> {
   return files.flat().filter((f): f is string => f !== null);
 }
 
-async function generatePostList(): Promise<PostData[]> {
+export async function generatePostList(): Promise<PostData[]> {
   const markdownFiles = await getAllMarkdownFiles(postsDirectory);
 
   const posts = await Promise.all(

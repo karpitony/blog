@@ -27,7 +27,7 @@ async function getAllMarkdownFiles(dir: string): Promise<string[]> {
   return files.flat().filter((f): f is string => f !== null);
 }
 
-async function generateDiaryList(): Promise<DiaryData[]> {
+export async function generateDiaryList(): Promise<DiaryData[]> {
   const markdownFiles = await getAllMarkdownFiles(diaryDirectory);
 
   const diary = await Promise.all(

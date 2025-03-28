@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { getPostList, PostData } from '../libs/Post/getPostList';
-import { getDiaryList, DiaryData } from '../libs/Diary/getDiaryList';
+import { generatePostList, PostData } from '@/libs/Post/getPostList';
+import { generateDiaryList, DiaryData } from '@/libs/Diary/getDiaryList';
 
 async function writeJsonPublic(filename: string, data: PostData[] | DiaryData[]) {
   const filePath = path.join(process.cwd(), 'public', filename);
@@ -9,8 +9,8 @@ async function writeJsonPublic(filename: string, data: PostData[] | DiaryData[])
 }
 
 async function main() {
-  const blogList = await getPostList();
-  const diaryList = await getDiaryList();
+  const blogList = await generatePostList();
+  const diaryList = await generateDiaryList();
 
   await writeJsonPublic('postList.json', blogList);
   await writeJsonPublic('diaryList.json', diaryList);
