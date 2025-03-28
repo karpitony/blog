@@ -18,14 +18,14 @@ export default function MarkdownRender({ markdownText, enableGap=true }: Markdow
   return (
     <div className="markdown-body bg-transparent text-gray-100">
       <ReactMarkdown
-        className={`${enableGap ? 'leading-6 space-y-6' : ''}`}
+        className={`${enableGap ? 'leading-6 space-y-8' : ''}`}
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug, rehypeAutolinkHeadings]}
         components={{
           h1: ({ ...props }) => <h1 className="text-4xl font-bold mb-4 mt-6 pt-2 text-blue-400" {...props} />,
           h2: ({ ...props }) => <h2 className="text-3xl font-semibold mb-4 mt-6 pt-2 text-blue-300" {...props} />,
-          h3: ({ ...props }) => <h3 className="text-2xl font-medium mb-3 mt-4 pt-1 text-blue-200" {...props} />,
-          h4: ({ ...props }) => <h4 className="text-xl font-medium mb-3 mt-4 pt-1 text-blue-200" {...props} />,
+          h3: ({ ...props }) => <h3 className="text-2xl font-medium mb-3 mt-4 pt-1 text-blue-300" {...props} />,
+          h4: ({ ...props }) => <h4 className="text-xl font-medium mb-3 mt-4 pt-1 text-blue-250" {...props} />,
           h5: ({ ...props }) => <h5 className="text-lg font-medium mb-3 mt-4 pt-1 text-blue-200" {...props} />,
           a: ({ href, children, ...props }) => (
             <a

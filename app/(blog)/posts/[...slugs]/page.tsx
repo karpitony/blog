@@ -1,20 +1,30 @@
 import path from 'path';
 import Link from 'next/link';
 import { readFile } from "fs/promises";
-import { parsePost, PostMeta } from '@/libs/Post/PostMetadataParser';
+import { parsePost, PostMeta } from '@/libs/Post/postMetaDataParser';
+import { getPostList } from '@/libs/Post/getPostList';
 import { FiArrowLeft } from "react-icons/fi";
 import PostInfoHeader from "@/components/PostsPage/PostInfoHeader";
 import MarkdownRender from "@/components/MarkdownRender/MarkdownRender";
 import TableOfContent from '@/components/MarkdownRender/TableOfContent';
 import cn from '@yeahx4/cn';
 
+const postsDirectory = path.join(process.cwd(), '_posts');
+export const dynamic = 'force-static'; 
+
+export async function generateStaticParams() {
+  const posts = await getPostList();
+  const slugs = posts.map(post => post.slug);
+  return slugs.map(slug => ({
+    slugs: slug.split(path.sep),
+  }));
+}
+
 interface PostPageProps {
   params: Promise<{
     slugs: string[];
   }>;
 }
-
-const postsDirectory = path.join(process.cwd(), '_posts');
 
 export async function generateMetadata({ params }: PostPageProps) {
   const { slugs } = await params;
@@ -51,17 +61,17 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <>
       <div className="w-full mx-auto max-w-full md:max-w-3xl relative">
-      <Link href="/posts">
-        <p 
-          className={cn(
-            "inline-flex items-center text-blue-400 hover:text-blue-300",
-            "transition-colors duration-200 mb-3 md:mb-6"
-          )}
-        >
-          <FiArrowLeft className="mr-1 w-6 h-6"/>
-          Back to Posts
-        </p>
-      </Link>
+        <Link href="/posts">
+          <p 
+            className={cn(
+              "inline-flex items-center text-blue-400 hover:text-blue-300",
+              "transition-colors duration-200 mb-3 md:mb-6"
+            )}
+          >
+            <FiArrowLeft className="mr-1 w-6 h-6"/>
+            Back to Posts
+          </p>
+        </Link>
         {/* Post Info and Article */}
         <div>
           <PostInfoHeader meta={meta} />
