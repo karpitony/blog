@@ -50,7 +50,7 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
         {meta.cover && (
           <div className="ml-4 flex-shrink-0">
             <Image
-              src={meta.cover} // GitHub 이미지 URL
+              src={meta.cover}
               alt={meta.title}
               width={512} // 적절한 고정 크기 설정
               height={512}

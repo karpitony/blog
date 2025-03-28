@@ -1,7 +1,7 @@
 ---
 title: Next.js 블로그 게시글 정적 HTML로 만들기
 description: Next.js app 라우터에서 generateStaticParams()로 정적 페이지 생성
-cover: 
+cover: /images/my-blog/ssg-on-post/static-build-output.png
 tags: Next.js, SSG, SEO
 date: 2025-03-28
 series: my-blog
