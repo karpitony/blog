@@ -10,6 +10,7 @@ import TableOfContent from '@/components/MarkdownRender/TableOfContent';
 import cn from '@yeahx4/cn';
 
 const postsDirectory = path.join(process.cwd(), '_posts');
+export const dynamic = 'force-static'; 
 
 export async function generateStaticParams() {
   const posts = await getPostList();

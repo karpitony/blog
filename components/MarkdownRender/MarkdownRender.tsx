@@ -18,7 +18,7 @@ export default function MarkdownRender({ markdownText, enableGap=true }: Markdow
   return (
     <div className="markdown-body bg-transparent text-gray-100">
       <ReactMarkdown
-        className={`${enableGap ? 'leading-6 space-y-6' : ''}`}
+        className={`${enableGap ? 'leading-6 space-y-8' : ''}`}
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug, rehypeAutolinkHeadings]}
         components={{
