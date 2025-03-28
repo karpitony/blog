@@ -1,7 +1,8 @@
 import path from 'path';
 import Link from 'next/link';
-import { readdir, readFile } from "fs/promises";
+import { readFile } from "fs/promises";
 import { parsePost, PostMeta } from '@/libs/Post/postMetaDataParser';
+import { getPostList } from '@/libs/Post/getPostList';
 import { FiArrowLeft } from "react-icons/fi";
 import PostInfoHeader from "@/components/PostsPage/PostInfoHeader";
 import MarkdownRender from "@/components/MarkdownRender/MarkdownRender";
@@ -11,18 +12,10 @@ import cn from '@yeahx4/cn';
 const postsDirectory = path.join(process.cwd(), '_posts');
 
 export async function generateStaticParams() {
-  const filenames = await readdir(postsDirectory);
-  const slugs = filenames
-    .filter((filename) => filename.endsWith('.md'))
-    .map((filename) => {
-      const filePath = path.join(postsDirectory, filename);
-      const relativePath = path.relative(postsDirectory, filePath);
-      const slug = relativePath.replace(/\.md$/, '');
-      return slug.split(path.sep);
-    });
-
+  const posts = await getPostList();
+  const slugs = posts.map(post => post.slug);
   return slugs.map(slug => ({
-    slugs: slug,
+    slugs: slug.split(path.sep),
   }));
 }
 
