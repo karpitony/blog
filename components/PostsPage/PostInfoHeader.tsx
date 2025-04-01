@@ -7,7 +7,7 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
   return (
     <div className={cn(
       "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-6 shadow-lg",
-      "border border-gray-700 md:border-none"
+      "border border-none" // border-gray-700
     )}
     >
       <div className="flex justify-between items-start">
