@@ -8,7 +8,9 @@ series: my-blog
 seriesIndex: 0
 ---
 
-제 Next.js 15 블로그의 게시물 목록에 SSG 렌더링을 적용해 보았습니다. 제 블로그의 글 목록은 원래 GET 요청 시 서버 함수가 작동해서 요청 URL에 해당하는 마크다운 파일을 탐색하고, 그 게시물을 긁어서 보여주는 형태였습니다. 사실 큰 문제는 없지만, 정적 블로그 특성상 수정시마다 빌드가 다시 이루어지므로, 게시물이 서버에서 중간에 바뀌는 일이 없고, 추가되는 일도 없습니다. 그럼 게시물을 정적 HTML로 만들어 놓는 것이 성능상에도 좋고, 추가적인 리소스도 들어가지 않습니다.
+제 Next.js 15 블로그의 게시물 목록에 SSG 렌더링을 적용해 보았습니다. 제 블로그의 글 목록은 원래 GET 요청 시 서버 함수가 작동해서 요청 URL에 해당하는 마크다운 파일을 탐색하고, 그 게시물을 긁어서 보여주는 형태였습니다.
+
+사실 큰 문제는 없지만, 정적 블로그 특성상 수정시마다 빌드가 다시 이루어지므로, 게시물이 서버에서 중간에 바뀌는 일이 없고, 추가되는 일도 없습니다. 그럼 게시물을 정적 HTML로 만들어 놓는 것이 성능상에도 좋고, 추가적인 리소스도 들어가지 않습니다.
 
 다만, Next.js가 `pages`라우터에서 `app`라우터 구조로 바뀌며, SSG(Static Site Generator) 기능이 잘 작동하지 않는다고 착각하고 있었습니다. 그러던 중 `generateStaticParams()`라는 넥스트의 기능을 알게 되었습니다.
 
@@ -109,6 +111,8 @@ export default async function PostPage({
 |:---:|:---:|
 |![ssr-build-output](/images/my-blog/ssg-on-post/ssr-build-output.png)|![ssg-build-output](/images/my-blog/ssg-on-post/static-build-output.png)|
 
-기존에는 `ƒ (Dynamic) server-rendered on demand`로 요청 시마다 서버에서 렌더링을 하는 SSR 형태였습니다. `generateStaticParams()` 사용 후의 빌드 로그에선 `● (SSG) prerendered as static HTML (uses generateStaticParams)`이 출력되는 것을 볼 수 있습니다. 미리 만들어진 정적 경로도 볼 수 있습니다.
+기존에는 `ƒ (Dynamic) server-rendered on demand`로 요청 시마다 서버에서 렌더링을 하는 SSR 형태였습니다. 
+
+`generateStaticParams()` 사용 후의 빌드 로그에선 `● (SSG) prerendered as static HTML (uses generateStaticParams)`이 출력되는 것을 볼 수 있습니다. 미리 만들어진 정적 경로도 볼 수 있습니다.
 
 라이트 하우스 비교 및 렌더링 시간 등은 추후에 적어보겠습니다.
