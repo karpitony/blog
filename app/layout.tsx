@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/react';
-import "./globals.css";
+import "@/styles/globals.css";
 import GlobalNavBar from "@/components/GlobalNavBar";
 import Footer from "@/components/Footer";
 
