@@ -46,7 +46,7 @@ export default function MarkdownRender({ markdownText, enableGap=true }: Markdow
             return match ? (
               <SyntaxHighlighter
                 style={nightOwl}
-                showLineNumbers
+                // showLineNumbers
                 language={match[1]}
                 customStyle={{ background: 'none', padding: '0', margin: '0' }}
                 PreTag="pre"
