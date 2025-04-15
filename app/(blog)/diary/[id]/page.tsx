@@ -14,9 +14,8 @@ interface DiaryPageProps {
 
 export async function generateStaticParams() {
   const diaries = await getDiaryList();
-  const slugs = diaries.map(diary => diary.meta.date);
-  return slugs.map(slug => ({
-    slugs: slug.split(path.sep),
+  return diaries.map(diary => ({
+    id: diary.meta.date,
   }));
 }
 
