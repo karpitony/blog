@@ -1,27 +1,25 @@
+type Rule = {
+  userAgent: string;
+  allow?: string | string[];
+  disallow?: string | string[];
+};
+
 export default function robots() {
+  const searchBots = ['Yeti', 'Googlebot', 'Bingbot', 'DuckDuckBot'] as const;
+  const seoAllows = ['/'];          
+  const seoDisallows = ['/diary'];  
+
+  const rules: Rule[] = [
+    { userAgent: '*', disallow: ['/'] },
+    ...searchBots.map((bot) => ({
+      userAgent: bot,
+      allow: seoAllows,
+      disallow: seoDisallows,
+    })),
+  ];
+
   return {
-    rules: [
-      { 
-        userAgent: "*",
-        disallow: "/" 
-      },
-      {
-      userAgent: "Yeti",
-      allow: "/",
-      },
-      {
-        userAgent: "Googlebot",
-        allow: "/",
-      },
-      {
-        userAgent: "Bingbot",
-        allow: "/",
-      },
-      {
-        userAgent: "DuckDuckBot",
-        allow: "/",
-      }
-    ],
-    sitemap: "https://yunseok.vercel.app/sitemap.xml",
+    rules,
+    sitemap: 'https://yunseok.vercel.app/sitemap.xml',
   };
 }

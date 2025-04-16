@@ -4,24 +4,22 @@ import { getPostList } from "@/libs/Post/getPostList";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://yunseok.vercel.app";
 
-  // 기본 경로들 정의
-  const staticPaths = [
-    { loc: "", lastmod: new Date().toISOString() }, // Home
-    { loc: "about", lastmod: new Date().toISOString() }, // About page
+  const posts = await getPostList();
+  const latestDate = posts
+    .map((post) => new Date(post.meta.date))
+    .sort((a, b) => b.getTime() - a.getTime())[0];
+  const latestDateISO = new Date(latestDate.toISOString().split("T")[0] + "T00:00:00Z").toISOString();
+
+  const postPaths = posts.map((post) => ({
+    url: `${baseUrl}/posts/${post.slug}`,
+    lastModified: new Date(post.meta.date + "T00:00:00Z").toISOString(),
+  }));
+
+  const staticPaths: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/`, priority: 1.0 },
+    { url: `${baseUrl}/about`, priority: 0.8 },
+    { url: `${baseUrl}/posts`, lastModified: latestDateISO },
   ];
 
-  // 게시글 경로 가져오기
-  const posts = await getPostList();
-  const postPaths = posts.map((post) => ({
-    loc: `posts/${post.slug}`,
-    lastmod: post.meta.date,
-  }));
-
-  // 경로들을 결합
-  const allPaths = [...staticPaths, ...postPaths].map((path) => ({
-    url: `${baseUrl}/${path.loc}`,
-    lastModified: path.lastmod,
-  }));
-
-  return allPaths;
+  return [...staticPaths, ...postPaths];
 }

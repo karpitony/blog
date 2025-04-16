@@ -54,3 +54,12 @@ export const getDiaryList = async (): Promise<DiaryData[]> => {
 
   return diary;
 };
+
+export const findDiaryBySlug = async (slug: string): Promise<string> => {
+  if (!slug) {
+    throw new Error('Slug is required');
+  }
+  const [ year, month, day ] = slug.split('-');
+  const filePath = path.join(diaryDirectory, `${year}/${month}/${year}${month}${day}.md`);
+  return filePath;
+}
