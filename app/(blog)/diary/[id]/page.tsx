@@ -1,8 +1,8 @@
 import path from 'path';
-import Image from 'next/image';
 import { readFile } from 'fs/promises';
 import { getDiaryList, findDiaryBySlug } from '@/libs/Diary/getDiaryList';
 import { parseDiary } from '@/libs/Diary/metaDataParser';
+import DiaryText from '@/components/Diary/DiaryText';
 
 export const dynamic = 'force-static';
 
@@ -52,19 +52,8 @@ export default async function DiaryPage({ params }: DiaryPageProps) {
   const { meta, body } = parseDiary(fileContents);
 
   return (
-    <article className="w-full mx-auto max-w-full md:max-w-3xl relative">
-      <h1>{meta.title}</h1>
-      <p><i>{meta.date}</i></p>
-      <Image 
-        src={meta.cover} 
-        alt={meta.title} 
-        style={{ maxWidth: '100%', borderRadius: '8px' }} 
-      />
-      <p>{meta.description}</p>
-      <hr />
-      {body.map((line, i) => (
-        <p key={i}>{line}</p>
-      ))}
-    </article>
+    <div>
+      <DiaryText meta={meta} body={body} />
+    </div>
   );
 }

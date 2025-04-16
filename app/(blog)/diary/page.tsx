@@ -3,7 +3,7 @@ import { getDiaryList } from '@/libs/Diary/getDiaryList';
 import { readFile } from 'fs/promises';
 import path from 'path';
 import { parseDiary } from '@/libs/Diary/metaDataParser';
-import WongojiTitle from '@/components/Diary/WongojiTitle';
+import DiaryText from '@/components/Diary/DiaryText';
 
 export default async function LatestDiaryPage() {
   const diaryList = await getDiaryList();
@@ -15,11 +15,7 @@ export default async function LatestDiaryPage() {
 
   return (
     <div>
-      <WongojiTitle text={latest.meta.title} size={32} />
-      <h1>{latest.meta.title}</h1>
-      {body.map((line, i) => (
-        <p key={i}>{line}</p>
-      ))}
+       <DiaryText meta={latest.meta} body={body} />
     </div>
   );
 }
