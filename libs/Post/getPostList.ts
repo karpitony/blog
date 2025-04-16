@@ -8,7 +8,7 @@ export interface PostData {
   slug: string;
 }
 
-const postsDirectory = path.join(process.cwd(), '_posts');
+const postsDirectory = path.join(process.cwd(), 'contents/posts');
 
 async function getAllMarkdownFiles(dir: string): Promise<string[]> {
   const entries = await fs.readdir(dir, { withFileTypes: true });
