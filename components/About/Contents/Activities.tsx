@@ -29,7 +29,9 @@ const ActivitiyData = [
           // 안어울리긴 한데 일단은 프로젝트보다 이쪽에 기술함
           "[**Github**](https://github.com/DguFarmSystem/Homepage-FE) | [**링크**](https://www.farmsystem.kr)\n" +
           "- **웹페이지 제작 팀**의 프론트엔드 파트로 참여\n" +
-          "- 코드 재사용성을 생각해 `models`, `services`, `hooks`로 API 통신 로직을 분리함",
+          "- 코드 재사용성을 생각해 `models`, `services`, `hooks`로 API 통신 로직을 분리함\n" +
+          "- `TurboRepo`를 도입해 모노레포 구조로 분산된 레포를 통합하고 공통 패키지를 구축\n" +
+          "- CI 단계에 캐싱을 적용해 빌드·테스트 속도를 대폭 개선\n",
         year: "2025.01 ~ ",
       },
       {
