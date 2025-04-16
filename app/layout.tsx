@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     siteName: "Yuniverse",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
+        url: "/og-image.webp",
+        width: 1562,
+        height: 840,
       },
     ],
   },
