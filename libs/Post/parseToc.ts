@@ -1,28 +1,25 @@
-export interface Toc {
-  value: string;
-  level: number;
+export interface HeadingItem {
+  text: string;
+  link: string;
+  indent: number;
 }
 
-interface TocProps {
-  content: string;
-}
-
-export default function parseToc({ content } : TocProps) :  Toc[] {
-  const toc: Toc[] = [];
-  const lines = content.split("\n");
-
-  let isInCodeBlock = false;
-  for (const line of lines) {
-    const match = line.match(/^#{1,6} (.*)$/);
-    if (!isInCodeBlock && match) {
-      toc.push({
-        value: match[1],
-        level: match[0].length - match[1].length - 1,
-      });
-    } else if (line.startsWith("```")) {
-      isInCodeBlock = !isInCodeBlock;
-    }
-  }
-
-  return toc;
+export default function parseToc(content: string): HeadingItem[] {
+  const regex = /^(##|###) (.*$)/gim;
+  const headingList = content.match(regex);
+  return (
+    headingList?.map((heading: string) => ({
+      text: heading.replace('##', '').replace('#', ''),
+      link:
+        '#' +
+        heading
+          .replace('# ', '')
+          .replace('#', '')
+          .replace(/[\[\]:!@#$/%^&*()+=,.]/g, '')
+          .replace(/ /g, '-')
+          .toLowerCase()
+          .replace('?', ''),
+      indent: (heading.match(/#/g)?.length || 2) - 2,
+    })) || []
+  );
 };

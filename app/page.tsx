@@ -1,5 +1,5 @@
 import PostsList from "@/components/PostsPage/PostsList";
-import { getPostList } from "@/libs/Post/GetPostList";
+import { getPostList } from "@/libs/Post/getPostList";
 import Link from 'next/link';
 import { FaArrowRight } from "react-icons/fa";
 import SimpleAboutMe from "@/components/common/SimpleAboutMe";

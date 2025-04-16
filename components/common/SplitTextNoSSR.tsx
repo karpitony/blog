@@ -1,5 +1,5 @@
 'use client';
-import dynamic from 'next/dynamic';
+import SplitText from "@/components/ReactBits/SplitText";
 
 interface SplitTextNoSSRProps {
   text: string;
@@ -9,10 +9,6 @@ interface SplitTextNoSSRProps {
 export default function SplitTextNoSSR({
   text, className = 'mb-4 text-2xl font-bold' 
 }: SplitTextNoSSRProps) {
-  
-  const SplitText = dynamic(() => import("@/components/ReactBits/SplitText"), {
-    ssr: false,
-  });
 
   return (
     <h2 className={className}>

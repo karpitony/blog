@@ -1,13 +1,13 @@
 import cn from '@yeahx4/cn';
 import Image from 'next/image';
 import { FaFolderOpen, FaCalendarAlt } from "react-icons/fa";
-import { PostMeta } from '@/libs/Post/PostMetadataParser';
+import { PostMeta } from '@/libs/Post/postMetaDataParser';
 
 export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
   return (
     <div className={cn(
       "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-6 shadow-lg",
-      "border border-gray-700 md:border-none"
+      "border border-none" // border-gray-700
     )}
     >
       <div className="flex justify-between items-start">
@@ -50,7 +50,7 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
         {meta.cover && (
           <div className="ml-4 flex-shrink-0">
             <Image
-              src={meta.cover} // GitHub 이미지 URL
+              src={meta.cover}
               alt={meta.title}
               width={512} // 적절한 고정 크기 설정
               height={512}
