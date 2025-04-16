@@ -1,12 +1,13 @@
 ---
-title: Next.js 블로그 게시글 정적 HTML로 만들기
+title: Next.js 블로그 게시글 정적 페이지로 만들기
 description: Next.js app 라우터에서 generateStaticParams()로 정적 페이지 생성
-cover: 
+cover: /images/my-blog/ssg-on-post/static-build-output.png
 tags: Next.js, SSG, SEO
 date: 2025-03-28
 series: my-blog
 seriesIndex: 0
 ---
+
 
 제 Next.js 15 블로그의 게시물 목록에 SSG 렌더링을 적용해 보았습니다. 
 
@@ -21,6 +22,7 @@ seriesIndex: 0
 그러던 중 `generateStaticParams()`라는 넥스트의 기능을 알게 되었습니다.
 
 
+
 ## `generateStaticParams()`는 무엇인가?
 
 [`generateStaticParams`](https://nextjs.org/docs/app/api-reference/functions/generate-static-params) 함수는 Next.js에서 **동적 라우팅**을 사용하는 페이지를 **정적으로 생성**할 때 사용되는 함수입니다. 
@@ -30,27 +32,38 @@ seriesIndex: 0
 미리 렌더링 된 페이지들을 만듬으로써, 블로그 글 요청시 로딩 속도를 줄이고, 서버 부하도 감소시킵니다. 또한, SEO를 최적화와 성능 향상에 도움이 됩니다. 
 
 
+
 ## 사용 예시
 
 ```tsx
 // app/(blog)/posts/[...slugs]/page.tsx
+/**
+ *  예시 API 응답:
+ *  [
+ *   { "slug": "react-1" },
+ *   { "slug": "make-server/post-2" }
+ * ]
+ */
 export async function generateStaticParams() {
   const posts = await fetch(
     'https://example.com/api/posts'
-  ).then((res) => res.json());
+  )
+  .then((res) => res.json());
 
   return posts.map((post) => ({
-    slug: post.slug,
+    // catch-all 라우트(...slugs)이므로 각 URL을 배열로 리턴
+    slugs: post.slug.split(path.sep),
   }));
 }
 
 export const dynamic = 'force-static'; 
 
 export default async function Page({ params }) {
-  const { slug } = await params;
+  const { slugs } = await params;
   const postData = await fetch(
-    `https://example.com/api/posts/${slug}`
-  ).then((res) => res.json());
+    `https://example.com/api/posts/${slugs}`
+  )
+  .then((res) => res.json());
   // postData를 사용해서 페이지 렌더링 하는 로직
 }
 ```
@@ -69,9 +82,53 @@ export default async function Page({ params }) {
 
 ## SSG 적용기
 
+```tsx
+// app/(blog)/posts/[...slugs]/page.tsx
+import { readFile } from "fs/promises";
+
+export const dynamic = 'force-static'; 
+export async function generateStaticParams() {
+  const posts = await getPostList();  // 파일 목록을 리턴하는 함수
+  const slugs = posts.map(post => post.slug);
+  return slugs.map(slug => ({
+    slugs: slug.split(path.sep),
+  }));
+};
+
+const getPostData = async (fileName: string): Promise<{ 
+  meta: PostMeta;
+  body: string[] 
+}> => {
+  const fullPath = path.join(postsDirectory, fileName);
+  const fileContents = await readFile(fullPath, 'utf8');
+  const { meta, body } = parsePost(fileContents);
+  
+  return { meta, body };
+};
+
+export default async function PostPage({ 
+  params }: PostPageProps
+) {
+  const { slugs } = await params;
+  const { meta, body } = await getPostData(slugs.join('/') + '.md');
+  
+  return (
+    <>
+      {/*마크다운 렌더링 로직 */}
+    </>
+  );
+};
+```
+
+이 블로그는 `.md` 파일을 별도의 백엔드 서버에서 받아오는 것이 아닌, 깃허브 레포지토리에 저장하고, 레포지토리 전체를 빌드해서 배포하는 형식으로 작동합니다. 그렇기에 `fetch` 대신, `fs/promises`라는 비동기로 파일 탐색을 할 수 있는 Node API를 사용했습니다.
+
+제 블로그는 빌드 시 `_posts`라는 게시물이 담긴 폴더 구조를 탐색하며 정적 URL을 만들고, 그 URL을 바탕으로 마크다운 파일을 불러와 정적 페이지를 생성합니다. 마크다운이 실행 도중 변경될 일이 없기에 `dynamic = 'force-static'`으로 불필요한 서버 리소스를 최소화 했습니다.
+
+
 | 기존 빌드 로그 | SSG 적용 빌드 로그 |
 |:---:|:---:|
 |![ssr-build-output](/images/my-blog/ssg-on-post/ssr-build-output.png)|![ssg-build-output](/images/my-blog/ssg-on-post/static-build-output.png)|
+
 
 기존에는 `ƒ (Dynamic) server-rendered on demand`로 요청 시마다 서버에서 렌더링을 하는 SSR 형태였습니다.
 
@@ -79,4 +136,4 @@ export default async function Page({ params }) {
 
 미리 만들어진 정적 경로도 출력 결과에서 확인해 볼 수 있습니다.
 
-라이트 하우스 비교 및 렌더링 시간 등은 추후에 적어보겠습니다!
+라이트 하우스 비교 및 렌더링 시간 등은 추후에 적어보겠습니다.
