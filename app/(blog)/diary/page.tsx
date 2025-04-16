@@ -14,8 +14,8 @@ export default async function LatestDiaryPage() {
   const { body } = parseDiary(fileContents);
 
   return (
-    <div>
+    <>
        <DiaryText meta={latest.meta} body={body} />
-    </div>
+    </>
   );
 }

@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Yuniverse",
-  description: "개발 블로그는 사서 드세요.",
+  description: "개발자 송윤석의 개인 블로그입니다.",
   icons: {
     icon: "/react-logo.svg",
   },

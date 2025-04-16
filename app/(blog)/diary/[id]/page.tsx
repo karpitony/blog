@@ -52,8 +52,8 @@ export default async function DiaryPage({ params }: DiaryPageProps) {
   const { meta, body } = parseDiary(fileContents);
 
   return (
-    <div>
+    <>
       <DiaryText meta={meta} body={body} />
-    </div>
+    </>
   );
 }

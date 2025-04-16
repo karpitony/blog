@@ -14,7 +14,7 @@ export default function DiaryText({
   body,
 }: DiaryTextProps) {
   return (
-    <div className="w-full mx-auto max-w-full md:max-w-3xl relative">
+    <div className="w-full mx-auto max-w-full md:max-w-3xl relative min-h-[70vh]">
       <div className={cn(
         "bg-gray-900 bg-opacity-50 rounded-lg shadow-lg", 
         "border border-gray-700 md:border-none mt-4",
