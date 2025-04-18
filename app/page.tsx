@@ -5,12 +5,11 @@ import { FaArrowRight } from "react-icons/fa";
 import SimpleAboutMe from "@/components/common/SimpleAboutMe";
 
 export default async function Home() {
-  const posts = await getPostList();
+  const { posts } = await getPostList();
   return (
     <div className="w-full max-w-full md:max-w-3xl space-y-8">
       <div className="px-2">
         <SimpleAboutMe />
-
         <Link href="/about" className="flex justify-center items-center mt-4">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
             자세히 보기 <FaArrowRight className='inline ml-2'/>

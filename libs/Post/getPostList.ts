@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs/promises';
+import fs, { readFile } from 'fs/promises';
 import { parsePost, PostMeta } from '@/libs/Post/postMetaDataParser';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
 
@@ -8,46 +8,99 @@ export interface PostData {
   slug: string;
 }
 
-const postsDirectory = path.join(process.cwd(), 'contents/posts');
-
-async function getAllMarkdownFiles(dir: string): Promise<string[]> {
-  const entries = await fs.readdir(dir, { withFileTypes: true });
-  const files = await Promise.all(
-    entries.map(async (entry) => {
-      const res = path.resolve(dir, entry.name);
-      if (entry.isDirectory()) {
-        return getAllMarkdownFiles(res);
-      } else if (entry.isFile() && path.extname(entry.name) === '.md') {
-        return res;
-      } else {
-        return null;
-      }
-    })
-  );
-  return files.flat().filter((f): f is string => f !== null);
+export interface SeriesSummary {
+  name: string;
+  slug: string;
 }
 
-export async function generatePostList(): Promise<PostData[]> {
-  const markdownFiles = await getAllMarkdownFiles(postsDirectory);
+const postsDirectory = path.join(process.cwd(), 'contents/posts');
 
-  const posts = await Promise.all(
-    markdownFiles.map(async (filePath) => {
+async function getAllContentMarkdownFiles(): Promise<{ filePath: string; seriesDir: string; seriesSlug: string }[]> {
+  const seriesDirs = await fs.readdir(postsDirectory, { withFileTypes: true });
+
+  const postFiles: { filePath: string; seriesDir: string; seriesSlug: string }[] = [];
+
+  for (const seriesEntry of seriesDirs) {
+    if (!seriesEntry.isDirectory()) continue;
+
+    const seriesSlug = seriesEntry.name;
+    const seriesDir = path.join(postsDirectory, seriesSlug);
+    const posts = await fs.readdir(seriesDir, { withFileTypes: true });
+
+    for (const postEntry of posts) {
+      if (!postEntry.isDirectory()) continue;
+
+      const contentPath = path.join(seriesDir, postEntry.name, 'content.md');
+      try {
+        await fs.access(contentPath);
+        postFiles.push({ filePath: contentPath, seriesDir, seriesSlug });
+      } catch {
+        continue;
+      }
+    }
+  }
+
+  return postFiles;
+}
+
+// async function readSeriesName(seriesDir: string): Promise<string> {
+//   const seriesMetaPath = path.join(seriesDir, 'series.md');
+//   try {
+//     const content = await fs.readFile(seriesMetaPath, 'utf-8');
+//     const { meta } = parsePost(content);
+//     return meta.series || '기타';
+//   } catch {
+//     return '기타';
+//   }
+// }
+
+export async function generatePostList(): Promise<{ posts: PostData[]; series: SeriesSummary[] }> {
+  const postEntries = await getAllContentMarkdownFiles();
+
+  const posts: PostData[] = await Promise.all(
+    postEntries.map(async ({ filePath }) => {
       const fileContents = await fs.readFile(filePath, 'utf8');
       const { meta } = parsePost(fileContents);
+  
       const relativePath = path.relative(postsDirectory, filePath);
-      const slug = relativePath.replace(/\.md$/, '').replace(/\\/g, '/');
-      return { meta, slug };
+      const slug = relativePath.replace(/\/content\.md$/, '').replace(/\\/g, '/');
+
+      return {
+        meta,
+        slug,
+      };
     })
   );
 
   posts.sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime());
-  return posts;
+
+  const seen = new Set<string>();
+  const series: SeriesSummary[] = posts
+    .map((post) => {
+      const { series } = post.meta;
+      const seriesSlug = post.slug.split('/')[0]; // 시리즈 폴더명
+      return { name: series, slug: seriesSlug };
+    })
+    .filter(({ slug }) => {
+      if (seen.has(slug)) return false;
+      seen.add(slug);
+      return true;
+    });
+
+  return { posts, series };
 }
 
-export const getPostList = async (): Promise<PostData[]> => {
-  const cached = await readJsonPublic<PostData[]>('postList.json');
+export const getPostList = async (): Promise<{ posts: PostData[]; series: SeriesSummary[] }> => {
+  const cached = await readJsonPublic<{ posts: PostData[]; series: SeriesSummary[] }>('postList.json');
   if (cached) return cached;
 
-  const posts = await generatePostList();
-  return posts;
+  return generatePostList();
+};
+
+export const getPostData = async (fileName: string): Promise<{ meta: PostMeta; body: string[] }> => {
+  const fullPath = path.join(postsDirectory, fileName, 'content.md');
+  const fileContents = await readFile(fullPath, 'utf8');
+  const { meta, body } = parsePost(fileContents);
+  
+  return { meta, body };
 };

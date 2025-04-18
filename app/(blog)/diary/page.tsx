@@ -9,7 +9,7 @@ export default async function LatestDiaryPage() {
   const diaryList = await getDiaryList();
   const latest = diaryList[0];
 
-  const filePath = path.join(process.cwd(), '_diary', `${latest.slug}.md`);
+  const filePath = path.join(process.cwd(), 'contents/diary', `${latest.slug}.md`);
   const fileContents = await readFile(filePath, 'utf-8');
   const { body } = parseDiary(fileContents);
 
