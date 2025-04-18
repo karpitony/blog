@@ -4,7 +4,7 @@ description: 스터디 성과 발표를 위한 리액트 미니 블로그 제작
 cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_07.png
 tags: react, blog, 9oormthonuniv
 date: 2024-10-22
-series: react-study
+series: 9univ-react-study
 seriesIndex: 6
 ---
 
