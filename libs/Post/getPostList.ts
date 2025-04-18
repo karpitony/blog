@@ -15,10 +15,20 @@ export interface SeriesSummary {
 
 const postsDirectory = path.join(process.cwd(), 'contents/posts');
 
-async function getAllContentMarkdownFiles(): Promise<{ filePath: string; seriesDir: string; seriesSlug: string }[]> {
+async function getAllContentMarkdownFiles(): Promise<{ 
+  filePath: string; 
+  fileName: string;
+  seriesDir: string; 
+  seriesSlug: string 
+}[]> {
   const seriesDirs = await fs.readdir(postsDirectory, { withFileTypes: true });
 
-  const postFiles: { filePath: string; seriesDir: string; seriesSlug: string }[] = [];
+  const postFiles: { 
+    filePath: string;
+    fileName: string;
+    seriesDir: string; 
+    seriesSlug: string 
+  }[] = [];
 
   for (const seriesEntry of seriesDirs) {
     if (!seriesEntry.isDirectory()) continue;
@@ -33,7 +43,7 @@ async function getAllContentMarkdownFiles(): Promise<{ filePath: string; seriesD
       const contentPath = path.join(seriesDir, postEntry.name, 'content.md');
       try {
         await fs.access(contentPath);
-        postFiles.push({ filePath: contentPath, seriesDir, seriesSlug });
+        postFiles.push({ filePath: contentPath, seriesDir, seriesSlug, fileName: postEntry.name });
       } catch {
         continue;
       }
@@ -43,24 +53,13 @@ async function getAllContentMarkdownFiles(): Promise<{ filePath: string; seriesD
   return postFiles;
 }
 
-// async function readSeriesName(seriesDir: string): Promise<string> {
-//   const seriesMetaPath = path.join(seriesDir, 'series.md');
-//   try {
-//     const content = await fs.readFile(seriesMetaPath, 'utf-8');
-//     const { meta } = parsePost(content);
-//     return meta.series || '기타';
-//   } catch {
-//     return '기타';
-//   }
-// }
-
 export async function generatePostList(): Promise<{ posts: PostData[]; series: SeriesSummary[] }> {
   const postEntries = await getAllContentMarkdownFiles();
 
   const posts: PostData[] = await Promise.all(
-    postEntries.map(async ({ filePath }) => {
+    postEntries.map(async ({ filePath, fileName, seriesSlug }) => {
       const fileContents = await fs.readFile(filePath, 'utf8');
-      const { meta } = parsePost(fileContents);
+      const { meta } = parsePost(fileContents, fileName, seriesSlug);
   
       const relativePath = path.relative(postsDirectory, filePath);
       const slug = relativePath.replace(/\/content\.md$/, '').replace(/\\/g, '/');
@@ -97,10 +96,10 @@ export const getPostList = async (): Promise<{ posts: PostData[]; series: Series
   return generatePostList();
 };
 
-export const getPostData = async (fileName: string): Promise<{ meta: PostMeta; body: string[] }> => {
+export const getPostData = async (fileName: string, ): Promise<{ meta: PostMeta; body: string[] }> => {
   const fullPath = path.join(postsDirectory, fileName, 'content.md');
   const fileContents = await readFile(fullPath, 'utf8');
-  const { meta, body } = parsePost(fileContents);
+  const { meta, body } = parsePost(fileContents, fileName.split('/').pop() || '', fileName.split('/')[0]);
   
   return { meta, body };
 };

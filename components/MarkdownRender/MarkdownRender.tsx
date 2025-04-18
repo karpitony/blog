@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw'
@@ -12,9 +13,11 @@ import { TbExternalLink } from "react-icons/tb";
 interface MarkdownRenderProps {
   markdownText: string;
   enableGap?: boolean;
+  series?: string;
+  postTitle?: string;
 }
 
-export default function MarkdownRender({ markdownText, enableGap=true }: MarkdownRenderProps) {
+export default function MarkdownRender({ markdownText, enableGap=true, series, postTitle }: MarkdownRenderProps) {
   return (
     <div className="markdown-body bg-transparent text-gray-100">
       <ReactMarkdown
@@ -57,6 +60,26 @@ export default function MarkdownRender({ markdownText, enableGap=true }: Markdow
               <code className={className} {...props}>
                 {children}
               </code>
+            );
+          },
+          img({ src, alt }) {
+            let resolvedSrc = src || '';
+            if (resolvedSrc.startsWith('./')) {
+              if (series && postTitle) {
+                resolvedSrc = `/contents/posts/${series}/${postTitle}/${resolvedSrc.slice(2)}`;
+              } else {
+                console.warn('[Image] slugPath가 undefined입니다. 이미지 경로를 변경할 수 없습니다.');
+              }
+            }
+            // console.log('Image src:', resolvedSrc);
+            return (
+              <Image
+                src={resolvedSrc}
+                alt={alt || 'image'}
+                width={800}
+                height={600}
+                style={{ objectFit: 'contain' }}
+              />
             );
           },
         }}

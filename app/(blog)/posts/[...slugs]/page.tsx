@@ -48,7 +48,6 @@ export async function generateMetadata({ params }: PostPageProps) {
 export default async function PostPage({ params }: PostPageProps) {
   const { slugs } = await params;
   const { meta, body } = await getPostData(slugs.join('/'));
-  
   return (
     <>
       <div className="w-full mx-auto max-w-full md:max-w-3xl relative">
@@ -71,7 +70,7 @@ export default async function PostPage({ params }: PostPageProps) {
           "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg", 
           "border border-none mt-4" // border-gray-700
         )}>
-          <MarkdownRender markdownText={body.join("\n")} />
+          <MarkdownRender markdownText={body.join("\n")} postTitle={slugs.pop()} series={meta.series} />
           <Comments />
         </div>
         <TableOfContent content={body.join("\n")} />

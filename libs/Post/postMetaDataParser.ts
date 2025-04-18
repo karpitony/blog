@@ -12,7 +12,9 @@ export interface PostMeta {
 }
 
 export const parsePost = (
-  content: string
+  content: string,
+  postTitle?: string,
+  series?: string,
 ): { meta: PostMeta; body: string[] } => {
   // 모든 줄바꿈 문자를 \n으로 통일
   const normalizedContent = content.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
@@ -56,7 +58,12 @@ export const parsePost = (
     } else if (key === "description") {
       meta.description = value;
     } else if (key === "cover") {
-      meta.cover = value;
+      if (value.startsWith("./")) {
+        meta.cover = `/contents/posts/${series}/${postTitle}/${value.slice(2)}`;
+      } else {
+        meta.cover = value;
+      }
+    
     } else if (key === "date") {
       meta.date = value;
     } else if (key === "series") {
