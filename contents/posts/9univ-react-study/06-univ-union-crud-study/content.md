@@ -1,14 +1,14 @@
 ---
 title: 동국x숙명x경기 연합 CRUD 스터디 회고
 description: [3기 리액트 스터디 6주차] 동국x숙명x경기 연합 CRUD 스터디
-cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_01.png
+cover: ./week06_01.webp
 tags: react, 9oormthonuniv
 date: 2024-10-15
 series: 9univ-react-study
 seriesIndex: 5
 ---
 
-![week06_01](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_01.png)
+![week06_01](./week06_01.webp)
 
 이번주는 동국대, 숙명여대, 경기대 구름톤 유니브가 같이 CRUD 프로젝트 스터디를 진행하기로 했습니다.
 
@@ -30,7 +30,7 @@ seriesIndex: 5
 
 ### 1. 깃 컨벤션과 깃허브 프로젝트
 
-![week06_02](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_02.png)
+![week06_02](./week06_02.webp)
 
 [링크 클릭시 바로이동](https://gist.github.com/karpitony/780a73487393e0f3fcee67eb2d8dd777)
 
@@ -38,7 +38,7 @@ seriesIndex: 5
 
 `dev`브랜치에서 서로 기능 브랜치들을 만들고, 머지한 뒤 큰 변경사항마다 `main` 브랜치로 머지하는 `git flow` 방식을 사용했습니다.
 
-![week06_03](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_03.png)
+![week06_03](./week06_03.webp)
 
 저희는 **깃허브 프로젝트** 기능도 사용했습니다. 위 사진에서 볼 수 있다싶이 항목을 적고 담당자를 배정한 뒤 일의 상태를 `Todo`, `In Progress`, 그리고 `Done`으로 설정 할 수 있습니다. 
 
@@ -49,7 +49,7 @@ seriesIndex: 5
 
 | 기존에 쓰던 아키텍쳐 | 새로 도입한 아키텍쳐 |
 |:---:|:---:|
-| ![week06_04](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_04.png) | ![week06_05](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_05.png) |
+| ![week06_04](./week06_04.webp) | ![week06_05](./week06_05.webp) |
 
 저는 이전 프로젝트를 할 때 **리액트 아키텍쳐**에 대해 큰 관심이 없어서 `components`, `libs`, `pages` 정도만 나눠서 작업했었습니다. 
 
@@ -67,14 +67,14 @@ seriesIndex: 5
 
 ## 2. 코드 리뷰 경험
 
-![week06_07](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_07.png)
+![week06_07](./week06_07.webp)
 
 이번 연합스터디에서 저희 팀의 프론트는 저포함 두명이라서 긴밀하게 소통할 수 있었습니다. 
 
 서로가 작업 한 것을 PR에 정리하며 남의 코드를 읽고, 개선점이나 작동 테스트를 하는 일이 많았습니다.
 
-![week06_08](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_08.png)
-![week06_09](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_09.png)
+![week06_08](./week06_08.webp)
+![week06_09](./week06_09.webp)
 
 남의 코드를 읽으며 배울점을 찾을 수 있었고, 잘 몰랐던 API관련 사용법도 쉽게 알 수 있었습니다.
 
@@ -93,7 +93,7 @@ seriesIndex: 5
 
 ### 1. 책 id 설정에서 삽질
 
-![week06_10](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_10.png)
+![week06_10](./week06_10.webp)
 
 저희 블로그는 책 블로그다보니 책에 `id`를 부여하는 것이 중요한 작업입니다. 그래야 책을 구분하고, 책의 정보를 받아올 수 있습니다.
 
@@ -125,7 +125,7 @@ seriesIndex: 5
 
 그렇기에 약간의 편법을 쓰기로 결정했습니다. 게시글 POST 요청을 보내기 전, 해당 게시글의 책 제목으로 검색 요청을 한번 보낸 뒤 POST를 보내는 식으로 바꿔 책 ID가 백엔드에 들어있을 수 있게 설정했습니다.
 
-![week06_11](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_11.jpg)
+![week06_11](./week06_11.webp)
 
 두 건 모두 타 파트간 소통이 부족해서 생긴 문제라고 생각합니다. 회의 결과를 서로 공유하고, 중간에 한번 진행상황 공유를 했더라면 좀 더 일찍 수정할 수 있었을 것입니다.
 
@@ -133,7 +133,7 @@ seriesIndex: 5
 
 <hr />
 
-![week06_12](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week06/week06_12.jpeg)
+![week06_12](./week06_12.webp)
 
 10월 13일 일요일에 공덕역 앞 미팅룸에서 만나 각 팀의 시연 및 발표를 듣고 네트워킹 시간을 가지니 재밌었습니다.
 

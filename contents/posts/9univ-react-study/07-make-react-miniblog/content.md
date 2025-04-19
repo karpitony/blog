@@ -1,20 +1,20 @@
 ---
 title: 리액트로 미니 블로그 만들기
 description: 스터디 성과 발표를 위한 리액트 미니 블로그 제작기
-cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_07.png
+cover: ./week07_07.webp
 tags: react, blog, 9oormthonuniv
 date: 2024-10-22
 series: 9univ-react-study
 seriesIndex: 6
 ---
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_07.png" />
+<img src="./week07_07.webp" />
 
 ## 기획 및 준비
 
 `미니 블로그`를 제작할 당시는 10월 14일(월)이여서 그 주 10월 16일(수)에 `구름톤 유니브 동국대`의 스터디 발표가 있었습니다. 그동안 리액트 스터디에 참가해서 리액트를 공부했었는데 제 공부 기록을 모으고, 성과를 정리할 웹페이지를 하나 만들면 성과 발표에 적합할 것 같아 `리액트로 만든 블로그`를 만들기로 했습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_01.png" width="800" />
+<img src="./week07_01.webp" width="800" />
 
 다만 기간이 3일 정도로 짧았기에 일반 블로그가 아닌 게시물을 하드코딩해서 보여주는 `미니 블로그`로 기획을 축소했습니다. 기존 스터디를 진행할 때는 게시글을 마크다운으로 작성 후, `github.io`에 정적 웹페이지로 호스팅했었는데 이를 리액트로 보여주기로 기획했습니다.
 
@@ -30,7 +30,7 @@ seriesIndex: 6
 
 서버를 사용할 경우 리액트만 알고있는 저는 서버를 하나도 몰라 백엔드의 도움을 받아야 할 것입니다. 하지만 시간이 없기에 다른 방법을 찾아야 했었습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_02.png" width="800" />
+<img src="./week07_02.webp" width="800" />
 
 다른 방법을 모색하던 중, `github raw`를 사용하면 해당 파일의 내용을 볼 수 있다는 사실을 떠올렸고, 이를 통해 `raw.githubusercontent.com`에 레포 이름 + 파일명을 넣으면 원하는 파일을 요청받을 수 있다는 것을 알게되었습니다.
 
@@ -51,7 +51,7 @@ useEffect(() => {
 ```
 url의 `slug`로 파일 명이 들어오면 `github raw`에 파일명을 넣어 요청을 보내는 식으로 코드를 작성했습니다. 이로서 마크다운 파일을 위한 서버 마련이나, 클라이언트에 같이 넘길 필요 없이 손쉽게 게시글을 불러올 수 있게 되었습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_06.png" width="400" />
+<img src="./week07_06.webp" width="400" />
 
 이 방식은 게시물 목로 클릭시 게시물 페이지로 이동하며 `github raw` 서버로 fetch 요청을 날립니다. 그후 `github raw` 서버에서 응답을 받아야 게시물을 표시하기 때문에 요청을 응답받는 동안 게시물이 안보여 사용자는 기다려야 합니다.
 
@@ -106,7 +106,7 @@ useEffect(() => {
 
 해당 라이브러리는 위와 같이 컴포넌트로 텍스트를 감싸주면 안에 있는 마크다운 텍스트를 화면에 렌더링해서 보여줍니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_03.png" width="700" />
+<img src="./week07_03.webp" width="700" />
 
 해당 라이브러리만 사용하면 밋밋한 형태의 마크다운이 렌더링 됩니다. 이는 제가 사용하는 스타일 라이브러리인 `TailwindCSS`와의 충돌 때문입니다. `<br>`등 `Github Flavor` 문법도 적용이 안되고 있습니다. 코드블럭의 하이라이팅은 기대도 안했습니다. **여러 플러그인을 사용해서 꾸며주도록 하겠습니다.**
 
@@ -146,7 +146,7 @@ useEffect(() => {
 
 `component` 옵션의 code의 경우 코드 블록의 첫줄을 읽고 해당 언어에 맞는 문법 하이라이팅을 적용 할 수 있게 해줍니다. 이 옵션들로도 충분히 예쁜 마크다운 게시글이 완성되지만, 좀더 깃허브스러운 느낌을 위해 `github-markdown-css` 패키지를 활용해서 스타일을 넣어줬습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_04.png" />
+<img src="./week07_04.webp" />
 
 ## 게시글 목록 페이지 만들기
 
@@ -189,7 +189,7 @@ const articleData = [
 </div>
 ```
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_05.png" />
+<img src="./week07_05.webp" />
 
 위 코드에서 알 수 있듯 `articleData` 배열에서 값을 가져와 게시글 목록을 만들었고, `tailwindcss`로 스타일을 넣어주었습니다.
 
@@ -197,13 +197,13 @@ const articleData = [
 
 이 `미니 블로그`를 만드는 목적은 그동안 배운 성과를 보여주는 것이기 때문에 ppt를 쓰지 않고 웹페이지로 발표를 하고 싶었습니다. 저는 평소 애플의 디자인 감각을 좋아합니다. 특히 자사의 제품을 발표 후 하나의 이미지로 정리해서 올리곤 합니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_08.png" width="700" />
+<img src="./week07_08.webp" width="700" />
 
 각 내용 상자의 크기, 배치한 위치 등으로 정보의 중요성을 나타내고, 한눈에 정보를 볼 수 있게 만드는 매력을 느꼈습니다. 저도 위와 같은 느낌으로 발표 자료를 만들고 싶었습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_07.png" />
+<img src="./week07_07.webp" />
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week07/week07_09.png" />
+<img src="./week07_09.webp" />
 
 중요하다고 생각하는 배포와 협업 경험을 크게 배치하고, 이해도 증가, 앞으로의 계획 등은 조금 작게 배치했습니다. 또한 이 발표자료는 ppt 대용이므로, 각 상자를 클릭 시 세부 내용을 담은 모달창이 나오게 만들어 발표자료로서 잘 기능하게 만들었습니다.
 

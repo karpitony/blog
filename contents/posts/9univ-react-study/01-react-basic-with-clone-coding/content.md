@@ -1,7 +1,7 @@
 ---
 title: 리액트 웹 예제 클론코딩
 description: [3기 리액트 스터디 1주차] 클론코딩으로 배우는 리액트 기초
-cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week01_01.png
+cover: ./week01_01.webp
 tags: react
 date: 2024-09-08
 series: 9univ-react-study
@@ -27,7 +27,7 @@ seriesIndex: 0
 <hr>
 
 ## `To do 리스트`를 만들며
-![week01_01](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week01_01.png)
+![week01_01](./week01_01.webp)
 
 ```js
 import { useState } from "react";
@@ -147,7 +147,7 @@ JavaScript의 경우 `...`을 통해 파이썬의 `.extend()`함수처럼 손쉽
 
 ## `Coin Tracker`를 만들며
 
-![week01_02](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week01_02.png)
+![week01_02](./week01_02.webp)
 
 ```js
 import { useEffect, useState } from "react";

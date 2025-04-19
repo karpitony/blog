@@ -15,6 +15,15 @@ const EducationData = [
       },
     ],
   },
+  {
+    title: "자격증",
+    programs: [
+      {
+        description: "정보처리기능사",
+        year: "2025.04.18",
+      }
+    ],
+  },
 ]; 
 
 export default function Educations() {

@@ -1,7 +1,7 @@
 ---
 title: 리액트 복습 + 미니 사이드 프로젝트
 description: [3기 리액트 스터디 2주차] 도시 이름 워들 게임을 제작하며 리액트 복습하기
-cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week02_01.png
+cover: ./week02_01.webp
 tags: react, sideproject, dodle
 date: 2024-09-15
 series: 9univ-react-study
@@ -264,7 +264,7 @@ function Detail() {
 <br>
 
 ## 사이드 프로젝트 - 도들
-![week02_01](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week02_01.png)
+![week02_01](./week02_01.webp)
 
 https://dodle.vercel.app/
 
@@ -283,7 +283,7 @@ https://dodle.vercel.app/
 
 이 프로젝트를 만들며 리액트의 여러 특성들을 이해하게 되었다. 특히 `useState()`로 상태를 관리하고, 각 기능들을 컴포넌트로 쪼갠 뒤 Props를 통해 정보를 주는 경험을 많이 하게 되었다.
 
-![week02_02](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week02_02.png)
+![week02_02](./week02_02.webp)
 
 코드가 복잡해 질수록 하나의 `.jsx` 파일에 작성하는 것이 아닌 컴포넌트로 쪼개서 관리하는 것이 더욱 편했다. 
 

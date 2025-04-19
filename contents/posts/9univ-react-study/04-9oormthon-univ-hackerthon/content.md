@@ -1,14 +1,14 @@
 ---
 title: 🏆 구름톤 연합 해커톤 참가 및 대상 후기
 description: [3기 리액트 스터디 4주차] 해커톤 참가 및 수상 후기
-cover: https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_03.webp
+cover: ./week04_03.webp
 tags: react, 9oormthonuniv, hackerthon
 date: 2024-10-01
 series: 9univ-react-study
 seriesIndex: 3
 ---
 
-![뜬구름](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_03.webp)
+![뜬구름](./week04_03.webp)
 
 리액트를 어느 정도 배웠고, 해커톤에 참가하여 협업하는 경험을 쌓기 위해 구름톤 유니브에 지원한 만큼 염원하던 해커톤에 참가하게 되었습니다.
 
@@ -22,7 +22,7 @@ seriesIndex: 3
 
 ## 1. 아이디어 기획
 
-![피그잼](https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_04.png)
+![피그잼](./week04_04.webp)
 
 첫 해커톤이니 만큼 기대 반, 설렘 반으로 임했습니다. 일요일 오후에 팀원이 모여 아이디어 회의를 진행하고, 월요일 오후에도 한번 더 모여 아이디어 회의를 진행했습니다.
 
@@ -38,14 +38,14 @@ seriesIndex: 3
 
 리액트와 TailwindCSS의 경우 도시 이름 맞추기 프로젝트를 통해 한번 연습을 해본 적이 있었습니다. 하지만 TypeScript와 Zustand는 한번도 해본적이 없어서 걱정이 앞섰습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_05.png" width=300/>
+<img src="./week04_05.webp" width=300/>
 
 제일 먼저 필요한 페이지들을 라우팅하고, 헤더와 푸터를 만들었습니다. 
 세부 페이지 내용은 와이어프레임이 점점 자세해질수록 변할 것 같아, 가장 안 변할 것 같은 부분부터 건드렸습니다.
 
 헤더와 푸터를 제작한 후, 주요 기능 페이지인 **목표 점검**과 **마이 페이지**는 납둔 채 이용방법과 서비스 소개를 만들었습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_06.png" width=500 />
+<img src="./week04_06.webp" width=500 />
 
 모바일에서도 잘 보이게 하기 위해 브레이크포인트들을 만들어주며 제작했습니다. 
 
@@ -61,9 +61,9 @@ seriesIndex: 3
 
 기존에 웹개발을 처음 배울때는 프론트만 사용하는 정도로 배워서 백엔드와의 api를 통한 협업을 처음 경험하게 되었습니다. 
 
-다행히 저희 프론트 팀이 api 요청 관련 유틸 함수를 만들어주어서 import를 이용해 쉽게 요청을 할 수 있었습니다. _(정말 감사합니다 ㅎㅎ 만들어두신 함수, 다음 플젝에서도 잘 써먹겠습니다!)_
+다행히 저희 프론트 팀이 api 요청 관련 유틸 함수를 만들어주어서 import를 이용해 쉽게 요청을 할 수 있었습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_07.png" width=400>
+<img src="./week04_07.webp" width=400>
 
 저희 프로젝트의 알파이자 오메가인 목표 페이지를 만들며 많은 것을 배울 수 있었습니다. 해당 사진 위에 보이는 구름과 무지개를 배치하기 위해 CSS의 Grid를 적극 활용했고, 자연스러운 전환을 위해 CSS 애니메이션도 사용했습니다. 
 
@@ -71,13 +71,13 @@ seriesIndex: 3
 
 전역상태관리가 복잡하다는 악명과 달리, 직접 사용해보니 매우 쉽고, 직관적이여서 다음에도 필요시 주저없이 사용하게 될 것 같습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_08.png" width=400>
+<img src="./week04_09.webp" width=400>
 
 해커톤을 준비하며 밤을 샌다는 이야기는 많이 들었지만, 정말 밤을 샐줄은 몰랐습니다. 그래도 팀원들과 같이 코딩을 하며 밤을 새니 색다른 경험이 되었습니다.
 
 새벽에 진행하는 **럭키 드로우**에 당첨되어 `무던한 개발자를 위한 모던한 자바스크립트`라는 책도 받을 수 있었습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_09.png">
+<img src="./week04_09.webp">
 
 밤샘 코딩과 아침까지 발표자료를 팀원들과 만들며 어느덧 제출 마감시간이 다가왔습니다. 깃허브의 README를 조금 꾸미며 제출 준비를 했습니다. 
 
@@ -117,8 +117,8 @@ seriesIndex: 3
 
 1주일간의 고생과 피로가 그자리에서 날아가버렸습니다.
 
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_01.JPG" width=400 />
-<img src="https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/img/week04/week04_02.JPG" width=400 />
+<img src="./week04_01.JPG" width=400 />
+<img src="./week04_02.JPG" width=400 />
 
 마지막은 팀원분들과의 기념사진입니다. 
 
