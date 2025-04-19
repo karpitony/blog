@@ -24,6 +24,6 @@ async function copyOnlyImages(src: string, dest: string) {
   }
 }
 
-copyOnlyImages(srcDir, destDir)
+export default copyOnlyImages(srcDir, destDir)
   .then(() => console.log('✅ 이미지 파일만 복사 완료'))
   .catch((err) => console.error('❌ 복사 실패:', err));

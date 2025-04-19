@@ -4,11 +4,12 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import '../../styles/github-markdown.css'
-import '../../styles/github-markdown-plus.css'
+import '@/styles/github-markdown.css'
+import '@/styles/github-markdown-plus.css'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { TbExternalLink } from "react-icons/tb";
+import imageInfo from '@/public/image-info.json';
 
 interface MarkdownRenderProps {
   markdownText: string;
@@ -64,21 +65,38 @@ export default function MarkdownRender({ markdownText, enableGap=true, series, p
           },
           img({ src, alt }) {
             let resolvedSrc = src || '';
+            let width = 1200;
+            let height = 800;
+
             if (resolvedSrc.startsWith('./')) {
               if (series && postTitle) {
-                resolvedSrc = `/contents/posts/${series}/${postTitle}/${resolvedSrc.slice(2)}`;
+                const relPath = `${series}/${postTitle}/${resolvedSrc.slice(2)}`;
+                resolvedSrc = `/contents/posts/${relPath}`;
+
+                const size = imageInfo[relPath as keyof typeof imageInfo];
+                if (size) {
+                  width = size.width;
+                  height = size.height;
+                } else {
+                  console.warn('[Image] image-info.json에 해당 이미지 정보 없음:', relPath);
+                }
               } else {
-                console.warn('[Image] slugPath가 undefined입니다. 이미지 경로를 변경할 수 없습니다.');
+                console.warn('[Image] series나 postTitle이 없어 이미지 경로를 만들 수 없습니다.');
               }
             }
-            // console.log('Image src:', resolvedSrc);
             return (
               <Image
                 src={resolvedSrc}
                 alt={alt || 'image'}
-                width={800}
-                height={600}
-                style={{ objectFit: 'contain' }}
+                width={width}
+                height={height}
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  display: 'block',
+                  margin: '2rem auto',
+                  objectFit: 'contain',
+                }}
               />
             );
           },

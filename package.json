@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild-scripts": "tsx scripts/generatePostList.ts && tsx scripts/copy-assets.ts",
+    "prebuild-scripts": "tsx scripts/generatePostList.ts && tsx scripts/copy-assets.ts && tsx scripts/generate-image-info.ts",
     "dev": "npm run prebuild-scripts && next dev",
     "build": "npm run prebuild-scripts && next build",
     "start": "next start",
@@ -17,6 +17,7 @@
     "@vercel/analytics": "^1.3.2",
     "@yeahx4/cn": "^1.0.2",
     "fs-extra": "^11.3.0",
+    "image-size": "^2.0.2",
     "next": "^15.1.3",
     "react": "^18",
     "react-dom": "^18",

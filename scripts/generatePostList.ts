@@ -8,7 +8,7 @@ async function writeJsonPublic<T>(filename: string, data: T) {
   await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
 }
 
-async function main() {
+async function generatePostAndDiaryList() {
   try {
     const postList = await generatePostList();
     const diaryList = await generateDiaryList();
@@ -25,4 +25,4 @@ async function main() {
   }
 }
 
-main();
+export default generatePostAndDiaryList();
