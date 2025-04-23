@@ -67,6 +67,7 @@ export default function MarkdownRender({ markdownText, enableGap=true, series, p
             let resolvedSrc = src || '';
             let width = 1200;
             let height = 800;
+            let blurDataURL: string | undefined = undefined;
 
             if (resolvedSrc.startsWith('./')) {
               if (series && postTitle) {
@@ -77,6 +78,7 @@ export default function MarkdownRender({ markdownText, enableGap=true, series, p
                 if (size) {
                   width = size.width;
                   height = size.height;
+                  blurDataURL = size.blurDataURL || undefined;
                 } else {
                   console.warn('[Image] image-info.json에 해당 이미지 정보 없음:', relPath);
                 }
@@ -90,6 +92,9 @@ export default function MarkdownRender({ markdownText, enableGap=true, series, p
                 alt={alt || 'image'}
                 width={width}
                 height={height}
+                placeholder='blur'
+                blurDataURL={blurDataURL}
+                loading='lazy'
                 style={{
                   maxWidth: '100%',
                   height: 'auto',

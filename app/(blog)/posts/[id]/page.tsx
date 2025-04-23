@@ -1,4 +1,3 @@
-import path from 'path';
 import Link from 'next/link';
 import { getPostList, getPostData } from '@/libs/Post/getPostList';
 import { FiArrowLeft } from "react-icons/fi";
@@ -8,26 +7,27 @@ import TableOfContent from '@/components/MarkdownRender/TableOfContent';
 import Comments from '@/components/PostsPage/Comments';
 import cn from '@yeahx4/cn';
 
-// const postsDirectory = path.join(process.cwd(), 'contents/posts');
 export const dynamic = 'force-static'; 
 
 export async function generateStaticParams() {
   const { posts } = await getPostList();
-  const slugs = posts.map(post => post.slug);
-  return slugs.map(slug => ({
-    slugs: slug.split(path.sep),
-  }));
+  return posts.map(post => ({ slug: post.slug }));
+  // 시리즈/글제목 시절의 유산
+  // const slugs = posts.map(post => post.slug);
+  // return slugs.map(slug => ({
+  //   slugs: slug.split(path.sep),
+  // }));
 }
 
 interface PostPageProps {
   params: Promise<{
-    slugs: string[];
+    slug: string;
   }>;
 }
 
 export async function generateMetadata({ params }: PostPageProps) {
-  const { slugs } = await params;
-  const { meta: metaData } = await getPostData(slugs.join('/'));
+  const { slug } = await params;
+  const { meta: metaData } = await getPostData(slug);
   
   return {
     title: metaData.title || "Not Found",
@@ -46,8 +46,8 @@ export async function generateMetadata({ params }: PostPageProps) {
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const { slugs } = await params;
-  const { meta, body } = await getPostData(slugs.join('/'));
+  const { slug } = await params;
+  const { meta, body } = await getPostData(slug);
   return (
     <>
       <div className="w-full mx-auto max-w-full md:max-w-3xl relative">
@@ -70,7 +70,7 @@ export default async function PostPage({ params }: PostPageProps) {
           "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg", 
           "border border-none mt-4" // border-gray-700
         )}>
-          <MarkdownRender markdownText={body.join("\n")} postTitle={slugs.pop()} series={meta.series} />
+          <MarkdownRender markdownText={body.join("\n")} postTitle={slug} series={meta.series} />
           <Comments />
         </div>
         <TableOfContent content={body.join("\n")} />
