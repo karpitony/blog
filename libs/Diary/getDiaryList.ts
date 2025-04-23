@@ -8,7 +8,7 @@ export interface DiaryData {
   slug: string;
 }
 
-const diaryDirectory = path.join(process.cwd(), '_diary');
+const diaryDirectory = path.join(process.cwd(), 'contents/diary');
 
 async function getAllMarkdownFiles(dir: string): Promise<string[]> {
   const entries = await fs.readdir(dir, { withFileTypes: true });

@@ -1,20 +1,25 @@
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import '../../styles/github-markdown.css'
-import '../../styles/github-markdown-plus.css'
+import '@/styles/github-markdown.css'
+import '@/styles/github-markdown-plus.css'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { TbExternalLink } from "react-icons/tb";
+import imageInfo from '@/public/image-info.json';
+import Logger from '@/libs/logger';
 
 interface MarkdownRenderProps {
   markdownText: string;
   enableGap?: boolean;
+  series?: string;
+  postTitle?: string;
 }
 
-export default function MarkdownRender({ markdownText, enableGap=true }: MarkdownRenderProps) {
+export default function MarkdownRender({ markdownText, enableGap=true, series, postTitle }: MarkdownRenderProps) {
   return (
     <div className="markdown-body bg-transparent text-gray-100">
       <ReactMarkdown
@@ -57,6 +62,51 @@ export default function MarkdownRender({ markdownText, enableGap=true }: Markdow
               <code className={className} {...props}>
                 {children}
               </code>
+            );
+          },
+          img({ src, alt }) {
+            let resolvedSrc = src || '';
+            let width = 1200;
+            let height = 800;
+            let blurDataURL: string | undefined = undefined;
+            // 글 폴더 안에 이미지가 있는 경우만 
+            const blurImageFlag = 
+              resolvedSrc.startsWith('./') || resolvedSrc.startsWith('../') ? true : false;
+
+            if (resolvedSrc.startsWith('./')) {
+              if (series && postTitle) {
+                const relPath = `${series}/${postTitle}/${resolvedSrc.slice(2)}`;
+                resolvedSrc = `/contents/posts/${relPath}`;
+
+                const size = imageInfo[relPath as keyof typeof imageInfo];
+                if (size) {
+                  width = size.width;
+                  height = size.height;
+                  blurDataURL = size.blurDataURL || undefined;
+                } else {
+                  Logger.warn('[Image] image-info.json에 해당 이미지 정보 없음:', relPath);
+                }
+              } else {
+                Logger.warn('[Image] series나 postTitle이 없어 이미지 경로를 만들 수 없습니다.');
+              }
+            }
+            return (
+              <Image
+                src={resolvedSrc}
+                alt={alt || 'image'}
+                width={width}
+                height={height}
+                placeholder={blurImageFlag ? 'blur' : 'empty'}
+                blurDataURL={blurDataURL}
+                loading='lazy'
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  display: 'block',
+                  margin: '2rem auto',
+                  objectFit: 'contain',
+                }}
+              />
             );
           },
         }}

@@ -4,7 +4,7 @@ import { getPostList } from "@/libs/Post/getPostList";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://yunseok.vercel.app";
 
-  const posts = await getPostList();
+  const { posts } = await getPostList();
   const latestDate = posts
     .map((post) => new Date(post.meta.date))
     .sort((a, b) => b.getTime() - a.getTime())[0];

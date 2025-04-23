@@ -4,7 +4,10 @@ import "@/styles/globals.css";
 import GlobalNavBar from "@/components/GlobalNavBar";
 import Footer from "@/components/Footer";
 
+const BASE_URL = "https://yuniverse.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: "Yuniverse",
   description: "개발자 송윤석의 개인 블로그입니다.",
   icons: {
@@ -13,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Yuniverse",
     description: "개발자 송윤석의 개인 블로그입니다.",
-    url: "https://yuniverse.vercel.app",
+    url: BASE_URL,
     siteName: "Yuniverse",
     images: [
       {
@@ -37,6 +40,7 @@ export default function RootLayout({
         <meta name="naver-site-verification" content="2ff0864e0257241090dc6fe9bd4e76e6791b6424" />
       </head>
       <body className="bg-gradient-to-br from-blue-950 to-gray-900">
+      {/* <body className="bg-[#121212]"> */}
         <GlobalNavBar />
         <div className="min-h-[80vh] text-gray-100 flex flex-col items-center p-3 md:p-6">
           {children}
