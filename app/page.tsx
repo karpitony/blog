@@ -16,7 +16,7 @@ export default async function Home() {
           </button>
         </Link>
       </div>
-      <hr className="border-t-2"/>
+      <hr className="border-t-2 py-4"/>
       <div>
         <h2 className="text-3xl font-bold mb-6 mt-8">최신 글</h2>
         <div className="space-y-4">
