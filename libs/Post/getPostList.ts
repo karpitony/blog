@@ -10,7 +10,7 @@ export interface PostData {
 
 export interface SeriesSummary {
   name: string;
-  slug: string;
+  slugs: string[];
 }
 
 const postsDirectory = path.join(process.cwd(), 'contents/posts');
@@ -61,9 +61,7 @@ export async function generatePostList(): Promise<{ posts: PostData[]; series: S
       const fileContents = await fs.readFile(filePath, 'utf8');
       const parsed = parsePost(fileContents, fileName, seriesSlug);
       if (!parsed) return null;
-
-      const relativePath = path.relative(postsDirectory, filePath);
-      const slug = relativePath.replace(/\/content\.md$/, '').replace(/\\/g, '/');
+      const slug = fileName;
 
       return {
         meta: parsed.meta,
@@ -86,18 +84,21 @@ export async function generatePostList(): Promise<{ posts: PostData[]; series: S
   });
   posts.sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime());
 
-  const seen = new Set<string>();
-  const series: SeriesSummary[] = posts
-    .map((post) => {
-      const { series } = post.meta;
-      const seriesSlug = post.slug.split('/')[0]; // 시리즈 폴더명
-      return { name: series, slug: seriesSlug };
-    })
-    .filter(({ slug }) => {
-      if (seen.has(slug)) return false;
-      seen.add(slug);
-      return true;
-    });
+  // 시리즈별로 포스트를 그룹화
+  const seriesMap = new Map<string, string[]>();
+  
+  posts.forEach(post => {
+    const seriesName = post.meta.series;
+    if (!seriesMap.has(seriesName)) {
+      seriesMap.set(seriesName, []);
+    }
+    seriesMap.get(seriesName)!.push(post.slug);
+  });
+
+  const series = Array.from(seriesMap, ([name, slugs]) => ({ 
+    name, 
+    slugs 
+  }));
 
   return { posts, series };
 }
@@ -109,10 +110,28 @@ export const getPostList = async (): Promise<{ posts: PostData[]; series: Series
   return generatePostList();
 };
 
-export const getPostData = async (fileName: string, ): Promise<{ meta: PostMeta; body: string[] }> => {
-  const fullPath = path.join(postsDirectory, fileName, 'content.md');
+export const getPostData = async (
+  slug: string
+): Promise<{ 
+  meta: PostMeta; 
+  body: string[] 
+}> => {
+  let cachedData = await readJsonPublic<{ posts: PostData[]; series: SeriesSummary[] }>('postList.json');
+  if (!cachedData || !cachedData.series) {
+    cachedData = await generatePostList();
+  }
+  const { series } = cachedData;
+
+  const seriesEntry = series.find(s => s.slugs.includes(slug));
+  const filePath = seriesEntry ? seriesEntry.name : undefined;
+  if (!filePath || !seriesEntry) {
+    console.error(`filePath: ${filePath}, seriesEntry: ${seriesEntry}`);
+    throw new Error(`해당 slug를 포함한 시리즈를 찾을 수 없습니다: ${slug}`);
+  }
+
+  const fullPath = path.join(postsDirectory, filePath, slug, 'content.md');
   const fileContents = await readFile(fullPath, 'utf8');
-  const { meta, body } = parsePost(fileContents, fileName.split('/').pop() || '', fileName.split('/')[0]);
+  const { meta, body } = parsePost(fileContents, slug, seriesEntry.name);
   
   return { meta, body };
 };

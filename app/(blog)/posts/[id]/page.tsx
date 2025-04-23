@@ -11,23 +11,23 @@ export const dynamic = 'force-static';
 
 export async function generateStaticParams() {
   const { posts } = await getPostList();
-  return posts.map(post => ({ slug: post.slug }));
+  return posts.map(post => ({ id: post.slug }));
   // 시리즈/글제목 시절의 유산
-  // const slugs = posts.map(post => post.slug);
-  // return slugs.map(slug => ({
-  //   slugs: slug.split(path.sep),
+  // const ids = posts.map(post => post.id);
+  // return ids.map(id => ({
+  //   ids: id.split(path.sep),
   // }));
 }
 
 interface PostPageProps {
   params: Promise<{
-    slug: string;
+    id: string;
   }>;
 }
 
 export async function generateMetadata({ params }: PostPageProps) {
-  const { slug } = await params;
-  const { meta: metaData } = await getPostData(slug);
+  const { id } = await params;
+  const { meta: metaData } = await getPostData(id);
   
   return {
     title: metaData.title || "Not Found",
@@ -46,8 +46,8 @@ export async function generateMetadata({ params }: PostPageProps) {
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const { slug } = await params;
-  const { meta, body } = await getPostData(slug);
+  const { id } = await params;
+  const { meta, body } = await getPostData(id);
   return (
     <>
       <div className="w-full mx-auto max-w-full md:max-w-3xl relative">
@@ -70,7 +70,7 @@ export default async function PostPage({ params }: PostPageProps) {
           "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg", 
           "border border-none mt-4" // border-gray-700
         )}>
-          <MarkdownRender markdownText={body.join("\n")} postTitle={slug} series={meta.series} />
+          <MarkdownRender markdownText={body.join("\n")} postTitle={id} series={meta.series} />
           <Comments />
         </div>
         <TableOfContent content={body.join("\n")} />

@@ -68,6 +68,8 @@ export default function MarkdownRender({ markdownText, enableGap=true, series, p
             let width = 1200;
             let height = 800;
             let blurDataURL: string | undefined = undefined;
+            // 글 폴더 안에 이미지가 있는 경우만 
+            const blurImageFlag = resolvedSrc.startsWith('../') ? true : false;
 
             if (resolvedSrc.startsWith('./')) {
               if (series && postTitle) {
@@ -86,13 +88,14 @@ export default function MarkdownRender({ markdownText, enableGap=true, series, p
                 console.warn('[Image] series나 postTitle이 없어 이미지 경로를 만들 수 없습니다.');
               }
             }
+            console.log('BlurDataURL:', blurDataURL);
             return (
               <Image
                 src={resolvedSrc}
                 alt={alt || 'image'}
                 width={width}
                 height={height}
-                placeholder='blur'
+                placeholder={blurImageFlag ? 'blur' : 'empty'}
                 blurDataURL={blurDataURL}
                 loading='lazy'
                 style={{
