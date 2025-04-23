@@ -70,7 +70,8 @@ export default function MarkdownRender({ markdownText, enableGap=true, series, p
             let height = 800;
             let blurDataURL: string | undefined = undefined;
             // 글 폴더 안에 이미지가 있는 경우만 
-            const blurImageFlag = resolvedSrc.startsWith('../') ? true : false;
+            const blurImageFlag = 
+              resolvedSrc.startsWith('./') || resolvedSrc.startsWith('../') ? true : false;
 
             if (resolvedSrc.startsWith('./')) {
               if (series && postTitle) {

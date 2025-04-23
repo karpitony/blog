@@ -4,7 +4,7 @@ import "@/styles/globals.css";
 import GlobalNavBar from "@/components/GlobalNavBar";
 import Footer from "@/components/Footer";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://yuniverse.vercel.app";
+const BASE_URL = "https://yuniverse.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

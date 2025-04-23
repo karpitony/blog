@@ -35,7 +35,7 @@ async function collectImageSizes() {
 
           // 2. blurDataURL 생성 (10x10 JPEG)
           const blurBuffer = await sharp(fileBuffer)
-            .resize(40, 30, { fit: 'inside' })
+            .resize(80, 60, { fit: 'inside' })
             .webp({ quality: 30 }) // 품질 낮춤
             .toBuffer();
 
