@@ -10,6 +10,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { TbExternalLink } from "react-icons/tb";
 import imageInfo from '@/public/image-info.json';
+import Logger from '@/libs/logger';
 
 interface MarkdownRenderProps {
   markdownText: string;
@@ -82,13 +83,12 @@ export default function MarkdownRender({ markdownText, enableGap=true, series, p
                   height = size.height;
                   blurDataURL = size.blurDataURL || undefined;
                 } else {
-                  console.warn('[Image] image-info.json에 해당 이미지 정보 없음:', relPath);
+                  Logger.warn('[Image] image-info.json에 해당 이미지 정보 없음:', relPath);
                 }
               } else {
-                console.warn('[Image] series나 postTitle이 없어 이미지 경로를 만들 수 없습니다.');
+                Logger.warn('[Image] series나 postTitle이 없어 이미지 경로를 만들 수 없습니다.');
               }
             }
-            console.log('BlurDataURL:', blurDataURL);
             return (
               <Image
                 src={resolvedSrc}
