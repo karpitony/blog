@@ -56,21 +56,34 @@ async function getAllContentMarkdownFiles(): Promise<{
 export async function generatePostList(): Promise<{ posts: PostData[]; series: SeriesSummary[] }> {
   const postEntries = await getAllContentMarkdownFiles();
 
-  const posts: PostData[] = await Promise.all(
+  const rawPosts = await Promise.all(
     postEntries.map(async ({ filePath, fileName, seriesSlug }) => {
       const fileContents = await fs.readFile(filePath, 'utf8');
-      const { meta } = parsePost(fileContents, fileName, seriesSlug);
-  
+      const parsed = parsePost(fileContents, fileName, seriesSlug);
+      if (!parsed) return null;
+
       const relativePath = path.relative(postsDirectory, filePath);
       const slug = relativePath.replace(/\/content\.md$/, '').replace(/\\/g, '/');
 
       return {
-        meta,
+        meta: parsed.meta,
         slug,
       };
     })
   );
 
+  const posts: PostData[] = rawPosts
+  .filter((post): post is PostData => post !== null)
+  .filter(post => {
+    if (process.env.NODE_ENV === 'production') {
+      return !post.meta.draft;
+    } else {
+      if (post.meta.draft && !post.meta.title.startsWith('(초고)')) {
+        post.meta.title = `(초고) ${post.meta.title}`;
+      }
+      return true;
+    }
+  });
   posts.sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime());
 
   const seen = new Set<string>();

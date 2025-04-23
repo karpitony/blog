@@ -4,7 +4,7 @@ description: Next.js app 라우터에서 generateStaticParams()로 정적 페이
 cover: /images/my-blog/ssg-on-post/static-build-output.png
 tags: Next.js, SSG, SEO
 date: 2025-03-28
-series: my-blog
+series: make-blog
 seriesIndex: 0
 ---
 

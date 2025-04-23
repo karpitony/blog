@@ -9,6 +9,7 @@ export interface PostMeta {
   cover: string;
   series: string;
   seriesIndex: number;
+  draft?: boolean;
 }
 
 export const parsePost = (
@@ -28,6 +29,7 @@ export const parsePost = (
     tags: [],
     series: "",
     seriesIndex: -1,
+    draft: false,
   };
 
   let body: string[] = [];
@@ -68,6 +70,14 @@ export const parsePost = (
       meta.date = value;
     } else if (key === "series") {
       meta.series = value;
+    } else if (key === "draft") {
+      if (value === "true") {
+        meta.draft = true;
+      } else if (value === "false") {
+        meta.draft = false;
+      } else {
+        console.warn(`Invalid draft value: ${value}`);
+      }
     } else {
       console.warn(`Unknown key: ${key}`);
     }

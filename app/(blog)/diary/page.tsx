@@ -5,6 +5,12 @@ import path from 'path';
 import { parseDiary } from '@/libs/Diary/metaDataParser';
 import DiaryText from '@/components/Diary/DiaryText';
 
+export const metadata = {
+  title: 'Diary | 일기',
+  description: '일기 목록 페이지입니다.',
+  keywords: 'diary, list',
+};
+
 export default async function LatestDiaryPage() {
   const diaryList = await getDiaryList();
   const latest = diaryList[0];
