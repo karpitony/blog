@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/react';
+import { GoogleTagManager } from "@next/third-parties/google";
 import "@/styles/globals.css";
 import GlobalNavBar from "@/components/GlobalNavBar";
 import Footer from "@/components/Footer";
@@ -47,6 +48,7 @@ export default function RootLayout({
         </div>
         <Footer />
         <Analytics />
+        <GoogleTagManager gtmId="G-2X8994GCL2" />
       </body>
     </html>
   );
