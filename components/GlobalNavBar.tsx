@@ -16,12 +16,14 @@ const LinkData = [
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="text-white max-w-3xl px-3 md:mx-auto flex flex-col justify-center w-full">
+    <nav className="text-white max-w-3xl md:mx-auto flex flex-col justify-center w-full px-4 md:px-0">
       <div className="flex items-center justify-between py-6 md:py-8 pr-1 w-full">
 
         {/* 로고 */}
         <Link href="/" className="flex items-center">
-          <SpinningReactSm />
+          <span className='hidden md:inline-block'>
+            <SpinningReactSm />
+          </span>
           <p className={cn(
               "relative inline-block font-light text-2xl md:text-3xl font-shrik tracking-wider",
               
@@ -129,7 +131,7 @@ export default function NavBar() {
           ))}
         </div>
       </div>
-      <hr className='border-t-2 border-white py-2' />
+      <hr className='border-t-2 border-white' />
     </nav>
   )
 }

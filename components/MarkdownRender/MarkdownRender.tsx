@@ -27,11 +27,11 @@ export default function MarkdownRender({ markdownText, enableGap=true, series, p
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug, rehypeAutolinkHeadings]}
         components={{
-          h1: ({ ...props }) => <h1 className="text-4xl font-bold mb-4 mt-8 pt-2" {...props} />,
-          h2: ({ ...props }) => <h2 className="text-3xl font-semibold mb-4 mt-8 pt-2" {...props} />,
-          h3: ({ ...props }) => <h3 className="text-2xl font-medium mb-3 mt-6 pt-1" {...props} />,
-          h4: ({ ...props }) => <h4 className="text-xl font-medium mb-3 mt-4 pt-1" {...props} />,
-          h5: ({ ...props }) => <h5 className="text-lg font-medium mb-3 mt-4 pt-1" {...props} />,
+          h1: ({ ...props }) => <h1 className="text-4xl font-bold pt-8" {...props} />,
+          h2: ({ ...props }) => <h2 className="text-3xl font-semibold pt-6" {...props} />,
+          h3: ({ ...props }) => <h3 className="text-2xl font-medium pt-4" {...props} />,
+          h4: ({ ...props }) => <h4 className="text-xl font-medium pt-2" {...props} />,
+          h5: ({ ...props }) => <h5 className="text-lg font-medium pt-2" {...props} />,
           a: ({ href, children, ...props }) => (
             <a
               className="text-blue-400 hover:text-blue-300 transition-colors duration-200 inline-flex items-center mr-1"

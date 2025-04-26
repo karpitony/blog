@@ -39,8 +39,8 @@ export default function RootLayout({
         <meta name="google-site-verification" content="r766th2h5faMjIfYnPUTpD-8xpC7920UHRfOOgQKOVY" />
         <meta name="naver-site-verification" content="2ff0864e0257241090dc6fe9bd4e76e6791b6424" />
       </head>
-      <body className="bg-gradient-to-br from-blue-950 to-gray-900">
-      {/* <body className="bg-[#121212]"> */}
+      {/* <body className="bg-gradient-to-br from-blue-950 to-gray-900"> */}
+      <body className="bg-[#000101]">
         <GlobalNavBar />
         <div className="min-h-[80vh] text-gray-100 flex flex-col items-center p-3 md:p-6">
           {children}
