@@ -3,7 +3,7 @@ import cn from '@yeahx4/cn';
 
 export default function SimpleAboutMe() {
   return (
-    <div className="w-full flex flex-row justify-center md:justify-between items-center my-2 md:my-4">
+    <div className="w-full flex flex-row justify-center md:justify-between items-center mt-2 md:mt-4">
       <div className="w-full flex flex-col">
         {/* 제목 및 모바일 프사 */}
         <div className="w-full flex flex-row justify-betweem items-center my-4">

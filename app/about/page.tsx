@@ -18,7 +18,7 @@ const sections = [
 export default function About() {
   return (
     <div className="w-full max-w-full md:max-w-3xl">
-      <div className="px-2 mb-8" id="about">
+      <div className="px-2 mb-12" id="about">
         <SimpleAboutMe />
       </div>
       {/* 소개 페이지 NavBar */}

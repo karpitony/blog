@@ -35,8 +35,8 @@ export default function PostsList({ posts, postPerPage, showPrevNext }: PostsLis
             href={`/posts/${slug}`} 
             key={slug} 
             className={cn(
-              "block group relative bg-gray-800 bg-opacity-50 rounded-lg",
-              "transition duration-300 hover:bg-opacity-70 hover:shadow-lg hover:shadow-blue-500/10",
+              "block group relative bg-gray-900 bg-opacity-50 rounded-lg",
+              "transition duration-300 hover:bg-opacity-70 hover:shadow-lg hover:shadow-white/20",
               "border border-gray-700 hover:border-white/50",
               "mb-4" // 게시글 사이 간격 추가
             )}

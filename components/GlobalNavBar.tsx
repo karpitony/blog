@@ -16,8 +16,8 @@ const LinkData = [
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="text-white max-w-3xl md:mx-auto flex flex-col justify-center w-full px-4 md:px-0">
-      <div className="flex items-center justify-between py-6 md:py-8 pr-1 w-full">
+    <nav className="text-gray-200 flex flex-col items-center justify-center w-full px-3 md:px-6">
+      <div className=" max-w-full md:max-w-3xl flex  justify-between py-6 md:py-8 pr-1 w-full border-b-2 border-white">
 
         {/* 로고 */}
         <Link href="/" className="flex items-center">
@@ -131,7 +131,6 @@ export default function NavBar() {
           ))}
         </div>
       </div>
-      <hr className='border-t-2 border-white' />
     </nav>
   )
 }
