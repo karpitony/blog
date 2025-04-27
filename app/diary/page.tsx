@@ -1,9 +1,6 @@
-// app/diary/page.tsx
 import { getDiaryList } from '@/libs/Diary/getDiaryList';
-import { readFile } from 'fs/promises';
-import path from 'path';
-import { parseDiary } from '@/libs/Diary/metaDataParser';
-import DiaryText from '@/components/Diary/DiaryText';
+import DiaryList from '@/components/Diary/DiaryList';
+import WongojiTitle from '@/components/Diary/WongojiTitle';
 
 export const metadata = {
   title: 'Diary | 일기',
@@ -11,17 +8,18 @@ export const metadata = {
   keywords: 'diary, list',
 };
 
+
+
 export default async function LatestDiaryPage() {
   const diaryList = await getDiaryList();
-  const latest = diaryList[0];
-
-  const filePath = path.join(process.cwd(), 'contents/diary', `${latest.slug}.md`);
-  const fileContents = await readFile(filePath, 'utf-8');
-  const { body } = parseDiary(fileContents);
-
   return (
-    <>
-       <DiaryText meta={latest.meta} body={body} />
-    </>
+    <div className='mt-4 mb-24'>
+      <WongojiTitle text="나의 일기 목록" size={36}/>
+      <div className="py-4 mt-2 mb-12">
+        <p>- 생각을 적거나 하루 회고를 씁니다.</p>
+        <p>- 왜 일기를 전체공개로 쓰는지 저도 잘 모르겠습니다. 생존 확인용으로 써주세요.</p>
+      </div>
+      <DiaryList diaryList={diaryList} />
+    </div>
   );
-}
+};
