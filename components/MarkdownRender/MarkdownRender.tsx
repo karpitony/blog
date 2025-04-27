@@ -88,7 +88,7 @@ export default function MarkdownRender({
               resolvedSrc.startsWith('./') || resolvedSrc.startsWith('../') ? true : false;
 
             if (blurImageFlag) {
-              if (series && postTitle) {
+              if (isPost && series && postTitle) {
                 const relPath = `${series}/${postTitle}/${resolvedSrc.slice(2)}`;
                 resolvedSrc = `/contents/posts/${relPath}`;
                 const size = imageInfo.posts[relPath as keyof typeof imageInfo.posts];
