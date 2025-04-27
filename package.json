@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild-scripts": "tsx scripts/generatePostList.ts && tsx scripts/copy-assets.ts && tsx scripts/generate-image-info.ts",
+    "prebuild-scripts": "tsx scripts/index.ts",
     "dev": "npm run prebuild-scripts && next dev",
     "build": "npm run prebuild-scripts && next build",
     "start": "next start",
