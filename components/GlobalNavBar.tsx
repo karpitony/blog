@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import cn from '@yeahx4/cn';
 import { useState } from 'react';
 import { SpinningReactSm } from '@/components/SpinningLogo';
@@ -14,9 +15,11 @@ const LinkData = [
 ];
 
 export default function NavBar() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  
   return (
-    <nav className="text-gray-200 flex flex-col items-center justify-center w-full px-3 md:px-6">
+    <nav className="text-gray-200 flex flex-col items-center justify-center w-full px-2 md:px-4">
       <div className=" max-w-full md:max-w-3xl flex  justify-between py-6 md:py-8 pr-1 w-full border-b-2 border-white">
 
         {/* 로고 */}
@@ -55,7 +58,7 @@ export default function NavBar() {
             href={href}
             className={cn(
               "hidden relative md:inline-block text-gray-300 px-1 font-bold text-lg md:text-xl ml-3",
-              
+              pathname === href ? "bg-gradient-to-r from-blue-300 to-teal-400 text-transparent bg-clip-text" : "",
               "hover:text-transparent hover:bg-gradient-to-r hover:from-blue-300 hover:to-teal-400",
               "bg-clip-text",
               "before:duration-300",            // 애니메이션 속도
@@ -81,7 +84,7 @@ export default function NavBar() {
         </div>
 
         {/* 모바일 햄버거 버튼 */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center justify-end">
           <button 
             onClick={() => setIsOpen(!isOpen)}
             className="text-gray-300 hover:text-white relative w-8 h-8"

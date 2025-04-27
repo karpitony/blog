@@ -8,7 +8,7 @@ import cn from '@yeahx4/cn';
 export default async function Home() {
   const { posts } = await getPostList();
   return (
-    <div className="w-full max-w-full md:max-w-3xl">
+    <div className="w-full max-w-full md:max-w-3xl min-h-[90vh]">
       <div className="px-2">
         <SimpleAboutMe />
         <Link href="/about" className="flex justify-center items-center mt-4">

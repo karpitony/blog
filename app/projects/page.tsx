@@ -4,7 +4,7 @@ import ProjectCard from "@/components/Projects/ProjectCard";
 export default async function Projects() {
   const { projects } = await getProjectList();
   return (
-    <div className="w-full max-w-full md:max-w-3xl">
+    <div className="w-full max-w-full md:max-w-3xl min-h-[80vh]">
       <h1>나의 활동</h1>
       <h2>CATEGORY</h2>
       <h2>TAGS</h2>
