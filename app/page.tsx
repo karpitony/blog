@@ -1,46 +1,72 @@
-import PostsList from "@/components/PostsPage/PostsList";
 import { getPostList } from "@/libs/Post/getPostList";
+import { getProjectList } from "@/libs/Project/getProjectList";
 import Link from 'next/link';
-import { FaArrowRight } from "react-icons/fa";
 import SimpleAboutMe from "@/components/common/SimpleAboutMe";
+import ProjectCard from "@/components/Projects/ProjectCard";
+import PostInfoHeader from "@/components/PostsPage/PostInfoHeader";
+import ArrowButton from "@/components/common/ArrowButton";
 import cn from '@yeahx4/cn';
 
 export default async function Home() {
   const { posts } = await getPostList();
+  posts.sort((a, b) => {
+    return new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime();
+  });
+  posts.splice(3);
+
+  const { projects } = await getProjectList();
+  projects.sort((a, b) => {
+    return a.meta.index - b.meta.index;
+  });
+  projects.splice(2);
+
   return (
     <div className="w-full max-w-full md:max-w-3xl min-h-[90vh]">
       <div className="px-2">
         <SimpleAboutMe />
-        <Link href="/about" className="flex justify-center items-center mt-4">
-          <button className={cn(
-            "bg-black dark:bg-gray-300 hover:bg-gray-900 dark:hover:bg-gray-100",
-            "text-gray-300 dark:text-black font-semibold py-2 px-4 rounded mt-4",
-            "transition duration-100 ease-in-out flex justify-center items-center",
-          )}>
-            <p>자세히 보기</p>
-            <FaArrowRight className='inline ml-2'/>
-          </button>
-        </Link>
+        <ArrowButton text="자세히 보기" href="/about" />
       </div>
       <hr className="border-t-2 py-4 mt-8"/>
 
       {/* 최신 게시글 리스트 */}
       <div>
         <h2 className="text-2xl font-bold mb-6">최신 글</h2>
-        <div className="space-y-4">
-          <PostsList posts={posts} postPerPage={3}  showPrevNext={false}/>
+        {/* 게시글 리스트 */}
+        <div className="flex flex-col flex-grow">
+          {posts.map(({ meta, slug }) => (
+            <Link 
+              href={`/posts/${slug}`} 
+              key={slug} 
+              className={cn(
+                "block group relative bg-gray-900 bg-opacity-50 rounded-lg",
+                "transition duration-300 hover:bg-opacity-70 hover:shadow-lg hover:shadow-white/20",
+                "border border-gray-700 hover:border-white/50",
+                "mb-4"
+              )}
+            >
+              <PostInfoHeader key={slug} meta={meta} />
+            </Link>
+          ))}
         </div>
 
-        <Link href="/posts" className="flex justify-center items-center">
-          <button className={cn(
-            "bg-black dark:bg-gray-300 hover:bg-gray-900 dark:hover:bg-gray-100",
-            "text-gray-300 dark:text-black font-semibold py-2 px-4 rounded mt-4",
-            "transition duration-100 ease-in-out flex justify-center items-center",
-          )}>
-            <p>모든 글 보러가기</p>
-            <FaArrowRight className='inline ml-2'/>
-          </button>
-        </Link>
+        <ArrowButton text="게시글 더보기" href="/posts" />
+      </div>
+      <hr className="border-t-2 py-4 mt-8"/>
+
+      {/* 프로젝트 리스트 */}
+      <div>
+        <h2 className="text-2xl font-bold mb-6">프로젝트</h2>
+        <div className="mt-8 mb-4 flex flex-col gap-8 md:grid md:grid-cols-2">
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.slug}
+              slug={project.slug}
+              meta={project.meta}
+            />
+          ))}
+        </div>
+
+        <ArrowButton text="프로젝트 더보기" href="/projects" />
       </div>
     </div>
   );

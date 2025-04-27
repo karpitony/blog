@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ProjectMeta } from '@/libs/Project/metaDataParser';
 import imageInfo from '@/public/image-info.json';
+import cn from "@yeahx4/cn";
 import Logger from '@/libs/logger';
 
 interface CardProps {
@@ -11,8 +12,8 @@ interface CardProps {
 
 export default function ProjectCard ({ slug, meta }: CardProps) {
   let resolvedSrc = meta.thumbnail || '';
-  let width = 1200;
-  let height = 800;
+  let width = 800;
+  let height = 600;
   let blurDataURL: string | undefined = undefined;
   if (meta.thumbnail.startsWith('./') || meta.thumbnail.startsWith('../')) {
     const relPath = `${slug}/${resolvedSrc.slice(2)}`;
@@ -30,7 +31,7 @@ export default function ProjectCard ({ slug, meta }: CardProps) {
   }
   return (
     <Link 
-      className="group w-full overflow-hidden rounded-2xl border border-gray-600 pb-6 shadow-xl shadow-gray-900"
+      className="group w-full overflow-hidden rounded-2xl border border-gray-600 pb-6 shadow-xl shadow-gray-900 "
       href={`/projects/${slug}`}
       prefetch={false}
     >
@@ -47,12 +48,28 @@ export default function ProjectCard ({ slug, meta }: CardProps) {
           decoding="async"
         />
       </div>
+      {/* 텍스트 영역 */}
       <div className="mt-6 flex h-[110px] w-full flex-col gap-2 px-6">
         <h3 className="line-clamp-2 max-h-[54px] text-lg font-bold text-gray-100">{meta.title}</h3>
         <p className="line-clamp-2 max-h-[48px] text-gray-300">{meta.description}</p>
       </div>
-      <div className="mt-6 px-6">
-        <p className="flex text-sm text-gray-400">
+
+      {/* 하단부 */}
+      <div className="flex flex-col justify-between mt-4 px-6">
+        {/* 태그 */}
+        <div className="flex flex-wrap gap-1 text-sm text-gray-400">
+          {meta.tags.map((tag, index) => (
+            <span key={index} className={cn(
+              "bg-gray-700 text-gray-300 px-1 md:px-2 py-1 rounded-full",
+              "text-xs overflow-hidden text-ellipsis whitespace-nowrap"
+            )}>
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* 날짜 */}
+        <p className="text-sm text-gray-400 mt-2">
           <span>{meta.date}</span>
         </p>
       </div>

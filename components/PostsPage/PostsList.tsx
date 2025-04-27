@@ -27,7 +27,6 @@ export default function PostsList({ posts, postPerPage, showPrevNext }: PostsLis
 
   return (
     <div className="flex flex-col">
-
       {/* 게시글 리스트 */}
       <div className="flex-grow">
         {viewPostList.map(({ meta, slug }) => (
