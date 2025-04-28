@@ -8,6 +8,11 @@ export interface ProjectData {
   slug: string;
 }
 
+export interface ProjectJson {
+  projects: ProjectData[];
+  tags: string[];
+}
+
 const projectDirectory = path.join(process.cwd(), 'contents/projects');
 
 export async function getAllProjectMarkdownFiles(): Promise<{ 
@@ -39,7 +44,7 @@ export async function getAllProjectMarkdownFiles(): Promise<{
   return projectEntries;
 }
 
-export async function generateProjectList(): Promise<{ projects: ProjectData[] }> {
+export async function generateProjectList(): Promise< ProjectJson > {
   const projectEntries = await getAllProjectMarkdownFiles();
 
   const projects: ProjectData[] = await Promise.all(
@@ -53,11 +58,19 @@ export async function generateProjectList(): Promise<{ projects: ProjectData[] }
     })
   );
 
-  return { projects };
+  const tagsSet = new Set<string>();
+  projects.forEach((project) => {
+    project.meta.tags?.forEach((tag) => tagsSet.add(tag));
+  });
+
+  return { 
+    projects,
+    tags: Array.from(tagsSet) 
+  };
 }
 
-export const getProjectList = async (): Promise<{ projects: ProjectData[] }> => {
-  const cached = await readJsonPublic<{ projects: ProjectData[] }>('projectList.json');
+export const getProjectList = async (): Promise< ProjectJson > => {
+  const cached = await readJsonPublic< ProjectJson >('projectList.json');
   if (cached) return cached;
 
   return generateProjectList();

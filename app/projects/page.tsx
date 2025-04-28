@@ -1,5 +1,5 @@
 import { getProjectList } from "@/libs/Project/getProjectList";
-import ProjectCard from "@/components/Projects/ProjectCard";
+import ProjectTagsAndList from "@/components/Projects/ProjectTagsAndList";
 
 export const metadata = {
   title: "Projects | 프로젝트",
@@ -11,25 +11,12 @@ export const metadata = {
 };
 
 export default async function Projects() {
-  const { projects } = await getProjectList();
-  projects.sort((a, b) => {
-    return a.meta.index - b.meta.index;
-  });
+  const { projects, tags } = await getProjectList();
+  projects.sort((a, b) => a.meta.index - b.meta.index);
 
   return (
     <div className="w-full max-w-full md:max-w-3xl min-h-[80vh]">
-      <h2 className="text-3xl font-bold">Tags</h2>
-      {/* <ProjectsKeyWords /> */}
-      <h2 className="text-3xl font-bold">Projects</h2>
-      <div className="mt-8 flex flex-col gap-8 md:grid md:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.slug}
-            slug={project.slug}
-            meta={project.meta}
-          />
-        ))}
-      </div>
+      <ProjectTagsAndList tags={tags} projects={projects} />
     </div>
   );
 }

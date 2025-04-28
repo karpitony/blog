@@ -122,7 +122,7 @@ export default function MarkdownRender({
                 alt={alt || 'image'}
                 width={width}
                 height={height}
-                placeholder={blurImageFlag ? 'blur-sm' : 'empty'}
+                placeholder={blurImageFlag ? 'blur' : 'empty'}
                 blurDataURL={blurDataURL}
                 loading='lazy'
                 style={{
