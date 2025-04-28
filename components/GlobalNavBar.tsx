@@ -58,8 +58,8 @@ export default function NavBar() {
             href={href}
             className={cn(
               "hidden relative md:inline-block text-gray-300 px-1 font-bold text-lg md:text-xl ml-3",
-              pathname === href ? "bg-gradient-to-r from-blue-300 to-teal-400 text-transparent bg-clip-text" : "",
-              "hover:text-transparent hover:bg-gradient-to-r hover:from-blue-300 hover:to-teal-400",
+              pathname === href ? "bg-linear-to-r from-blue-300 to-teal-400 text-transparent bg-clip-text" : "",
+              "hover:text-transparent hover:bg-linear-to-r hover:from-blue-300 hover:to-teal-400",
               "bg-clip-text",
               "before:duration-300",            // 애니메이션 속도
               "before:ease-in-out",             // 애니메이션 이징
@@ -124,7 +124,7 @@ export default function NavBar() {
               href={href}
               key={href}
               className={cn(
-                "block w-full py-1 px-2 rounded text-lg font-semibold",
+                "block w-full py-1 px-2 rounded-sm text-lg font-semibold",
                 "text-gray-200 hover:text-teal-500 transition text-center"
               )}
               onClick={() => setIsOpen(false)} // 메뉴 클릭시 닫기

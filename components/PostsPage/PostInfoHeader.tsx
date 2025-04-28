@@ -46,7 +46,7 @@ export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
 
         {/* 이미지 영역
         {meta.cover && (
-          <div className="ml-4 flex-shrink-0">
+          <div className="ml-4 shrink-0">
             <Image
               src={meta.cover}
               alt={meta.title}

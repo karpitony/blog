@@ -33,8 +33,8 @@ export default function DiaryList({
           {Object.entries(months).map(([month, entries]) => (
             <div key={month}>
               <h3 className={cn(
-                "text-3xl font-semibold mt-12 mb-4 cursor-pointer underline text-blue-400",
-                "hover:text-blue-300 hover:no-underline transition duration-200 ease-in-out",
+                "text-3xl font-semibold mt-12 mb-4 cursor-pointer underline underline-offset-2 text-blue-400",
+                "hover:text-blue-300 hover:no-underline underline-offset-2 transition duration-200 ease-in-out",
               )}>
                 {year}.{month}
               </h3>         
@@ -45,8 +45,8 @@ export default function DiaryList({
                     <Link
                       href={`/diary/${entry.meta.date}`}
                       className={cn(
-                        "text-base cursor-pointer underline text-blue-400",
-                        "hover:text-blue-300 hover:no-underline transition duration-200 ease-in-out",
+                        "text-base cursor-pointer underline underline-offset-2 text-blue-400",
+                        "hover:text-blue-300 hover:no-underline underline-offset-2 transition duration-200 ease-in-out",
                       )}
                     >
                       {entry.meta.title} {entry.meta.description && `- ${entry.meta.description}`}

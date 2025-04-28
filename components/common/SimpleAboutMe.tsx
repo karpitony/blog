@@ -16,7 +16,7 @@ export default function SimpleAboutMe() {
               개발자, <span className="highlight-blue">송윤석</span>입니다.
             </h1>
           </div>
-          <div className="flex justify-end flex-shrink-0 ml-2">
+          <div className="flex justify-end shrink-0 ml-2">
             <Image
               src="/profile.jpg"
               alt="프로필 사진"

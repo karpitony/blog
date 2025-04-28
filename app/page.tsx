@@ -32,7 +32,7 @@ export default async function Home() {
       <div>
         <h2 className="text-2xl font-bold mb-6">최신 글</h2>
         {/* 게시글 리스트 */}
-        <div className="flex flex-col flex-grow">
+        <div className="flex flex-col grow">
           {posts.map(({ meta, slug }) => (
             <Link 
               href={`/posts/${slug}`} 
