@@ -37,9 +37,9 @@ export default function ProjectTagsAndList({ tags, projects }: ProjectJson) {
                 onClick={() => handleTagClick(tag)}
                 key={index}
                 className={cn(
-                  selectedTag.includes(tag) ? "bg-gray-600" : "bg-gray-700",
+                  selectedTag.includes(tag) ? "bg-gray-500" : "bg-gray-700",
                   "text-gray-300 px-2 py-1 rounded-full text-sm", 
-                  "font-semibold cursor-pointer transition duration-200 hover:bg-gray-500",
+                  "font-semibold cursor-pointer transition duration-200 hover:bg-gray-400",
                 )}
               >
                 {tag}
