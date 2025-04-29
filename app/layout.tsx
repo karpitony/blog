@@ -5,14 +5,14 @@ import { ThemeProvider } from "next-themes";
 import GlobalNavBar from "@/components/GlobalNavBar";
 import Footer from "@/components/Footer";
 
-const BASE_URL = "https://yuniverse.vercel.app";
+const BASE_URL = "https://yunseok.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: "Yuniverse",
   description: "개발자 송윤석의 개인 블로그입니다.",
   icons: {
-    icon: "/react-logo.svg",
+    icon: "/yuniverse_256.webp",
   },
   openGraph: {
     title: "Yuniverse",
@@ -43,7 +43,7 @@ export default function RootLayout({
       {/* <body className="bg-linear-to-br from-blue-950 to-gray-900"> */}
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <div className="bg-linear-to-br from-gray-900 to-black">
+          <div className="bg-linear-to-br from-gray-900 to-black font-pretendard">
             <GlobalNavBar />
             <div className="min-h-screen text-gray-100 flex flex-col items-center p-3 md:p-6">
               <div className="w-full flex flex-col items-center">
