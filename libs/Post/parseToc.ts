@@ -18,7 +18,13 @@ export default function parseToc(content: string): HeadingItem[] {
           .replace(/[\[\]:!@#$/%^&*()+=,.]/g, '')
           .replace(/ /g, '-')
           .toLowerCase()
-          .replace('?', ''),
+          .replace('?', '')
+          .replace(/`/g, '') // 백틱 제거
+          .replace(/[^\w\s가-힣-]/g, '') // 영어/숫자/한글/하이픈/공백만 유지
+          .trim()
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/-+$/, ''),
       indent: (heading.match(/#/g)?.length || 2) - 2,
     })) || []
   );

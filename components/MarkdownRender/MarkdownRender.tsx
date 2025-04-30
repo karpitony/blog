@@ -3,7 +3,8 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import rehypeRaw from 'rehype-raw'
-import rehypeSlug from 'rehype-slug'
+// import rehypeSlug from 'rehype-slug'
+import { rehypeCustomSlug } from '@/libs/rehypeCustomSlug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import '@/styles/github-markdown.css'
 import '@/styles/github-markdown-plus.css'
@@ -43,7 +44,7 @@ export default function MarkdownRender({
           remarkGfm,
           ...(isSnippet ? [] : [remarkBreaks]),
         ]}
-        rehypePlugins={[rehypeRaw, rehypeSlug, rehypeAutolinkHeadings]}
+        rehypePlugins={[rehypeRaw, rehypeCustomSlug, rehypeAutolinkHeadings]}
         components={{
           h1: ({ ...props }) => <h1 className={`text-4xl font-bold ${!isSnippet ? "pt-8" : "!mt-0 !mb-2"}`} {...props} />,
           h2: ({ ...props }) => <h2 className={`text-3xl font-semibold ${!isSnippet ? "pt-6" : "!mt-0 !mb-2"}`} {...props} />,
