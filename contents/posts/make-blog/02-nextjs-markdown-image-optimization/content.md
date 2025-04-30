@@ -1,9 +1,9 @@
 ---
 title: Next.js 블로그에 이미지 최적화 적용하기
 description: next/image의 <Image /> 컴포넌트를 사용하여 이미지 최적화
-cover: 
+cover: ./thumbnail.webp
 tags: Next.js, Image, 이미지 최적화, 마크다운
-date: 2025-04-28
+date: 2025-04-30
 series: make-blog
 seriesIndex: 1
 draft: false
