@@ -3,7 +3,7 @@ import cn from '@yeahx4/cn';
 
 export default function SimpleAboutMe() {
   return (
-    <div className="w-full flex flex-row justify-center md:justify-between items-center my-2 md:my-4">
+    <div className="w-full flex flex-row justify-center md:justify-between items-center mt-2 md:mt-4">
       <div className="w-full flex flex-col">
         {/* 제목 및 모바일 프사 */}
         <div className="w-full flex flex-row justify-betweem items-center my-4">
@@ -16,7 +16,7 @@ export default function SimpleAboutMe() {
               개발자, <span className="highlight-blue">송윤석</span>입니다.
             </h1>
           </div>
-          <div className="flex justify-end flex-shrink-0 ml-2">
+          <div className="flex justify-end shrink-0 ml-2">
             <Image
               src="/profile.jpg"
               alt="프로필 사진"

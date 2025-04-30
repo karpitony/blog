@@ -27,17 +27,16 @@ export default function PostsList({ posts, postPerPage, showPrevNext }: PostsLis
 
   return (
     <div className="flex flex-col">
-
       {/* 게시글 리스트 */}
-      <div className="flex-grow">
+      <div className="grow">
         {viewPostList.map(({ meta, slug }) => (
           <Link 
             href={`/posts/${slug}`} 
             key={slug} 
             className={cn(
-              "block group relative bg-gray-800 bg-opacity-50 rounded-lg",
-              "transition duration-300 hover:bg-opacity-70 hover:shadow-lg hover:shadow-blue-500/10",
-              "border border-gray-700 hover:border-blue-500/50",
+              "block group relative bg-gray-900 bg-opacity-50 rounded-lg",
+              "transition duration-300 hover:bg-opacity-70 hover:shadow-lg hover:shadow-white/20",
+              "border border-gray-700 hover:border-white/50",
               "mb-4" // 게시글 사이 간격 추가
             )}
           >
@@ -52,7 +51,7 @@ export default function PostsList({ posts, postPerPage, showPrevNext }: PostsLis
           <button
             onClick={() => setViewPage(prev => Math.max(prev - 1, 1))}
             disabled={viewPage === 1}
-            className="text-blue-500 hover:underline disabled:text-gray-500"
+            className="text-white hover:underline disabled:text-gray-500"
           >
             <FaArrowLeft className='inline mr-2'/>
             Prev
@@ -63,7 +62,7 @@ export default function PostsList({ posts, postPerPage, showPrevNext }: PostsLis
           <button
             onClick={() => setViewPage(prev => Math.min(prev + 1, totalPages))}
             disabled={viewPage === totalPages}
-            className="text-blue-500 hover:underline disabled:text-gray-500"
+            className="text-white hover:underline disabled:text-gray-500"
           >
             Next
             <FaArrowRight className='inline ml-2'/>

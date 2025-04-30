@@ -2,7 +2,9 @@ import path from 'path';
 import { readFile } from 'fs/promises';
 import { getDiaryList, findDiaryBySlug } from '@/libs/Diary/getDiaryList';
 import { parseDiary } from '@/libs/Diary/metaDataParser';
-import DiaryText from '@/components/Diary/DiaryText';
+import cn from '@yeahx4/cn';
+import WongojiTitle from '@/components/Diary/WongojiTitle';
+import MarkdownRender from '@/components/MarkdownRender/MarkdownRender';
 
 export const dynamic = 'force-static';
 
@@ -53,7 +55,16 @@ export default async function DiaryPage({ params }: DiaryPageProps) {
 
   return (
     <>
-      <DiaryText meta={meta} body={body} />
+      <div className="w-full mx-auto max-w-full md:max-w-3xl relative min-h-[70vh]">
+      <div className={cn(
+        "bg-gray-900 bg-opacity-50 rounded-lg shadow-lg", 
+        " mt-4 p-4 md:p-8"
+      )}>
+        <WongojiTitle text={meta.title} size={32} />
+        <MarkdownRender markdownText={body.join("\n")} />
+      </div>
+      {/* <TableOfContent content={body.join("\n")} /> */}
+    </div>
     </>
   );
 }

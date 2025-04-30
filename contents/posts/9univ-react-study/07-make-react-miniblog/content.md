@@ -1,6 +1,6 @@
 ---
 title: 리액트로 미니 블로그 만들기
-description: 스터디 성과 발표를 위한 리액트 미니 블로그 제작기
+description: [3기 리액트 스터디 7주차] 스터디 성과 발표를 위한 리액트 미니 블로그 제작기
 cover: ./week07_07.webp
 tags: react, blog, 9oormthonuniv
 date: 2024-10-22

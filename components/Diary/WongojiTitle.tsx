@@ -43,7 +43,7 @@ function WongojiTitle({ text, size = 24 }: WongojiTitleProps) {
         return (
           <span
             key={idx}
-            className="flex items-center justify-center text-lg font-semibold"
+            className="flex items-center justify-center text-lg md:text-xl font-semibold"
             style={{
               width: boxSize,
               height: boxSize,

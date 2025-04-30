@@ -53,7 +53,10 @@ async function getAllContentMarkdownFiles(): Promise<{
   return postFiles;
 }
 
-export async function generatePostList(): Promise<{ posts: PostData[]; series: SeriesSummary[] }> {
+export async function generatePostList(): Promise<{ 
+  posts: PostData[];
+  series: SeriesSummary[]
+}> {
   const postEntries = await getAllContentMarkdownFiles();
 
   const rawPosts = await Promise.all(

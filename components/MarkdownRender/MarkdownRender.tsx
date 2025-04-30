@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 import rehypeRaw from 'rehype-raw'
-import rehypeSlug from 'rehype-slug'
+// import rehypeSlug from 'rehype-slug'
+import { rehypeCustomSlug } from '@/libs/rehypeCustomSlug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import '@/styles/github-markdown.css'
 import '@/styles/github-markdown-plus.css'
@@ -14,24 +16,41 @@ import Logger from '@/libs/logger';
 
 interface MarkdownRenderProps {
   markdownText: string;
+  renderType?: "POST" | "PROJECT" | "SNIPPET";
   enableGap?: boolean;
   series?: string;
   postTitle?: string;
+  projectTitle?: string;
 }
 
-export default function MarkdownRender({ markdownText, enableGap=true, series, postTitle }: MarkdownRenderProps) {
+export default function MarkdownRender({ 
+  markdownText,
+  renderType="SNIPPET",
+  enableGap=true,
+  series,
+  postTitle,
+  projectTitle
+}: MarkdownRenderProps) {
+
+  const isPost = renderType === "POST";
+  const isProject = renderType === "PROJECT";
+  const isSnippet = renderType === "SNIPPET";
+
   return (
-    <div className="markdown-body bg-transparent text-gray-100">
+    <div className="markdown-body bg-transparent text-gray-100 tracking-wide">
       <ReactMarkdown
-        className={`${enableGap ? 'leading-7 space-y-8' : ''}`}
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw, rehypeSlug, rehypeAutolinkHeadings]}
+        className={`font-pretendard ${enableGap ? 'leading-7 space-y-8' : ''}`}
+        remarkPlugins={[
+          remarkGfm,
+          ...(isSnippet ? [] : [remarkBreaks]),
+        ]}
+        rehypePlugins={[rehypeRaw, rehypeCustomSlug, rehypeAutolinkHeadings]}
         components={{
-          h1: ({ ...props }) => <h1 className="text-4xl font-bold mb-4 mt-8 pt-2" {...props} />,
-          h2: ({ ...props }) => <h2 className="text-3xl font-semibold mb-4 mt-8 pt-2" {...props} />,
-          h3: ({ ...props }) => <h3 className="text-2xl font-medium mb-3 mt-6 pt-1" {...props} />,
-          h4: ({ ...props }) => <h4 className="text-xl font-medium mb-3 mt-4 pt-1" {...props} />,
-          h5: ({ ...props }) => <h5 className="text-lg font-medium mb-3 mt-4 pt-1" {...props} />,
+          h1: ({ ...props }) => <h1 className={`text-4xl font-bold ${!isSnippet ? "pt-8" : "!mt-0 !mb-2"}`} {...props} />,
+          h2: ({ ...props }) => <h2 className={`text-3xl font-semibold ${!isSnippet ? "pt-6" : "!mt-0 !mb-2"}`} {...props} />,
+          h3: ({ ...props }) => <h3 className={`text-2xl font-medium ${!isSnippet ? "pt-4" : "!mt-0 !mb-2"}`} {...props} />,
+          h4: ({ ...props }) => <h4 className={`text-xl font-medium ${!isSnippet ? "pt-2" : "!mt-0 !mb-2"}`} {...props} />,
+          h5: ({ ...props }) => <h5 className={`text-lg font-medium ${!isSnippet ? "pt-2" : "!mt-0 !mb-2"}`} {...props} />,
           a: ({ href, children, ...props }) => (
             <a
               className="text-blue-400 hover:text-blue-300 transition-colors duration-200 inline-flex items-center mr-1"
@@ -73,12 +92,26 @@ export default function MarkdownRender({ markdownText, enableGap=true, series, p
             const blurImageFlag = 
               resolvedSrc.startsWith('./') || resolvedSrc.startsWith('../') ? true : false;
 
-            if (resolvedSrc.startsWith('./')) {
-              if (series && postTitle) {
+            if (blurImageFlag) {
+              // posts의 경우
+              if (isPost && series && postTitle) {
                 const relPath = `${series}/${postTitle}/${resolvedSrc.slice(2)}`;
                 resolvedSrc = `/contents/posts/${relPath}`;
-
-                const size = imageInfo[relPath as keyof typeof imageInfo];
+                const size = imageInfo.posts[relPath as keyof typeof imageInfo.posts];
+                
+                if (size) {
+                  width = size.width;
+                  height = size.height;
+                  blurDataURL = size.blurDataURL || undefined;
+                } else {
+                  Logger.warn('[Image] image-info.json에 해당 이미지 정보 없음:', relPath);
+                }
+              // projects의 경우
+              } else if (isProject) {
+                const relPath = `${projectTitle}/${resolvedSrc.slice(2)}`;
+                resolvedSrc = `/contents/projects/${relPath}`;
+                const size = imageInfo.projects[relPath as keyof typeof imageInfo.projects];
+                
                 if (size) {
                   width = size.width;
                   height = size.height;

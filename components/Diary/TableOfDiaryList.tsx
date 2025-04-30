@@ -1,3 +1,7 @@
+/**
+ * 이제 안씀
+ */
+
 'use client';
 
 import { useState, useMemo } from 'react';

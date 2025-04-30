@@ -70,7 +70,7 @@ export default async function PostPage({ params }: PostPageProps) {
           "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg", 
           "border border-none mt-4" // border-gray-700
         )}>
-          <MarkdownRender markdownText={body.join("\n")} postTitle={id} series={meta.series} />
+          <MarkdownRender markdownText={body.join("\n")} postTitle={id} series={meta.series} renderType='POST' />
           <Comments />
         </div>
         <TableOfContent content={body.join("\n")} />
