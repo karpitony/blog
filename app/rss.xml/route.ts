@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getPostList } from '@/libs/Post/getPostList';
 
 export const dynamic = 'force-static';
+const escapeCDATA = (str: string) => `<![CDATA[${str}]]>`;
 
 async function generateRssFeed() {
   const { posts } = await getPostList();
@@ -10,15 +11,15 @@ async function generateRssFeed() {
     const url = `https://yunseok.vercel.app/posts/${post.slug}`;
     return `
       <item>
-        <title>${title}</title>
+        <title>${escapeCDATA(title)}</title>
         <link>${url}</link>
-        <description>${description}</description>
+        <description>${escapeCDATA(description)}</description>
         <pubDate>${new Date(date).toUTCString()}</pubDate>
       </item>
     `;
   }).join('');
   return `
-    <?xml version="1.0" encoding="UTF-8" ?>
+  <?xml version="1.0" encoding="UTF-8" ?>
     <rss version="2.0">
       <channel>
         <title>Yuniverse RSS Feed</title>
@@ -28,7 +29,7 @@ async function generateRssFeed() {
         ${rssItems}
       </channel>
     </rss>
-  `;
+  `.trim();
 };
 
 export async function GET() {
