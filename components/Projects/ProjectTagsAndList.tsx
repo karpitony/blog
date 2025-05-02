@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ProjectJson } from "@/libs/Project/getProjectList";
-import ProjectCard from "@/components/Projects/ProjectCard";
+import Card from "@/components/common/Card";
 import { motion, AnimatePresence } from "framer-motion";
 import cn from "@yeahx4/cn";
 
@@ -58,9 +58,15 @@ export default function ProjectTagsAndList({ tags, projects }: ProjectJson) {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <ProjectCard
+              <Card
+                type="project"
                 slug={project.slug}
-                meta={project.meta}
+                thumbnail={project.meta.thumbnail}
+                title={project.meta.title}
+                description={project.meta.description}
+                date={project.meta.date}
+                tags={project.meta.tags}
+                showTags={true}
               />
             </motion.div>
           ))}
