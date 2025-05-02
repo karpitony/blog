@@ -3,7 +3,8 @@ import cn from '@yeahx4/cn';
 
 export default function SimpleAboutMe() {
   return (
-    <div className="w-full flex flex-row justify-center md:justify-between items-center mt-2 md:mt-4">
+    <div className="w-full flex items-center justify-center">
+    <div className="w-full flex flex-row justify-center md:justify-between items-center mt-2 md:mt-4 max-w-3xl">
       <div className="w-full flex flex-col">
         {/* 제목 및 모바일 프사 */}
         <div className="w-full flex flex-row justify-betweem items-center my-4">
@@ -41,6 +42,7 @@ export default function SimpleAboutMe() {
         height={150}
         className="rounded-full w-48 h-48 object-cover hidden sm:flex"
       />
+    </div>
     </div>
   )
 }

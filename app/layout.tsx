@@ -44,9 +44,9 @@ export default function RootLayout({
       {/* <body className="bg-linear-to-br from-blue-950 to-gray-900"> */}
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <div className="bg-linear-to-br from-gray-900 to-black font-pretendard">
+          <div className="bg-[#0a0a0a] font-pretendard">
             <GlobalNavBar />
-            <div className="min-h-screen text-gray-100 flex flex-col items-center p-3 md:p-6">
+            <div className="min-h-screen text-gray-100 flex flex-col items-center p-3 md:p-6 mt-16">
               <div className="w-full flex flex-col items-center">
                 {children}
               </div>
