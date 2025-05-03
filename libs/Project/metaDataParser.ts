@@ -13,7 +13,7 @@ export interface ProjectMeta {
 
 export const parseProject = (
   content: string,
-  projectTitle?: string,
+  projectTitle: string,
 ): { meta: ProjectMeta; body: string[]; }=> {
   // 모든 줄바꿈 문자를 \n으로 통일
   const normalizedContent = content.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
@@ -66,7 +66,11 @@ export const parseProject = (
     } else if (key === "title") {
       meta.title = value;
     } else if (key === "thumbnail") {
-      meta.thumbnail = value;
+      if (value.startsWith("./")) {
+        meta.thumbnail = `/contents/projects/${projectTitle}/${value.slice(2)}`;
+      } else {
+        meta.thumbnail = value;
+      }
     } else if (key === "date") {
       meta.date = value;
     } else if (key === "tags") {

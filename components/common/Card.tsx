@@ -25,13 +25,18 @@ export default function ProjectCard ({
   showTags = false,
   date,
  }: CardProps) {
-  let resolvedSrc = thumbnail || '';
+  const resolvedSrc = thumbnail || '';
   let width = 800;
   let height = 600;
   let blurDataURL: string | undefined = undefined;
-  if (thumbnail.startsWith('./') || thumbnail.startsWith('../')) {
-    const relPath = `${slug}/${resolvedSrc.slice(2)}`;
-    resolvedSrc = `/contents/${type}s/${relPath}`;
+  const isBlurImageFlag = 
+    resolvedSrc.startsWith('./') || resolvedSrc.startsWith('../') || 
+    resolvedSrc.startsWith('/contents/') || resolvedSrc.startsWith('/projects/') || 
+    resolvedSrc.startsWith('/posts/');
+
+  if (isBlurImageFlag) {
+    const relPath = resolvedSrc.split('/').slice(3).join('/');
+    console.log('relPath:', relPath);
     const size = type === "project" 
       ? imageInfo.projects[relPath as keyof typeof imageInfo.projects]
       : imageInfo.posts[relPath as keyof typeof imageInfo.posts];
@@ -43,12 +48,12 @@ export default function ProjectCard ({
     } else {
       Logger.warn('[Image] image-info.json에 해당 이미지 정보 없음:', relPath);
     }
-
   }
+
   return (
     <Link 
       className="group w-full overflow-hidden rounded-2xl border border-gray-600 pb-6 shadow-xl flex flex-col h-full"
-      href={`/projects/${slug}`}
+      href={`/${type}s/${slug}`}
       prefetch={false}
     >
       <div className="relative h-[200px] w-full overflow-hidden border-b border-b-gray-200">
@@ -57,7 +62,7 @@ export default function ProjectCard ({
           src={resolvedSrc}
           width={width}
           height={height}
-          placeholder={thumbnail.startsWith('./') || thumbnail.startsWith('../') ? 'blur' : 'empty'}
+          placeholder={isBlurImageFlag ? 'blur' : 'empty'}
           blurDataURL={blurDataURL}
           alt={`${title} 썸네일`}
           loading="lazy"
