@@ -37,18 +37,18 @@ export default function MarkdownRender({
   return (
     <div className="markdown-body bg-transparent text-black dark:text-gray-300 tracking-wide">
       <ReactMarkdown
-        className={`font-pretendard ${enableGap ? 'leading-7 space-y-6' : ''}`}
+        className={cn(`font-pretendard ${enableGap ? 'leading-7 space-y-6' : ''}`)}
         remarkPlugins={[
           remarkGfm,
           ...(isSnippet ? [] : [remarkBreaks]),
         ]}
         rehypePlugins={[rehypeRaw, rehypeCustomSlug, rehypeAutolinkHeadings]}
         components={{
-          h1: ({ ...props }) => <h1 className={`text-4xl font-bold ${!isSnippet ? "pt-8" : "!mt-0 !mb-2"}`} {...props} />,
-          h2: ({ ...props }) => <h2 className={`text-3xl font-bold ${!isSnippet ? "pt-6" : "!mt-0 !mb-2"}`} {...props} />,
-          h3: ({ ...props }) => <h3 className={`text-2xl font-bold ${!isSnippet ? "pt-6" : "!mt-0 !mb-2"}`} {...props} />,
-          h4: ({ ...props }) => <h4 className={`text-xl font-semibold ${!isSnippet ? "pt-4" : "!mt-0 !mb-2"}`} {...props} />,
-          h5: ({ ...props }) => <h5 className={`text-lg font-semibold ${!isSnippet ? "pt-4" : "!mt-0 !mb-2"}`} {...props} />,
+          h1: ({ ...props }) => <h1 className={cn("text-3xl md:text-4xl font-bold", !isSnippet ? "pt-8" : "!mt-0 !mb-2")} {...props} />,
+          h2: ({ ...props }) => <h2 className={cn("text-2xl md:text-3xl font-bold", !isSnippet ? "pt-6" : "!mt-0 !mb-2")} {...props} />,
+          h3: ({ ...props }) => <h3 className={cn("text-xl md:text-2xl font-bold", !isSnippet ? "pt-6" : "!mt-0 !mb-2")} {...props} />,
+          h4: ({ ...props }) => <h4 className={cn("text-lg md:text-xl font-semibold", !isSnippet ? "pt-4" : "!mt-0 !mb-2")} {...props} />,
+          h5: ({ ...props }) => <h5 className={cn("text-lg font-semibold", !isSnippet ? "pt-4" : "!mt-0 !mb-2")} {...props} />,
           a: ({ href, children, ...props }) => (
             <a
               className="text-blue-400 hover:text-blue-300 transition-colors duration-200 inline-flex items-center mr-1"
