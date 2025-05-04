@@ -22,7 +22,7 @@ export default async function Home() {
 
   return (
     <div className="w-full max-w-full md:max-w-3xl lg:max-w-5xl min-h-[90vh]">
-      <div className="px-2 py-4 md:py-10 space-y-4 w-full">
+      <div className="px-2 py-4 md:py-10 space-y-4">
         <SimpleAboutMe />
         <ArrowButton text="자세히 보기" href="/about" />
       </div>

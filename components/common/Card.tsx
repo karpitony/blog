@@ -36,7 +36,6 @@ export default function ProjectCard ({
 
   if (isBlurImageFlag) {
     const relPath = resolvedSrc.split('/').slice(3).join('/');
-    console.log('relPath:', relPath);
     const size = type === "project" 
       ? imageInfo.projects[relPath as keyof typeof imageInfo.projects]
       : imageInfo.posts[relPath as keyof typeof imageInfo.posts];

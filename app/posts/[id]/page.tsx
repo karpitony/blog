@@ -12,11 +12,6 @@ export const dynamic = 'force-static';
 export async function generateStaticParams() {
   const { posts } = await getPostList();
   return posts.map(post => ({ id: post.slug }));
-  // 시리즈/글제목 시절의 유산
-  // const ids = posts.map(post => post.id);
-  // return ids.map(id => ({
-  //   ids: id.split(path.sep),
-  // }));
 }
 
 interface PostPageProps {
@@ -67,8 +62,8 @@ export default async function PostPage({ params }: PostPageProps) {
           <PostInfoHeader meta={meta} />
         </div>
         <div className={cn(
-          "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg", 
-          "border border-none mt-4" // border-gray-700
+          "rounded-lg p-4 md:p-0 shadow-lg", 
+          "border border-none mt-4"
         )}>
           <MarkdownRender markdownText={body.join("\n")} postTitle={id} series={meta.series} renderType='POST' />
           <Comments />
