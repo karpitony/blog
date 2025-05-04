@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/react';
-import { GoogleTagManager } from "@next/third-parties/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
 import DynamicMarginLayout from "@/layouts/DynamicMarginLayout";
+import Gtag from "@/components/common/Gtag";
 
 const BASE_URL = "https://yunseok.vercel.app";
 
@@ -56,7 +56,7 @@ export default function RootLayout({
           </div>
         </ThemeProvider>
         <Analytics />
-        <GoogleTagManager gtmId="G-2X8994GCL2" />
+        <Gtag />
       </body>
     </html>
   );
