@@ -52,10 +52,18 @@ export default function MobileFullScreen({
           </div>
 
           <div className="flex gap-4 mt-8">
-          <Link href="/search" className="p-3 rounded-full border border-black/10 dark:border-white/25 hover:bg-black/5 dark:hover:bg-white/20">
+            <Link 
+              href="/search"
+              onClick={() => setIsOpen(false)}
+              className="p-3 rounded-full border border-black/10 dark:border-white/25 hover:bg-black/5 dark:hover:bg-white/20"
+            >
               <RiSearch2Line size={24} />
             </Link>
-            <Link href="/rss.xml" target="_blank" className="p-3 rounded-full border border-black/10 dark:border-white/25 hover:bg-black/5 dark:hover:bg-white/20">
+            <Link 
+              href="/rss.xml"
+              target="_blank"
+              className="p-3 rounded-full border border-black/10 dark:border-white/25 hover:bg-black/5 dark:hover:bg-white/20"
+            >
               <RiRssLine size={24} />
             </Link>
             <button 
