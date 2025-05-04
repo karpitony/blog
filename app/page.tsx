@@ -1,11 +1,11 @@
 import { getPostList } from "@/libs/Post/getPostList";
 import { getProjectList } from "@/libs/Project/getProjectList";
-import Link from 'next/link';
 import SimpleAboutMe from "@/components/common/SimpleAboutMe";
-import ProjectCard from "@/components/Projects/ProjectCard";
-import PostInfoHeader from "@/components/PostsPage/PostInfoHeader";
 import ArrowButton from "@/components/common/ArrowButton";
-import cn from '@yeahx4/cn';
+import Card from "@/components/common/Card";
+import PostInfoHeader from "@/components/PostsPage/PostInfoHeader";
+import Link from "next/link";
+import cn from "@yeahx4/cn";
 
 export default async function Home() {
   const { posts } = await getPostList();
@@ -18,11 +18,11 @@ export default async function Home() {
   projects.sort((a, b) => {
     return a.meta.index - b.meta.index;
   });
-  projects.splice(2);
+  projects.splice(3);
 
   return (
-    <div className="w-full max-w-full md:max-w-3xl min-h-[90vh]">
-      <div className="px-2">
+    <div className="w-full max-w-full md:max-w-3xl lg:max-w-5xl min-h-[90vh]">
+      <div className="px-2 py-4 md:py-10 space-y-4">
         <SimpleAboutMe />
         <ArrowButton text="자세히 보기" href="/about" />
       </div>
@@ -32,7 +32,21 @@ export default async function Home() {
       <div>
         <h2 className="text-2xl font-bold mb-6">최신 글</h2>
         {/* 게시글 리스트 */}
-        <div className="flex flex-col grow">
+        <div className="hidden mt-8 mb-4 gap-8 md:grid md:grid-cols-2 lg:grid-cols-3">
+          {posts.map(({ meta, slug }) => (
+            <Card
+              key={slug}
+              type="post"
+              slug={slug}
+              thumbnail={meta.cover}
+              title={meta.title}
+              description={meta.description}
+              date={meta.date}
+              tags={meta.tags}
+            />
+          ))}
+        </div>
+        <div className="flex md:hidden flex-col grow">
           {posts.map(({ meta, slug }) => (
             <Link 
               href={`/posts/${slug}`} 
@@ -56,12 +70,17 @@ export default async function Home() {
       {/* 프로젝트 리스트 */}
       <div>
         <h2 className="text-2xl font-bold mb-6">프로젝트</h2>
-        <div className="mt-8 mb-4 flex flex-col gap-8 md:grid md:grid-cols-2">
+        <div className="mt-8 mb-4 flex flex-col gap-8 md:grid md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
-            <ProjectCard
+            <Card
               key={project.slug}
+              type="project"
               slug={project.slug}
-              meta={project.meta}
+              thumbnail={project.meta.thumbnail}
+              title={project.meta.title}
+              description={project.meta.description}
+              date={project.meta.date}
+              tags={project.meta.tags}
             />
           ))}
         </div>

@@ -1,9 +1,11 @@
 import Image from "next/image"
 import cn from '@yeahx4/cn';
+import ProfileImage from "@/public/profile.webp";
 
 export default function SimpleAboutMe() {
   return (
-    <div className="w-full flex flex-row justify-center md:justify-between items-center mt-2 md:mt-4">
+    <div className="w-full flex items-center justify-center">
+    <div className="w-full flex flex-row justify-center md:justify-between items-center mt-2 md:mt-4 max-w-3xl">
       <div className="w-full flex flex-col">
         {/* 제목 및 모바일 프사 */}
         <div className="w-full flex flex-row justify-betweem items-center my-4">
@@ -18,11 +20,11 @@ export default function SimpleAboutMe() {
           </div>
           <div className="flex justify-end shrink-0 ml-2">
             <Image
-              src="/profile.jpg"
+              src={ProfileImage}
               alt="프로필 사진"
-              width={150}
-              height={150}
               className="rounded-lg w-32 h-32 object-cover block sm:hidden"
+              loading="lazy"
+              placeholder="blur"
             />
           </div>
         </div>
@@ -35,12 +37,13 @@ export default function SimpleAboutMe() {
 
       {/* 프로필 사진 */}
       <Image
-        src="/profile.jpg"
+        src={ProfileImage}
         alt="프로필 사진"
-        width={150}
-        height={150}
         className="rounded-full w-48 h-48 object-cover hidden sm:flex"
+        loading="lazy"
+        placeholder="blur"
       />
+    </div>
     </div>
   )
 }

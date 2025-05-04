@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/react';
-import { GoogleTagManager } from "@next/third-parties/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
-import GlobalNavBar from "@/components/GlobalNavBar";
+import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
+import DynamicMarginLayout from "@/layouts/DynamicMarginLayout";
+import Gtag from "@/components/common/Gtag";
 
 const BASE_URL = "https://yunseok.vercel.app";
 
@@ -44,18 +45,18 @@ export default function RootLayout({
       {/* <body className="bg-linear-to-br from-blue-950 to-gray-900"> */}
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <div className="bg-linear-to-br from-gray-900 to-black font-pretendard">
-            <GlobalNavBar />
-            <div className="min-h-screen text-gray-100 flex flex-col items-center p-3 md:p-6">
+          <div className="bg-[#0a0a0a] font-pretendard">
+            <Header />
+            <DynamicMarginLayout>
               <div className="w-full flex flex-col items-center">
                 {children}
               </div>
-            </div>
+            </DynamicMarginLayout>
             <Footer />
           </div>
         </ThemeProvider>
         <Analytics />
-        <GoogleTagManager gtmId="G-2X8994GCL2" />
+        <Gtag />
       </body>
     </html>
   );

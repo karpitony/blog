@@ -2,14 +2,12 @@ import React from 'react';
 
 interface WongojiTitleProps {
   text: string;
-  size?: number;
 }
 
-function WongojiTitle({ text, size = 24 }: WongojiTitleProps) {
-  const boxSize = `${size}px`;
+function WongojiTitle({ text }: WongojiTitleProps) {
   const themeHexaCode = '#9B111E';
 
-  // 숫자 두 자리씩 묶고, 공백은 무시
+  // 공백 무시하고 숫자 두 자리씩 묶기
   const tokens: string[] = [];
   const chars = text.split('');
   let i = 0;
@@ -33,9 +31,11 @@ function WongojiTitle({ text, size = 24 }: WongojiTitleProps) {
   }
 
   return (
-    <div 
-      className='flex flex-wrap w-fit py-1 bg-transparent'
-      style={{ border: `1px solid ${themeHexaCode}` }}
+    <div
+      className="flex flex-wrap w-fit py-1 bg-transparent"
+      style={{
+        border: `1px solid ${themeHexaCode}`,
+      }}
     >
       {tokens.map((token, idx) => {
         const isFirst = idx === 0;
@@ -43,10 +43,11 @@ function WongojiTitle({ text, size = 24 }: WongojiTitleProps) {
         return (
           <span
             key={idx}
-            className="flex items-center justify-center text-lg md:text-xl font-semibold"
+            className="flex items-center justify-center font-semibold"
             style={{
-              width: boxSize,
-              height: boxSize,
+              width: 'clamp(28px, 6vw, 48px)',
+              height: 'clamp(28px, 6vw, 48px)',
+              fontSize: 'clamp(12px, 2.5vw, 24px)',
               textAlign: 'center',
               backgroundColor: 'transparent',
               borderTop: `1px solid ${themeHexaCode}`,

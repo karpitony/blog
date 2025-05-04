@@ -14,7 +14,7 @@ export default async function LatestDiaryPage() {
   const diaryList = await getDiaryList();
   return (
     <div className='mt-4 mb-24'>
-      <WongojiTitle text="나의 일기 목록" size={36}/>
+      <WongojiTitle text="나의 일기 목록" />
       <div className="py-4 mt-2 mb-12">
         <p>- 생각을 적거나 하루 회고를 씁니다.</p>
         <p>- 왜 일기를 전체공개로 쓰는지 저도 잘 모르겠습니다. 생존 확인용으로 써주세요.</p>
