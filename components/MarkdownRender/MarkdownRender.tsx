@@ -11,6 +11,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { TbExternalLink } from "react-icons/tb";
 import MarkdownImage from './MarkdownImage';
+import StrongHighlight from './StrongHighlight';
 
 interface MarkdownRenderProps {
   markdownText: string;
@@ -81,10 +82,15 @@ export default function MarkdownRender({
               </SyntaxHighlighter>
             ) : (
               <code 
-                className={cn(className, "bg-[#202937] p-1 rounded-lg my-1")}
+                className={cn(
+                  className, 
+                  "bg-[#d9dce0] dark:bg-[#202937] px-1 py-0.5 rounded-sm", 
+                  "my-1 mx-0.5 text-[15px] text-black dark:text-white font-normal",
+                  "relative z-10",
+                )}
                 {...props}
               >
-                {children}
+                <span className='relative z-20'>{children}</span>
               </code>
             );
           },
@@ -94,7 +100,7 @@ export default function MarkdownRender({
                 className={cn(
                   "border-l-4 border-blue-400 pl-2 md:pl-4",
                   "text-gray-500 dark:text-gray-400",
-                  "bg-[#202937] p-2 md:p-4 rounded-lg",
+                  "bg-[#e8eaec] dark:bg-[#202937] p-2 md:p-4 rounded-lg",
                   className
                 )}
                 {...props}
@@ -116,6 +122,23 @@ export default function MarkdownRender({
               />
             );
           },
+          strong({ className, children, ...props }) {
+            if (isSnippet) {
+              return (
+                <strong
+                  className={className}
+                  {...props}
+                >
+                  {children}
+                </strong>
+              );
+            }
+            return (
+              <StrongHighlight className={className} {...props}>
+                {children}
+              </StrongHighlight>
+            );
+          }
         }}
       >
         {markdownText}
