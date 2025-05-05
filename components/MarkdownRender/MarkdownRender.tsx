@@ -44,11 +44,11 @@ export default function MarkdownRender({
         ]}
         rehypePlugins={[rehypeRaw, rehypeCustomSlug, rehypeAutolinkHeadings]}
         components={{
-          h1: ({ ...props }) => <h1 className={cn("text-3xl md:text-4xl font-bold", !isSnippet ? "pt-8" : "!mt-0 !mb-2")} {...props} />,
-          h2: ({ ...props }) => <h2 className={cn("text-2xl md:text-3xl font-bold", !isSnippet ? "pt-6" : "!mt-0 !mb-2")} {...props} />,
-          h3: ({ ...props }) => <h3 className={cn("text-xl md:text-2xl font-bold", !isSnippet ? "pt-6" : "!mt-0 !mb-2")} {...props} />,
-          h4: ({ ...props }) => <h4 className={cn("text-lg md:text-xl font-semibold", !isSnippet ? "pt-4" : "!mt-0 !mb-2")} {...props} />,
-          h5: ({ ...props }) => <h5 className={cn("text-lg font-semibold", !isSnippet ? "pt-4" : "!mt-0 !mb-2")} {...props} />,
+          h1: ({ ...props }) => <h1 className={cn("text-3xl md:text-4xl font-bold", !isSnippet ? "pt-6 md:pt-8" : "!mt-0 !mb-2")} {...props} />,
+          h2: ({ ...props }) => <h2 className={cn("text-2xl md:text-3xl font-bold", !isSnippet ? "pt-4 md:pt-6" : "!mt-0 !mb-2")} {...props} />,
+          h3: ({ ...props }) => <h3 className={cn("text-xl md:text-2xl font-bold", !isSnippet ? "pt-4 md:pt-6" : "!mt-0 !mb-2")} {...props} />,
+          h4: ({ ...props }) => <h4 className={cn("text-lg md:text-xl font-semibold", !isSnippet ? "pt-3 md:pt-4" : "!mt-0 !mb-2")} {...props} />,
+          h5: ({ ...props }) => <h5 className={cn("text-lg font-semibold", !isSnippet ? "pt-2 md:pt-4" : "!mt-0 !mb-2")} {...props} />,
           a: ({ href, children, ...props }) => (
             <a
               className="text-blue-400 hover:text-blue-300 transition-colors duration-200 inline-flex items-center mr-1"
@@ -74,14 +74,14 @@ export default function MarkdownRender({
                 PreTag="pre"
                 className={cn(
                   "!bg-[#202937] !p-4 !rounded-lg",
-                  "!overflow-x-auto",
+                  "!overflow-x-auto !text-sm",
                 )}
               >
                 {String(children).trim()}
               </SyntaxHighlighter>
             ) : (
               <code 
-                className={cn(className, "bg-[#202937] p-1 rounded-lg")}
+                className={cn(className, "bg-[#202937] p-1 rounded-lg my-1")}
                 {...props}
               >
                 {children}
@@ -92,9 +92,9 @@ export default function MarkdownRender({
             return (
               <blockquote
                 className={cn(
-                  "border-l-4 border-blue-400 pl-4 italic",
+                  "border-l-4 border-blue-400 pl-2 md:pl-4",
                   "text-gray-500 dark:text-gray-400",
-                  "bg-[#202937] p-4 rounded-lg",
+                  "bg-[#202937] p-2 md:p-4 rounded-lg",
                   className
                 )}
                 {...props}

@@ -20,15 +20,15 @@ async function generateRssFeed() {
   }).join('');
   return `
   <?xml version="1.0" encoding="UTF-8" ?>
-    <rss version="2.0">
-      <channel>
-        <title>Yuniverse RSS Feed</title>
-        <link>https://yunseok.vercel.app</link>
-        <description>개발자 송윤석의 개인 블로그입니다.</description>
-        <language>ko</language>
-        ${rssItems}
-      </channel>
-    </rss>
+  <rss version="2.0">
+    <channel>
+      <title>Yuniverse RSS Feed</title>
+      <link>https://yunseok.vercel.app</link>
+      <description>개발자 송윤석의 개인 블로그입니다.</description>
+      <language>ko</language>
+      ${rssItems}
+    </channel>
+  </rss>
   `.trim();
 };
 
@@ -38,7 +38,7 @@ export async function GET() {
     status: 200,
     headers: {
       'Content-Type': 'application/rss+xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=86400'  // 1 day
+      'Cache-Control': 'public, max-age=3600'  // 1 hour
     },
   });
 }
