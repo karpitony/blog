@@ -98,7 +98,7 @@ export default function StickyNavBar({ sections }: StickyNavBarProps) {
               className={`cursor-pointer ${
                 activeSection === section.id
                   ? "font-bold text-blue-500 border-b-2 border-blue-500"
-                  : "text-gray-300"
+                  : "text-gray-700 dark:text-gray-300"
               }`}
               onClick={() => scrollToSection(section.id)}
             >

@@ -21,12 +21,12 @@ export default async function Home() {
   projects.splice(3);
 
   return (
-    <div className="w-full max-w-full md:max-w-3xl lg:max-w-5xl min-h-[90vh]">
+    <div className="w-full max-w-full md:max-w-3xl lg:max-w-5xl min-h-[90vh] text-black dark:text-gray-100">
       <div className="px-2 py-4 md:py-10 space-y-4">
         <SimpleAboutMe />
         <ArrowButton text="자세히 보기" href="/about" />
       </div>
-      <hr className="border-t-2 py-4 mt-8"/>
+      <hr className="border-t-2 py-4 mt-8 border-gray-800 dark:border-white"/>
 
       {/* 최신 게시글 리스트 */}
       <div>
@@ -65,7 +65,7 @@ export default async function Home() {
 
         <ArrowButton text="게시글 더보기" href="/posts" />
       </div>
-      <hr className="border-t-2 py-4 mt-8"/>
+      <hr className="border-t-2 py-4 mt-8 border-gray-800 dark:border-white"/>
 
       {/* 프로젝트 리스트 */}
       <div>

@@ -15,7 +15,7 @@ export default async function Projects() {
   projects.sort((a, b) => a.meta.index - b.meta.index);
 
   return (
-    <div className="w-full max-w-full md:max-w-3xl min-h-[80vh]">
+    <div className="w-full max-w-full md:max-w-3xl min-h-[80vh] text-black dark:text-gray-100">
       <ProjectTagsAndList tags={tags} projects={projects} />
     </div>
   );

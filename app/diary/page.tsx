@@ -13,7 +13,7 @@ export const metadata = {
 export default async function LatestDiaryPage() {
   const diaryList = await getDiaryList();
   return (
-    <div className='mt-4 mb-24'>
+    <div className='mt-4 mb-24 text-black dark:text-gray-100'>
       <WongojiTitle text="나의 일기 목록" />
       <div className="py-4 mt-2 mb-12">
         <p>- 생각을 적거나 하루 회고를 씁니다.</p>

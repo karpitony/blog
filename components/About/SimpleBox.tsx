@@ -15,7 +15,7 @@ export default function SimpleBox({ children }: { children: React.ReactNode }) {
     >
       <div 
         className={cn(
-          "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg"
+          "bg-gray-300 dark:bgbg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg"
         )}
       >
         {children}

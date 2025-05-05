@@ -51,7 +51,10 @@ export default function ProjectCard ({
 
   return (
     <Link 
-      className="group w-full overflow-hidden rounded-2xl border border-gray-600 pb-6 shadow-xl flex flex-col h-full"
+      className={cn(
+        "group w-full overflow-hidden rounded-2xl border border-gray-600", 
+        "pb-6 shadow-xl flex flex-col h-full",
+      )}
       href={`/${type}s/${slug}`}
       prefetch={false}
     >
@@ -71,8 +74,12 @@ export default function ProjectCard ({
       <div className='flex flex-grow flex-col justify-between'>
         {/* 텍스트 영역 */}
         <div className="mt-6 flex h-[120px] w-full flex-col gap-2 px-6">
-          <h3 className="line-clamp-2 max-h-[54px] text-lg font-bold text-gray-100">{title}</h3>
-          <p className="line-clamp-2 max-h-[48px] text-gray-300">{description}</p>
+          <h3 className="line-clamp-2 max-h-[54px] text-lg font-bold text-black dark:text-gray-100">
+            {title}
+          </h3>
+          <p className="line-clamp-2 max-h-[48px] text-black dark:text-gray-300">
+            {description}
+          </p>
         </div>
 
         {/* 하단부 */}
@@ -90,7 +97,7 @@ export default function ProjectCard ({
           </div>
           )}
           {/* 날짜 */}
-          <p className="text-sm text-gray-400 mt-2">
+          <p className="text-sm text-gray-700 dark:text-gray-400 mt-2">
             <span>{date}</span>
           </p>
         </div>

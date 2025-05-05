@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 export default function  NotFound() {
   const { theme } = useTheme();
   return (
-    <div className="flex flex-col items-center justify-center w-full h-[80vh]">
+    <div className="flex flex-col items-center justify-center w-full h-[80vh] text-black dark:text-white">
     <FuzzyText 
       baseIntensity={0.1} 
       hoverIntensity={0.3} 

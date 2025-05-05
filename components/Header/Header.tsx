@@ -46,7 +46,7 @@ export default function NavBar() {
       " flex items-center justify-center backdrop-blur-md",
       "transition-colors duration-500 ease-in-out w-full",
       "pr-2 md:pr-0",
-      scrolled ? "bg-transparent" : "bg-white/70 dark:bg-[#121212]",
+      scrolled ? "bg-transparent" : "bg-[#f2f2f2] dark:bg-[#121212]",
     )}>
       <div className={cn(
         "h-16 max-w-5xl w-full flex items-center justify-between px-4 lg:px-0",

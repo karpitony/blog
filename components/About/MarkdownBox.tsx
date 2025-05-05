@@ -21,7 +21,7 @@ export default function SimpleBox({ data }: { data?: BoxData }) {
     >
       <div 
         className={cn(
-          "bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg"
+          "bg-gray-300 dark:bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg"
         )}
       >
         {/* 큰 제목 */}

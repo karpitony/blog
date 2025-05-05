@@ -43,9 +43,9 @@ export default function RootLayout({
         <meta name="naver-site-verification" content="2ff0864e0257241090dc6fe9bd4e76e6791b6424" />
       </head>
       {/* <body className="bg-linear-to-br from-blue-950 to-gray-900"> */}
-      <body>
+      <body className="bg-[#f2f2f2] dark:bg-[#121212]">
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <div className="bg-[#0a0a0a] font-pretendard">
+          <div className="bg-[#e7e7e7] dark:bg-[#0a0a0a] font-pretendard">
             <Header />
             <DynamicMarginLayout>
               <div className="w-full flex flex-col items-center">

@@ -10,8 +10,13 @@ export default function TableOfContent({ content }: { content: string }) {
 
   return (
     <aside className='absolute -top-[200px] left-full -mb-[100px] hidden h-[calc(100%+150px)] xl:block '>
-      <div className='sticky bottom-0  top-[200px] z-10 ml-[2rem] mt-[200px] text-left w-[240px] border-l pl-4'>
-        <div className="text-lg mb-2 font-bold">Table of Contents</div>
+      <div className={cn(
+        'sticky bottom-0 top-[200px] z-10 ml-[2rem] mt-[200px] text-left w-[240px]', 
+        'border-l pl-4 border-gray-700 dark:border-gray-300',
+      )}>
+        <div className="text-lg mb-2 font-bold text-black dark:text-white">
+          Table of Contents
+        </div>
         <ul className="text-sm space-y-1">
           {toc.map((item, index) => {
             //const id = item.text.trim().toLowerCase().replace(/\s+/g, "-");
@@ -32,11 +37,11 @@ export default function TableOfContent({ content }: { content: string }) {
                 {/* 임시로 Link 대신 a 태그로 서버에 요청 안넣게 변경 */}
                 <a href={item.link}>
                   <p
-                    className={`text-sm ${
+                    className={cn(
                       isActive
-                        ? "text-blue-600 font-bold underline"
-                        : "text-gray-300"
-                    } hover:text-blue-500 transition-colors duration-200 cursor-pointer`}
+                        ? "text-blue-600 dark:text-blue-500 font-bold underline"
+                        : "text-black dark:text-gray-300",
+                      "text-sm hover:text-blue-500 hover:underline transition-colors duration-200 cursor-pointer")}
                   >
                     {item.text}
                   </p>
