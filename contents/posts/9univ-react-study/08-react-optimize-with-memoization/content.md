@@ -3,7 +3,7 @@ title: 리액트 리렌더링 이해하고, React.memo로 렌더링 최적화하
 description:  React의 렌더링 구조를 이해하고, 불필요한 리렌더링을 방지하는 다양한 최적화 기법들을 정리했습니다.
 cover: ./memo-no-rerender.webp
 tags: react, memo
-date: 2025-05-04
+date: 2025-05-06
 series: 9univ-react-study
 seriesIndex: 8
 draft: false
@@ -58,32 +58,84 @@ draft: false
 
 ## 2. 리렌더링은 DOM 업데이트가 아니다.
 
-![dom-update](./dom-update.gif)
+리액트에서 말하는 리렌더링은 **DOM 업데이트를 의미하지 않습니다.**
 
-리액트에서 말하는 리렌더링은 **DOM 조작을 의미하지 않습니다.**
-
-리액트는 컴포넌트 트리를 다시 실행해 **새로운 UI 구조를 계산(render)** 하고, 그 결과를 **가상 DOM(Virtual DOM)** 에 반영합니다.
+리액트는 컴포넌트 트리를 다시 실행해 **새로운 UI 구조를 계산(render)** 하고, 그 결과를 **가상 DOM** 에 반영합니다.
 
 그 다음, 이전 가상 DOM과 비교하여 차이를 계산(diffing)하고, 변경된 부분만 **실제 브라우저의 DOM에 업데이트(commit)** 합니다.
 
-이 구조 덕분에 React는 많은 부분을 다시 "계산"하더라도 성능 손실이 적습니다.  
-하지만 복잡한 컴포넌트 트리에서 불필요하게 많은 컴포넌트가 다시 계산된다면?  
-→ 여전히 낭비되는 자원은 무시할 수 없습니다.
+변경점이 없다면 커밋 단계에서 아무 작업도 일어나지 않으므로, 리렌더링이 일어나도 실제 DOM 업데이트는 발생하지 않습니다.
 
-### 신호(Signal) 기반 프레임워크와 비교
+예제 코드와 GIF로 직접 확인해보면,
 
-최근에는 SolidJS, Qwik 등 신호(Signal) 기반 프레임워크들이 등장해 변화에 반응하는 방식으로 필요한 부분만 렌더링하도록 하고 있습니다. 
+```tsx
+import { useState } from 'react';
 
-이들은 React보다 더 **미세하게 렌더링 범위를 좁힐 수 있지만**, React는 여전히 매우 직관적이며, 유지보수에 강점을 가진 구조입니다.
+const Child = (({ user }: { user: { name: string } }) => {
+  console.log('👶 Child rendered');
+  return <div>안녕, {user.name}</div>;
+});
+
+export default function Parent() {
+  const [count, setCount] = useState(0);
+  const user = { name: '홍길동' };
+  console.log('👨 Parent rendered');
+
+  return (
+    <div>
+      <button onClick={() => setCount((c) => c + 1)}>
+        카운트 증가: {count}
+      </button>
+      <Child user={user} />
+    </div>
+  );
+}
+```
+
+상태가 없는 자식 컴포넌트와, 버튼 클릭시 1씩 증가하는 상태를 가진 부모 컴포넌트가 있습니다.
+
+버튼이 눌려 부모컴포넌트의 상태가 바뀌면, 부모 컴포넌트는 리렌더링 되고, 자식 컴포넌트도 같이 리렌더링 될것입니다.
+
+하지만, 자식컴포넌트는 바뀐 것이 없으므로, 리렌더링 되더라도 DOM은 업데이트 되지 않을것입니다.
+
+![rerender-and-dom](./rerender-and-dom.gif)
+
+
+버튼을 누르면 부모와 자식 컴포넌트가 리렌더링 되어 `console.log('👨 Parent rendered')`와 `console.log('👶 Child rendered')`이 실행되어서 콘솔에 출력되는 것을 볼 수 있습니다.
+
+하지만, HTML ELEMENT에선 숫자만 바뀔 뿐, 나머지 DOM 노드는 변경되지 않습니다.
+
+가상 DOM 덕분에 많은 컴포넌트를 다시 실행해도, 실제 DOM 조작은 최소화되어 성능 손실을 줄일 수 있습니다.
+
+그러나, 컴포넌트 트리가 복잡해지면 불필요한 리렌더링으로 CPU를 낭비할 수 있으니, 메모지에이션을 통해 연산을 줄이는 방법이 필요합니다.
 
 
 ## 3. 리액트 렌더링 최적화가 필요한 이유
 
-렌더링 자체가 DOM 조작은 아니지만, **렌더링 과정에서도 비용이 발생**합니다.
+리액트의 함수형 컴포넌트는 **리렌더링될 때마다 컴포넌트 함수 전체를 다시 실행합니다.**
 
-특히 자식 컴포넌트가 많거나 렌더링 중 무거운 연산이 포함되어 있다면, **작은 변화에도 전체 성능이 영향을 받을 수 있습니다.**
+즉, 컴포넌트 안에 작성된 모든 JS 로직이 재실행되고, 렌더링 로직에 포함된 비싼 계산이 반복 수행되는 셈입니다.
 
-따라서 다음과 같은 기술들을 통해 **불필요한 렌더링을 방지**하는 것이 중요합니다.
+```tsx
+function Parent() {
+  const [count, setCount] = useState(0);
+  console.log('Parent 렌더링');
+
+  // 매우 비용이 큰 계산 함수 (예: 복잡한 루프, 암호화 등)
+  const result = heavyComputation(count);
+
+  return (
+    <div>
+      <button onClick={() => setCount((c) => c + 1)}>
+        카운트 증가: {count}
+      </button>
+      <p>계산 결과: {result}</p>
+    </div>
+  );
+}
+```
+
+버튼 클릭으로 `count`가 바뀔때마다, `Parent`가 리렌더링되고,  `heavyComputation`도 매번 실행되며 화면 업데이트 비용 외에 계산 비용까지 누적됩니다.
 
 
 ### 3.1. React.memo로 불필요한 리렌더링 막기
@@ -135,6 +187,7 @@ export default function Parent() {
   - `Child`는 항상 함수가 다시 실행되므로 무조건 다시 렌더링됨
   - `MemoChild`는 user 객체의 참조가 변하지 않았기 때문에 리렌더링되지 않음
 
+![dom-update](./dom-update.gif)
 ![memo-no-rerender](./memo-no-rerender.webp)
 
 ### 3.2. useMemo로 객체 재생성 막기
@@ -171,3 +224,21 @@ const handleClick = useCallback(() => {
 }, []);
 ```
 이제 `handleClick`은 의존성이 바뀌지 않는 한 같은 참조를 유지합니다.
+
+### 3.4 리액트 컴파일러
+
+![react-compiler](./react-compiler.webp)
+
+> - [리액트 공식문서](https://ko.react.dev/learn/react-compiler)
+
+일일이 메모이제이션이 필요한 부분에 `useMemo`, `useCallback`, `React.memo` 를 적용하는 것은 귀찮고, 놓칠수도 있습니다..
+
+**React 컴파일러**는 리액트 앱의 성능을 자동으로 최적화하는 빌드 타임 도구입니다. 
+
+수동으로 `useMemo`, `useCallback`, `React.memo` 등을 사용하는 대신, 컴파일러가 자동으로 적절한 메모이제이션을 적용해 줍니다.
+
+- React 규칙을 분석해 컴포넌트와 Hook 내부의 값을 자동 메모이제이션.
+- 컴파일 타임에 작동하며, 앱의 불필요한 리렌더링을 줄여 성능 향상.
+- 규칙 위반 시 해당 컴포넌트는 자동으로 최적화 대상에서 제외.
+
+리액트 컴파일러는 지금 베타 단계이지만 조만간 안정버전이 나온다면 더이상 개발자가 메모이제이션을 관리하지 않고 개발을 할 수 있을 것입니다.
