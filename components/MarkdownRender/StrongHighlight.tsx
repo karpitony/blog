@@ -18,9 +18,10 @@ export default function StrongHighlight({
     >
       {/* 형광펜 배경 */}
       <span
-        className="absolute left-0 bottom-[0.2em] w-full h-[0.2em] 
-                  bg-[#f8cc06] dark:bg-[#f8cc06]/80 
-                  z-30 rounded-xs pointer-events-none"
+        className={cn(
+          "absolute left-0 bottom-[0.2em] w-full h-[0.1em] pointer-events-none",
+          "bg-[#f8cc06] dark:bg-[#f8cc06]/80 z-30 rounded-xs"
+        )}
         aria-hidden="true"
       />
       {/* 실제 내용 */}

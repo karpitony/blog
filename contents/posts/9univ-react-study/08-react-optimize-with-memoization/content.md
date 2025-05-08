@@ -1,7 +1,7 @@
 ---
 title: 리액트 리렌더링 이해하고, React.memo로 렌더링 최적화하기
 description:  React의 렌더링 구조를 이해하고, 불필요한 리렌더링을 방지하는 다양한 최적화 기법들을 정리했습니다.
-cover: ./memo-no-rerender.webp
+cover: ./rerender-and-dom.gif
 tags: react, memo
 date: 2025-05-06
 series: 9univ-react-study
