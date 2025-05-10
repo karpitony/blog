@@ -1,15 +1,4 @@
-export interface ProjectMeta {
-  index: number;
-  title: string;
-  thumbnail: string;
-  date: string;
-  status: "ACTIVE" | "MAINTENANCE" | "INACTIVE";
-  tags: string[];
-  description: string;
-  githubLink?: string;
-  demoLink?: string;
-  videoLink?: string;
-}
+import { ProjectMeta } from "@/types/project";
 
 export const parseProject = (
   content: string,

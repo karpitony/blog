@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { ProjectJson } from "@/libs/Project/getProjectList";
+import { ProjectJson } from "@/types/project";
 import Card from "@/components/common/Card";
 import { motion, AnimatePresence } from "framer-motion";
 import cn from "@yeahx4/cn";

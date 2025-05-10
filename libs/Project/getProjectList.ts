@@ -1,17 +1,8 @@
 import path from 'path';
 import fs, { readFile } from 'fs/promises';
-import { ProjectMeta, parseProject } from '@/libs/Project/metaDataParser';
+import { parseProject } from '@/libs/Project/metaDataParser';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
-
-export interface ProjectData {
-  meta: ProjectMeta;
-  slug: string;
-}
-
-export interface ProjectJson {
-  projects: ProjectData[];
-  tags: string[];
-}
+import { ProjectData, ProjectJson, ProjectMeta } from '@/types/project';
 
 const projectDirectory = path.join(process.cwd(), 'contents/projects');
 

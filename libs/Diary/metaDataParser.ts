@@ -1,9 +1,4 @@
-export interface DiaryMeta {
-  title: string;
-  description: string;
-  cover: string;
-  date: string;
-}
+import { DiaryMeta } from "@/types/diary";
 
 export const parseDiary = (
   content: string

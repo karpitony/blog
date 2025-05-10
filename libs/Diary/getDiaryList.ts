@@ -1,12 +1,8 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { parseDiary, DiaryMeta } from '@/libs/Diary/metaDataParser';
+import { parseDiary } from '@/libs/Diary/metaDataParser';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
-
-export interface DiaryData {
-  meta: DiaryMeta;
-  slug: string;
-}
+import { DiaryData } from '@/types/diary';
 
 const diaryDirectory = path.join(process.cwd(), 'contents/diary');
 

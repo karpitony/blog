@@ -1,17 +1,8 @@
 import path from 'path';
 import fs, { readFile } from 'fs/promises';
-import { parsePost, PostMeta } from '@/libs/Post/postMetaDataParser';
+import { parsePost  } from '@/libs/Post/metaDataParser';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
-
-export interface PostData {
-  meta: PostMeta;
-  slug: string;
-}
-
-export interface SeriesSummary {
-  name: string;
-  slugs: string[];
-}
+import { PostMeta, PostData, SeriesSummary } from "@/types/post";
 
 const postsDirectory = path.join(process.cwd(), 'contents/posts');
 

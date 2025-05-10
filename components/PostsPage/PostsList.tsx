@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { PostData } from '@/libs/Post/getPostList';
+import { PostData } from '@/types/post';
 import PostInfoHeader from '@/components/PostsPage/PostInfoHeader';
 import cn from '@yeahx4/cn';
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";

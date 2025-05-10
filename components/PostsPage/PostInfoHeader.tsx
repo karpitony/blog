@@ -1,7 +1,7 @@
 import cn from '@yeahx4/cn';
 // import Image from 'next/image';
 import { FaFolderOpen, FaCalendarAlt } from "react-icons/fa";
-import { PostMeta } from '@/libs/Post/postMetaDataParser';
+import { PostMeta } from '@/types/post';
 
 export default function PostInfoHeader({ meta }: { meta: PostMeta }) {
   return (

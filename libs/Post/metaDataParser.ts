@@ -1,16 +1,7 @@
 // thx to 5tarlight
 // https://github.com/5tarlight/vlog/blob/main/lib/post/parser.tsx
 
-export interface PostMeta {
-  title: string;
-  description: string;
-  date: string;
-  tags: string[];
-  cover: string;
-  series: string;
-  seriesIndex: number;
-  draft?: boolean;
-}
+import { PostMeta } from "@/types/post";
 
 export const parsePost = (
   content: string,
