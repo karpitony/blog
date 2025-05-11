@@ -1,25 +1,32 @@
 import path from 'path';
 import fs, { readFile } from 'fs/promises';
-import { parsePost  } from '@/libs/Post/metaDataParser';
+import { parsePost, parseSeries } from '@/libs/Post/metaDataParser';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
-import { PostMeta, PostData, SeriesSummary } from "@/types/post";
+import { PostMeta, PostData, SeriesMeta, SeriesSummary } from "@/types/post";
 
 const postsDirectory = path.join(process.cwd(), 'contents/posts');
 
-async function getAllContentMarkdownFiles(): Promise<{ 
-  filePath: string; 
+interface PostFile {
+  filePath: string;
   fileName: string;
-  seriesDir: string; 
-  seriesSlug: string 
-}[]> {
+  seriesDir: string;
+  seriesSlug: string;
+}
+
+interface SeriesInfo {
+  seriesSlug: string;
+  seriesDir: string;
+  seriesMeta: SeriesMeta;
+}
+
+async function getAllContentMarkdownFiles(): Promise<{ 
+  PostFiles: PostFile[];
+  seriesInfos: SeriesInfo[];
+}> {
   const seriesDirs = await fs.readdir(postsDirectory, { withFileTypes: true });
 
-  const postFiles: { 
-    filePath: string;
-    fileName: string;
-    seriesDir: string; 
-    seriesSlug: string 
-  }[] = [];
+  const postFiles: PostFile[] = [];
+  const seriesInfos: SeriesInfo[] = [];
 
   for (const seriesEntry of seriesDirs) {
     if (!seriesEntry.isDirectory()) continue;
@@ -27,6 +34,23 @@ async function getAllContentMarkdownFiles(): Promise<{
     const seriesSlug = seriesEntry.name;
     const seriesDir = path.join(postsDirectory, seriesSlug);
     const posts = await fs.readdir(seriesDir, { withFileTypes: true });
+
+    // 시리즈 메타 정보 읽기
+    const seriesMdPath = path.join(seriesDir, 'series.md');
+    let seriesMeta: SeriesInfo['seriesMeta'] | undefined = undefined;
+    try {
+      const seriesMdContent = await fs.readFile(seriesMdPath, 'utf-8');
+      const { meta } = parseSeries(seriesMdContent, seriesSlug);
+      seriesMeta = meta;
+    } catch {
+      console.warn(`No series meta found for ${seriesSlug}`);
+      seriesMeta = {
+        name: seriesSlug,
+        seriesSlug,
+        description: '',
+      };
+    }
+    seriesInfos.push({ seriesSlug, seriesDir, seriesMeta });
 
     for (const postEntry of posts) {
       if (!postEntry.isDirectory()) continue;
@@ -41,14 +65,14 @@ async function getAllContentMarkdownFiles(): Promise<{
     }
   }
 
-  return postFiles;
+  return { PostFiles: postFiles, seriesInfos };
 }
 
 export async function generatePostList(): Promise<{ 
   posts: PostData[];
   series: SeriesSummary[]
 }> {
-  const postEntries = await getAllContentMarkdownFiles();
+  const { PostFiles: postEntries, seriesInfos } = await getAllContentMarkdownFiles();
 
   const rawPosts = await Promise.all(
     postEntries.map(async ({ filePath, fileName, seriesSlug }) => {
@@ -89,10 +113,15 @@ export async function generatePostList(): Promise<{
     seriesMap.get(seriesName)!.push(post.slug);
   });
 
-  const series = Array.from(seriesMap, ([name, slugs]) => ({ 
-    name, 
-    slugs 
-  }));
+  const series: SeriesSummary[] = Array.from(seriesMap, ([name, slugs]) => {
+    const info = seriesInfos.find(s => s.seriesMeta.seriesSlug === name);
+    return {
+      name: info?.seriesMeta.name || "",
+      seriesSlug: info?.seriesMeta.seriesSlug || name,
+      description: info?.seriesMeta.description || '',
+      slugs,
+    };
+  });
 
   return { posts, series };
 }

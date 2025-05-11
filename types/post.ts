@@ -16,5 +16,13 @@ export interface PostData {
 
 export interface SeriesSummary {
   name: string;
+  seriesSlug: string;
+  description?: string;
   slugs: string[];
+}
+
+export interface SeriesMeta {
+  name: string;
+  seriesSlug: string;
+  description?: string;
 }

@@ -1,3 +1,3 @@
 ---
-seriesName: 개발 블로그는 사서 드세요.
+seriesName: 블로그 제작/운영 이야기
 ---

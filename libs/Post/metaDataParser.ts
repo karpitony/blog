@@ -1,7 +1,7 @@
 // thx to 5tarlight
 // https://github.com/5tarlight/vlog/blob/main/lib/post/parser.tsx
 
-import { PostMeta } from "@/types/post";
+import { PostMeta, SeriesMeta } from "@/types/post";
 
 export const parsePost = (
   content: string,
@@ -76,3 +76,41 @@ export const parsePost = (
 
   return { meta, body };
 };
+
+export const parseSeries = (
+  content: string,
+  seriesName: string,
+): {
+  meta: SeriesMeta
+} => {
+  const lines = content.split("\n");
+  const meta = {
+    name: "",
+    seriesSlug: seriesName,
+    description: "",
+  };
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim(); // 각 라인을 trim 처리
+    if (line === "---") {
+      break;
+    }
+    const colon = line.indexOf(":");
+    if (colon === -1) {
+      console.warn(`Invalid meta line: ${line}`);
+      continue;
+    }
+    const key = line.slice(0, colon).trim();
+    const value = line.slice(colon + 1).trim();
+    if (key === "seriesName") {
+      meta.name = value;
+    }
+    else if (key === "description") {
+      meta.description = value;
+    }
+    else {
+      console.warn(`Unknown key: ${key}`);
+    }
+  }
+
+  return { meta };
+}
