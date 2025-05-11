@@ -4,52 +4,20 @@ import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || '';
-const isProduction = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === 'production';
 
 export default function Gtag() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!isProduction || !GA_ID) return;
+    if (!isProd || !GA_ID || typeof window.gtag !== 'function') return;
 
-    const sendPageView = () => {
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'page_view', {
-          page_path: pathname,
-        });
-      } else {
-        console.warn('[Gtag] gtag is not defined yet');
-      }
-    };
-
-    const timeout = setTimeout(sendPageView, 500);
-    return () => clearTimeout(timeout);
+    window.gtag('event', 'page_view', {
+      page_path: pathname,
+    });
   }, [pathname]);
 
-  useEffect(() => {
-    if (!isProduction || !GA_ID) return;
-
-    const handleScroll = () => {
-      if (typeof window.gtag !== 'function') return;
-
-      const scrollDepth = Math.round(
-        (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100
-      );
-      
-      if (scrollDepth >= 50) {
-        window.gtag('event', 'scroll_depth', {
-          event_label: pathname,
-          value: scrollDepth,
-        });
-        window.removeEventListener('scroll', handleScroll);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname]);
-
-  if (!isProduction || !GA_ID) return null;
+  if (!isProd || !GA_ID) return null;
 
   return (
     <>
