@@ -10,7 +10,7 @@ import MobileFullScreen from './MobileFullScreen';
 const LinkData = [
   { href: '/', label: '홈' },
   { href: '/posts', label: '글 목록' },
-  { href: '/diary', label: '일기' },
+//  { href: '/diary', label: '일기' },
   { href: '/projects', label: '프로젝트' },
   { href: '/about', label: '소개' },
 ];
@@ -52,7 +52,7 @@ export default function NavBar() {
         "h-16 max-w-5xl w-full flex items-center justify-between px-4 lg:px-0",
       )}>
         {/* 로고 */}
-        <Link href="/" className="flex items-center gap-2 font-bold font-shrik text-xl md:text-2xl">
+        <Link href="/" className="flex items-center gap-2 font-bold font-shrik text-xl md:text-2xl tracking-wider">
           yuniverse
         </Link>
 
