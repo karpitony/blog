@@ -9,7 +9,7 @@ seriesIndex: 9
 draft: true
 ---
 
-## `제대로 구현한다`라는게 뭘까
+## "제대로 구현한다" 라는게 뭘까
 
 리액트로 웹페이지를 개발하다 보면 누구나 한 번쯤 **모달, 토스트**를 만들게 됩니다. 
 
@@ -20,20 +20,28 @@ draft: true
 - 포커스가 뒤 페이지로 빠져나감 (접근성 문제)
 - 토스트 알림이 겹치고, 중복됨
 
-동작할 뿐만 아니라 **UX**, **접근성**, **이벤트 처리**, **전역 관리**까지 고려되어야 한다.
-
-
+동작할 뿐만 아니라 **UX**, **접근성**, **이벤트 처리**까지 고려되어야 합니다. 모달이나 토스트처럼 계층상 상위에 떠야 하는 UI는 `ReactDOM.createPortal`로 별도 DOM 노드에 렌더링하면 좋습니다.
 
 ## createPortal로 그리기
 
-모달이나 토스트처럼 계층상 상위에 떠야 하는 UI는 `ReactDOM.createPortal`로 별도 DOM 노드에 렌더링하면 좋습니다.
+`createPortal(children, container)`
+- `children`: 렌더링할 React 엘리먼트
+- `container`: React 트리 외부에 있는 DOM 요소 (예: `document.getElementById("modal-root")`)
 
 ```tsx
-return ReactDOM.createPortal(
+import { createPortal } from "react-dom";
+// ...
+return createPortal(
   <div className="modal">내용</div>,
-  document.getElementById("modal-root")
+  document.body
 );
 ```
+
+
+![react-portal-dom-image](./react-portal-dom-image.webp)
+> https://joong-sunny.github.io/react/react3/#createportal
+
+React 컴포넌트를 다른 DOM 위치에 강제로 렌더링할 때 씁니다. 위 사진처럼 기본 DOM에 특정 위치로 포탈을 열고 컴포넌트롤 보내는 느낌입니다.
 
 ### 1. DOM 계층 구조를 벗어난 렌더링
 
