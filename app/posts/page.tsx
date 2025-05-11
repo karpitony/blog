@@ -1,5 +1,5 @@
 import { getPostList } from '@/libs/Post/getPostList';
-import PostsList from '@/components/PostsPage/PostsList';
+import PostListLayout from '@/layouts/PostListLayout';
 
 export const metadata = {
   title: 'Posts | 글 목록',
@@ -8,14 +8,14 @@ export const metadata = {
 };
 
 export default async function PostsPage() {
-  const { posts } = await getPostList();
+  const { posts, series } = await getPostList();
 
   return (
     <div className="w-full max-w-full md:max-w-3xl">
-      <h1 className="text-3xl font-bold mb-6">Posts</h1>
-      <div className="space-y-4">
-        <PostsList posts={posts} postPerPage={5} showPrevNext />
-      </div>
+      <PostListLayout
+        posts={posts}
+        series={series}
+      />
     </div>
   );
 }
