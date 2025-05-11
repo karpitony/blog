@@ -146,7 +146,7 @@ export const getPostData = async (
   const { series } = cachedData;
 
   const seriesEntry = series.find(s => s.slugs.includes(slug));
-  const filePath = seriesEntry ? seriesEntry.name : undefined;
+  const filePath = seriesEntry ? seriesEntry.seriesSlug : undefined;
   if (!filePath || !seriesEntry) {
     console.error(`filePath: ${filePath}, seriesEntry: ${seriesEntry}`);
     throw new Error(`해당 slug를 포함한 시리즈를 찾을 수 없습니다: ${slug}`);

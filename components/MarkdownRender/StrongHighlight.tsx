@@ -20,7 +20,8 @@ export default function StrongHighlight({
       <span
         className={cn(
           "absolute left-0 bottom-[0.2em] w-full h-[0.1em] pointer-events-none",
-          "bg-[#f8cc06] dark:bg-[#f8cc06]/80 z-30 rounded-xs"
+          // "bg-[#f8cc06] dark:bg-[#f8cc06]/80 z-30 rounded-xs"
+          // 형광 어그로 좀 심해서 잠시 주석처리
         )}
         aria-hidden="true"
       />

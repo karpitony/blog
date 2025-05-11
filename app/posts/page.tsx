@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { getPostList } from '@/libs/Post/getPostList';
 import PostListLayout from '@/layouts/PostListLayout';
 
@@ -12,10 +13,12 @@ export default async function PostsPage() {
 
   return (
     <div className="w-full max-w-full md:max-w-3xl">
-      <PostListLayout
-        posts={posts}
-        series={series}
-      />
+      <Suspense fallback={<div className="text-center">Loading...</div>}>
+        <PostListLayout
+          posts={posts}
+          series={series}
+        />
+      </Suspense>
     </div>
   );
 }
