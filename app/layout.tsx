@@ -5,7 +5,7 @@ import { ThemeProvider } from "next-themes";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
 import DynamicMarginLayout from "@/layouts/DynamicMarginLayout";
-import Gtag from "@/components/common/Gtag";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const BASE_URL = "https://yunseok.vercel.app";
 
@@ -56,7 +56,7 @@ export default function RootLayout({
           </div>
         </ThemeProvider>
         <Analytics />
-        <Gtag />
+        <GoogleAnalytics gaId="G-2X8994GCL2" />
       </body>
     </html>
   );

@@ -86,7 +86,7 @@ export default function MarkdownRender({
                   className, 
                   "bg-[#d9dce0] dark:bg-[#202937] px-1 py-0.5 rounded-sm", 
                   "my-1 mx-0.5 text-black dark:text-white font-normal",
-                  "text-[0.80em] relative z-10",
+                  "text-[0.90em] relative z-10",
                 )}
                 {...props}
               >
