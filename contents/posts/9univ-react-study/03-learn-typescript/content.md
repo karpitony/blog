@@ -1,7 +1,7 @@
 ---
 title: TypeScript 기본 문법과 활용
-description: [3기 리액트 스터디 3주차] 원활한 협업 준비를 위해 TypeScript 배우기
-cover: 
+description: [3기 리액트 스터디 3주차] 원활한 협업을 위해 TypeScript 배우기
+cover: ./typescript.webp
 tags: typescript
 date: 2024-09-23
 series: 9univ-react-study
