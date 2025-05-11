@@ -154,7 +154,7 @@ export const getPostData = async (
 
   const fullPath = path.join(postsDirectory, filePath, slug, 'content.md');
   const fileContents = await readFile(fullPath, 'utf8');
-  const { meta, body } = parsePost(fileContents, slug, seriesEntry.name);
+  const { meta, body } = parsePost(fileContents, slug, seriesEntry.seriesSlug);
   
   return { meta, body };
 };
