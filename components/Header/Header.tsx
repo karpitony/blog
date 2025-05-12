@@ -23,7 +23,7 @@ export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
-   const lastScrollY = useRef(0);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     setMounted(true);
