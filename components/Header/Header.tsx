@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import cn from '@yeahx4/cn';
 import { RiMenu3Fill, RiCloseLargeLine, RiSearch2Line, RiRssLine, RiMoonClearLine, RiSunLine } from "react-icons/ri";
 import MobileFullScreen from './MobileFullScreen';
@@ -21,12 +21,28 @@ export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+   const lastScrollY = useRef(0);
 
   useEffect(() => {
     setMounted(true);
 
     const handleScroll = () => {
-      setScrolled(window.scrollY > 0);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 0);
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        if (Math.abs(currentScrollY - lastScrollY.current) < 5) return;
+        if (currentScrollY > lastScrollY.current) {
+          setIsVisible(false);
+        } else {
+          setIsVisible(true);
+        }
+
+        lastScrollY.current = currentScrollY;
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -47,6 +63,8 @@ export default function NavBar() {
       "transition-colors duration-500 ease-in-out w-full",
       "pr-2 md:pr-0",
       scrolled ? "bg-transparent" : "bg-[#f2f2f2] dark:bg-[#121212]",
+      isVisible ? "translate-y-0" : "-translate-y-80",
+      "transition-transform duration-300 ease-in-out",
     )}>
       <div className={cn(
         "h-16 max-w-5xl w-full flex items-center justify-between px-4 lg:px-0",

@@ -61,7 +61,7 @@ export default async function PostPage({ params }: PostPageProps) {
         <div>
           <PostInfoHeader meta={meta} />
         </div>
-        <div className={cn("p-4 md:p-0 mt-4")}>
+        <div className={cn("mt-4")}>
           <MarkdownRender markdownText={body.join("\n")} postTitle={id} series={meta.series} renderType='POST' />
           <Comments />
         </div>
