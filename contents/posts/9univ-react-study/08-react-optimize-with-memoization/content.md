@@ -5,7 +5,7 @@ cover: ./rerender-and-dom.gif
 tags: react, memo
 date: 2025-05-06
 series: 9univ-react-study
-seriesIndex: 8
+seriesIndex: 7
 draft: false
 ---
 

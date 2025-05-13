@@ -5,7 +5,7 @@ cover: ./toast-example.gif
 tags: react, modals, dropdown, toast
 date: 2025-05-13
 series: 9univ-react-study
-seriesIndex: 9
+seriesIndex: 8
 draft: false
 ---
 
@@ -390,7 +390,8 @@ export default Toast;
 
 컨테이너 컴포넌트를 `createPortal()`로 감싸서 `document.body`에 렌더링 시켰습니다. 토스트들이 `z-index`없이도 페이지 위에 오버레이되며, 별도의 레이아웃 시프트 없이 부드럽게 작동합니다.
 
-
+> 스타일링된 코드와 전체 소스코드가 궁금하시면 깃허브 레포지토리에 올려놨으니 한번 확인해보세요. <br>
+> https://github.com/karpitonys-stash/example-createPortal
 ---
 
 ## 마무리
