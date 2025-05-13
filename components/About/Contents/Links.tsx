@@ -32,7 +32,7 @@ export default function Links() {
     <div>
       <SplitTextNoSSR text="링크" />
       <div className="flex flex-col items-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl justify-items-center">
+        <div className="grid grid-cols-2 gap-6 w-full max-w-3xl justify-items-center">
           {LinkData.map((link, index) => (
             <LinkBox key={index} {...link} />
           ))}
