@@ -1,3 +1,3 @@
 ---
-seriesName: 블로그 제작/운영 이야기
+seriesName: 블로그 개발
 ---
