@@ -36,7 +36,7 @@ export default function MarkdownRender({
   const isSnippet = renderType === "SNIPPET";
 
   return (
-    <div className="markdown-body bg-transparent text-black dark:text-gray-300 tracking-wide">
+    <div className="markdown-body bg-transparent text-black dark:text-gray-200 tracking-wide text-base md:text-lg">
       <ReactMarkdown
         className={cn(`font-pretendard ${enableGap ? 'leading-7 space-y-6' : ''}`)}
         remarkPlugins={[
@@ -45,10 +45,10 @@ export default function MarkdownRender({
         ]}
         rehypePlugins={[rehypeRaw, rehypeCustomSlug, rehypeAutolinkHeadings]}
         components={{
-          h1: ({ ...props }) => <h1 className={cn("text-3xl md:text-4xl font-bold", !isSnippet ? "pt-6 md:pt-8" : "!mt-0 !mb-2")} {...props} />,
-          h2: ({ ...props }) => <h2 className={cn("text-2xl md:text-3xl font-bold", !isSnippet ? "pt-4 md:pt-6" : "!mt-0 !mb-2")} {...props} />,
-          h3: ({ ...props }) => <h3 className={cn("text-xl md:text-2xl font-bold", !isSnippet ? "pt-4 md:pt-6" : "!mt-0 !mb-2")} {...props} />,
-          h4: ({ ...props }) => <h4 className={cn("text-lg md:text-xl font-semibold", !isSnippet ? "pt-3 md:pt-4" : "!mt-0 !mb-2")} {...props} />,
+          h1: ({ ...props }) => <h1 className={cn("text-4xl md:text-4xl font-bold", !isSnippet ? "pt-6 md:pt-8" : "!mt-0 !mb-2")} {...props} />,
+          h2: ({ ...props }) => <h2 className={cn("text-3xl md:text-3xl font-bold", !isSnippet ? "pt-4 md:pt-6" : "!mt-0 !mb-2")} {...props} />,
+          h3: ({ ...props }) => <h3 className={cn("text-2xl md:text-2xl font-bold", !isSnippet ? "pt-4 md:pt-6" : "!mt-0 !mb-2")} {...props} />,
+          h4: ({ ...props }) => <h4 className={cn("text-xl md:text-xl font-semibold", !isSnippet ? "pt-3 md:pt-4" : "!mt-0 !mb-2")} {...props} />,
           h5: ({ ...props }) => <h5 className={cn("text-lg font-semibold", !isSnippet ? "pt-2 md:pt-4" : "!mt-0 !mb-2")} {...props} />,
           a: ({ href, children, ...props }) => (
             <a
