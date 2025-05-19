@@ -17,7 +17,7 @@ async function copyOnlyImages(src: string, dest: string) {
       await copyOnlyImages(srcPath, destPath);
     } else if (
       entry.isFile() &&
-      /\.(webp|jpg|jpeg|png|gif)$/i.test(entry.name)
+      /\.(webp|jpg|jpeg|png|gif|svg)$/i.test(entry.name)
     ) {
       await fs.copyFile(srcPath, destPath);
     }

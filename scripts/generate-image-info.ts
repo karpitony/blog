@@ -8,7 +8,7 @@ const srcDirs = {
   projects: path.join(process.cwd(), 'contents/projects'),
 };
 const output = path.join(process.cwd(), 'public/image-info.json');
-const supportedExtensions = /\.(webp|jpg|jpeg|png|gif)$/i;
+const supportedExtensions = /\.(webp|jpg|jpeg|png|gif|svg)$/i;
 
 type ImageInfo = {
   width: number;
