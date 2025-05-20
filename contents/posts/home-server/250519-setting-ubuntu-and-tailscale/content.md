@@ -3,7 +3,7 @@ title: 미니 PC를 홈 서버로 만들기
 description: 우분투 + Tailscale 세팅하기
 cover: ./ubuntu-install-monitor.webp
 tags: Ubuntu, Tailscale, Home Server
-date: 2025-05-20
+date: 2025-05-19
 series: home-server
 seriesIndex: 0
 draft: false
