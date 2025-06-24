@@ -99,8 +99,8 @@ export default function MarkdownRender({
               <blockquote
                 className={cn(
                   "border-l-4 border-blue-400 pl-2 md:pl-4",
-                  "text-gray-500 dark:text-gray-400",
-                  "bg-[#e8eaec] dark:bg-[#202937] p-2 md:p-4 rounded-lg",
+                  "text-gray-600 dark:text-gray-400",
+                  "bg-[#c4c5c7] dark:bg-[#283342] p-2 md:p-4 rounded-lg",
                   className
                 )}
                 {...props}
