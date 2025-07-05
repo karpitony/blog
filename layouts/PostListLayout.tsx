@@ -80,7 +80,7 @@ export default function PostListLayout({
         </div>
       </div>
       <div>
-        <PostsList posts={filteredPosts} postPerPage={5} showPrevNext />
+        <PostsList posts={filteredPosts} postPerPage={9} showPrevNext />
       </div>
     </section>
   );

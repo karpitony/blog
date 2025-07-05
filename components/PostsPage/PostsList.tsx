@@ -1,10 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { PostData } from '@/types/post';
-import PostInfoHeader from '@/components/PostsPage/PostInfoHeader';
-import cn from '@yeahx4/cn';
+import Card from "@/components/common/Card";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 interface PostsListProps {
@@ -28,20 +26,18 @@ export default function PostsList({ posts, postPerPage, showPrevNext }: PostsLis
   return (
     <div className="flex flex-col">
       {/* 게시글 리스트 */}
-      <div className="grow">
+      <div className="mt-8 mb-4 gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {viewPostList.map(({ meta, slug }) => (
-          <Link 
-            href={`/posts/${slug}`} 
-            key={slug} 
-            className={cn(
-              "block group relative bg-gray-900 bg-opacity-50 rounded-lg",
-              "transition duration-300 hover:bg-opacity-70 hover:shadow-lg hover:shadow-white/20",
-              "border border-gray-700 hover:border-white/50",
-              "mb-4" // 게시글 사이 간격 추가
-            )}
-          >
-            <PostInfoHeader key={slug} meta={meta} />
-          </Link>
+          <Card
+            key={slug}
+            type="post"
+            slug={slug}
+            thumbnail={meta.cover}
+            title={meta.title}
+            description={meta.description}
+            date={meta.date}
+            tags={meta.tags}
+          />
         ))}
       </div>
 

@@ -36,7 +36,7 @@ export default function MarkdownRender({
   const isSnippet = renderType === "SNIPPET";
 
   return (
-    <div className="markdown-body bg-transparent text-black dark:text-gray-200 tracking-wide text-base md:text-lg">
+    <div className="markdown-body bg-transparent text-black dark:text-gray-200 tracking-tight text-base md:text-lg">
       <ReactMarkdown
         className={cn(`font-pretendard ${enableGap ? 'leading-7 space-y-6 md:leading-8.5 md:space-y-7' : ''}`)} 
         remarkPlugins={[

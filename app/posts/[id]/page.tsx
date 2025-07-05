@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { getPostList, getPostData } from '@/libs/Post/getPostList';
 import { FiArrowLeft } from "react-icons/fi";
-import PostInfoHeader from "@/components/PostsPage/PostInfoHeader";
 import MarkdownRender from "@/components/MarkdownRender/MarkdownRender";
 import TableOfContent from '@/components/MarkdownRender/TableOfContent';
 import Comments from '@/components/PostsPage/Comments';
@@ -59,9 +58,22 @@ export default async function PostPage({ params }: PostPageProps) {
         </Link>
         {/* Post Info and Article */}
         <div>
-          <PostInfoHeader meta={meta} />
+          <h2 className={cn("text-4xl md:text-5xl font-bold text-black dark:text-white", "tracking-tight")}>
+            {meta.title}
+          </h2>
+          <p className={cn("text-gray-500 dark:text-gray-400 mt-6", "text-base md:text-lg")}>
+            {meta.description}
+          </p>
+          <div className='flex w-full justify-between items-center'>
+            <p className={cn("text-gray-500 dark:text-gray-400 mt-2", "text-sm md:text-base")}>
+              {meta.date}
+            </p>
+            <p className={cn("text-gray-500 dark:text-gray-400 mt-2", "text-sm md:text-base")}>
+              {meta.series ? `${meta.series}` : "No Series"}  
+            </p>
+          </div>
         </div>
-        <div className={cn("mt-4")}>
+        <div className={cn("mt-12 md:mt-18")}>
           <MarkdownRender markdownText={body.join("\n")} postTitle={id} series={meta.series} renderType='POST' />
           <Comments />
         </div>
