@@ -2,6 +2,7 @@ import SimpleAboutMe from "@/components/common/SimpleAboutMe";
 import TechStacks from "@/components/About/Contents/TechStacks";
 import Educations from "@/components/About/Contents/Educations";
 import Projects from "@/components/About/Contents/Projects";
+import MoreProjects from "@/components/About/MoreProjects";
 import Activities from "@/components/About/Contents/Activities";
 import Links from "@/components/About/Contents/Links";
 import StickyNavBar from "@/components/About/StickyNavBar";
@@ -33,6 +34,7 @@ export default function About() {
         
         <div className="px-2" id="projects">
           <Projects />
+          <MoreProjects />
         </div>
         <div className="px-2" id="activities">
           <Activities />
