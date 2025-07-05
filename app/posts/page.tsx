@@ -20,7 +20,7 @@ export default async function PostsPage() {
   });
 
   return (
-    <div className="w-full max-w-full md:max-w-5xl">
+    <div className="w-full max-w-full md:max-w-3xl lg:max-w-5xl">
       <Suspense fallback={<div className="text-center">Loading...</div>}>
         <PostListLayout
           posts={posts}

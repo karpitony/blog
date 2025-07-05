@@ -48,7 +48,7 @@ export default function ProjectTagsAndList({ tags, projects }: ProjectJson) {
           </div>
         )}
       <h2 className="text-3xl font-bold mt-8">Projects</h2>
-      <div className="mt-8 flex flex-col gap-8 md:grid md:grid-cols-2">
+      <div className="mt-8 flex flex-col gap-8 md:grid md:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence>
           {filteredProjects.map((project) => (
             <motion.div

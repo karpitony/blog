@@ -83,7 +83,7 @@ export default function ProjectCard ({
         </div>
 
         {/* 하단부 */}
-        <div className="flex flex-col justify-between mt-4 px-6">
+        <div className="flex flex-col justify-between px-6">
           {/* 태그 */}
           {showTags && (<div className="flex flex-wrap gap-1 text-sm text-gray-400">
             {tags.map((tag, index) => (
