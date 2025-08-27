@@ -6,6 +6,7 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
 import DynamicMarginLayout from "@/layouts/DynamicMarginLayout";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import ProgressProviderWrapper from "./providers/ProgressBar";
 
 const BASE_URL = "https://yunseok.vercel.app";
 
@@ -45,15 +46,17 @@ export default function RootLayout({
       {/* <body className="bg-linear-to-br from-blue-950 to-gray-900"> */}
       <body className="bg-[#f2f2f2] dark:bg-[#121212]">
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <div className="bg-[#e7e7e7] dark:bg-[#0a0a0a] font-pretendard">
-            <Header />
-            <DynamicMarginLayout>
-              <div className="w-full flex flex-col items-center">
-                {children}
-              </div>
-            </DynamicMarginLayout>
-            <Footer />
-          </div>
+          <ProgressProviderWrapper>
+            <div className="bg-[#e7e7e7] dark:bg-[#0a0a0a] font-pretendard">
+              <Header />
+              <DynamicMarginLayout>
+                <div className="w-full flex flex-col items-center">
+                  {children}
+                </div>
+              </DynamicMarginLayout>
+              <Footer />
+            </div>
+          </ProgressProviderWrapper>
         </ThemeProvider>
         <Analytics />
         <GoogleAnalytics gaId="G-2X8994GCL2" />
