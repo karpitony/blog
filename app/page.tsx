@@ -22,9 +22,11 @@ export default async function Home() {
 
   return (
     <div className="w-full max-w-full md:max-w-3xl lg:max-w-5xl min-h-[90vh] text-black dark:text-gray-100">
-      <div className="px-2 py-4 md:py-10 space-y-4">
-        <SimpleAboutMe />
-        <ArrowButton text="자세히 보기" href="/about" />
+      <div className="w-full flex justify-center">
+        <div className="px-2 mb-12 py-4 md:py-10 w-full max-w-full md:max-w-3xl" id="about">
+          <SimpleAboutMe />
+          <ArrowButton text="자세히 보기" href="/about" />
+        </div>
       </div>
       <hr className="border-t-2 py-4 mt-8 border-gray-800 dark:border-white" />
 

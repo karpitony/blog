@@ -42,7 +42,8 @@ export default function NavBar() {
 
       if (isMobile) {
         if (Math.abs(currentScrollY - lastScrollY.current) < 5) return;
-        if (currentScrollY > lastScrollY.current) {
+        // currentScrollY가 0보다 클 때만 숨김 로직을 적용
+        if (currentScrollY > lastScrollY.current && currentScrollY > 0) {
           setIsVisible(false);
         } else {
           setIsVisible(true);
