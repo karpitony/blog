@@ -6,12 +6,12 @@ type Rule = {
 
 export default function robots() {
   const searchBots = ['Yeti', 'Googlebot', 'Bingbot', 'DuckDuckBot'] as const;
-  const seoAllows = ['/'];          
-  const seoDisallows = ['/diary'];  
+  const seoAllows = ['/'];
+  const seoDisallows = ['/diary'];
 
   const rules: Rule[] = [
     { userAgent: '*', disallow: ['/'] },
-    ...searchBots.map((bot) => ({
+    ...searchBots.map(bot => ({
       userAgent: bot,
       allow: seoAllows,
       disallow: seoDisallows,

@@ -28,4 +28,4 @@ export default function parseToc(content: string): HeadingItem[] {
       indent: (heading.match(/#/g)?.length || 2) - 2,
     })) || []
   );
-};
+}

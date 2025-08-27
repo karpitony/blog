@@ -1,12 +1,12 @@
-import { getProjectList } from "@/libs/Project/getProjectList";
-import ProjectTagsAndList from "@/components/Projects/ProjectTagsAndList";
+import { getProjectList } from '@/libs/Project/getProjectList';
+import ProjectTagsAndList from '@/components/Projects/ProjectTagsAndList';
 
 export const metadata = {
-  title: "Projects | 프로젝트",
-  description: "그동안 한 프로젝트들",
+  title: 'Projects | 프로젝트',
+  description: '그동안 한 프로젝트들',
   openGraph: {
-    title: "Projects",
-    description: "Projects",
+    title: 'Projects',
+    description: 'Projects',
   },
 };
 

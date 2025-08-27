@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import Giscus from "@giscus/react";
+import Giscus from '@giscus/react';
 
 export default function Comments() {
   return (
@@ -19,7 +19,7 @@ export default function Comments() {
         inputPosition="top"
         theme="dark_dimmed"
         lang="ko"
-        loading="eager"   //"lazy"
+        loading="eager" //"lazy"
       />
     </div>
   );

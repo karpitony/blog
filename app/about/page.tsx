@@ -1,19 +1,19 @@
-import SimpleAboutMe from "@/components/common/SimpleAboutMe";
-import TechStacks from "@/components/About/Contents/TechStacks";
-import Educations from "@/components/About/Contents/Educations";
-import Projects from "@/components/About/Contents/Projects";
-import MoreProjects from "@/components/About/MoreProjects";
-import Activities from "@/components/About/Contents/Activities";
-import Links from "@/components/About/Contents/Links";
-import StickyNavBar from "@/components/About/StickyNavBar";
+import SimpleAboutMe from '@/components/common/SimpleAboutMe';
+import TechStacks from '@/components/About/Contents/TechStacks';
+import Educations from '@/components/About/Contents/Educations';
+import Projects from '@/components/About/Contents/Projects';
+import MoreProjects from '@/components/About/MoreProjects';
+import Activities from '@/components/About/Contents/Activities';
+import Links from '@/components/About/Contents/Links';
+import StickyNavBar from '@/components/About/StickyNavBar';
 
 const sections = [
-  { id: "about", label: "자기소개" },
-  { id: "techstacks", label: "기술스택" },
-  { id: "projects", label: "프로젝트" },
-  { id: "activities", label: "대외활동" },
-  { id: "links", label: "링크" },
-  { id: "educations", label: "교육" },
+  { id: 'about', label: '자기소개' },
+  { id: 'techstacks', label: '기술스택' },
+  { id: 'projects', label: '프로젝트' },
+  { id: 'activities', label: '대외활동' },
+  { id: 'links', label: '링크' },
+  { id: 'educations', label: '교육' },
 ];
 
 export default function About() {
@@ -31,7 +31,7 @@ export default function About() {
         <div className="px-2" id="techstacks">
           <TechStacks />
         </div>
-        
+
         <div className="px-2" id="projects">
           <Projects />
           <MoreProjects />

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 import { useMemo } from 'react';
 import Link from 'next/link';
 import { getDiaryList } from '@/libs/Diary/getDiaryList';
-import cn from "@yeahx4/cn";
+import cn from '@yeahx4/cn';
 
 // 연도-월 기준으로 그룹화
 function groupByYearMonth(list: Awaited<ReturnType<typeof getDiaryList>>) {
@@ -19,9 +19,9 @@ function groupByYearMonth(list: Awaited<ReturnType<typeof getDiaryList>>) {
 }
 
 export default function DiaryList({
-  diaryList 
-}: { 
-  diaryList: Awaited<ReturnType<typeof getDiaryList>> 
+  diaryList,
+}: {
+  diaryList: Awaited<ReturnType<typeof getDiaryList>>;
 }) {
   const grouped = useMemo(() => groupByYearMonth(diaryList), [diaryList]);
 
@@ -32,13 +32,15 @@ export default function DiaryList({
           {/* 연도 + 월별로 일기를 그룹 */}
           {Object.entries(months).map(([month, entries]) => (
             <div key={month}>
-              <h3 className={cn(
-                "text-3xl font-semibold mt-12 mb-4 cursor-pointer underline underline-offset-2",
-                "text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300",
-                "hover:no-underline underline-offset-2 transition duration-200 ease-in-out",
-              )}>
+              <h3
+                className={cn(
+                  'text-3xl font-semibold mt-12 mb-4 cursor-pointer underline underline-offset-2',
+                  'text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300',
+                  'hover:no-underline underline-offset-2 transition duration-200 ease-in-out',
+                )}
+              >
                 {year}.{month}
-              </h3>         
+              </h3>
               <ul className="mt-1 space-y-2">
                 {/* 각 일기 제목 */}
                 {entries.map((entry, idx) => (
@@ -46,20 +48,20 @@ export default function DiaryList({
                     <Link
                       href={`/diary/${entry.meta.date}`}
                       className={cn(
-                        "text-base cursor-pointer underline underline-offset-2",
-                        "text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300",
-                        "hover:no-underline underline-offset-2 transition duration-200 ease-in-out",
+                        'text-base cursor-pointer underline underline-offset-2',
+                        'text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300',
+                        'hover:no-underline underline-offset-2 transition duration-200 ease-in-out',
                       )}
                     >
                       {entry.meta.title} {entry.meta.description && `- ${entry.meta.description}`}
                     </Link>
                   </p>
                 ))}
-              </ul>     
+              </ul>
             </div>
           ))}
         </li>
       ))}
     </ul>
   );
-};
+}

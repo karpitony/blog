@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import imageInfo from '@/public/image-info.json';
-import cn from "@yeahx4/cn";
+import cn from '@yeahx4/cn';
 import Logger from '@/libs/logger';
 
 interface CardProps {
-  type: "project" | "post";
+  type: 'project' | 'post';
   slug: string;
   thumbnail: string;
   title: string;
@@ -13,33 +13,36 @@ interface CardProps {
   tags: string[];
   showTags?: boolean;
   date: string;
-};
+}
 
-export default function ProjectCard ({ 
+export default function ProjectCard({
   type,
-  slug, 
-  thumbnail, 
+  slug,
+  thumbnail,
   title,
   description,
   tags,
   showTags = false,
   date,
- }: CardProps) {
+}: CardProps) {
   const resolvedSrc = thumbnail || '';
   let width = 800;
   let height = 600;
   let blurDataURL: string | undefined = undefined;
-  const isBlurImageFlag = 
-    resolvedSrc.startsWith('./') || resolvedSrc.startsWith('../') || 
-    resolvedSrc.startsWith('/contents/') || resolvedSrc.startsWith('/projects/') || 
+  const isBlurImageFlag =
+    resolvedSrc.startsWith('./') ||
+    resolvedSrc.startsWith('../') ||
+    resolvedSrc.startsWith('/contents/') ||
+    resolvedSrc.startsWith('/projects/') ||
     resolvedSrc.startsWith('/posts/');
 
   if (isBlurImageFlag) {
     const relPath = resolvedSrc.split('/').slice(3).join('/');
-    const size = type === "project" 
-      ? imageInfo.projects[relPath as keyof typeof imageInfo.projects]
-      : imageInfo.posts[relPath as keyof typeof imageInfo.posts];
-    
+    const size =
+      type === 'project'
+        ? imageInfo.projects[relPath as keyof typeof imageInfo.projects]
+        : imageInfo.posts[relPath as keyof typeof imageInfo.posts];
+
     if (size) {
       width = size.width;
       height = size.height;
@@ -50,10 +53,10 @@ export default function ProjectCard ({
   }
 
   return (
-    <Link 
+    <Link
       className={cn(
-        "group w-full overflow-hidden rounded-2xl border border-gray-600", 
-        "pb-6 shadow-xl flex flex-col h-full",
+        'group w-full overflow-hidden rounded-2xl border border-gray-600',
+        'pb-6 shadow-xl flex flex-col h-full',
       )}
       href={`/${type}s/${slug}`}
       prefetch={false}
@@ -71,30 +74,32 @@ export default function ProjectCard ({
           decoding="async"
         />
       </div>
-      <div className='flex flex-grow flex-col justify-between'>
+      <div className="flex flex-grow flex-col justify-between">
         {/* 텍스트 영역 */}
         <div className="mt-6 flex h-[120px] w-full flex-col gap-2 px-6">
           <h3 className="line-clamp-2 max-h-[54px] text-lg font-bold text-black dark:text-gray-100">
             {title}
           </h3>
-          <p className="line-clamp-2 max-h-[48px] text-black dark:text-gray-300">
-            {description}
-          </p>
+          <p className="line-clamp-2 max-h-[48px] text-black dark:text-gray-300">{description}</p>
         </div>
 
         {/* 하단부 */}
         <div className="flex flex-col justify-between px-6">
           {/* 태그 */}
-          {showTags && (<div className="flex flex-wrap gap-1 text-sm text-gray-400">
-            {tags.map((tag, index) => (
-              <span key={index} className={cn(
-                "bg-gray-700 text-gray-300 px-1 md:px-2 py-1 rounded-full",
-                "text-xs overflow-hidden text-ellipsis whitespace-nowrap"
-              )}>
-                {tag}
-              </span>
-            ))}
-          </div>
+          {showTags && (
+            <div className="flex flex-wrap gap-1 text-sm text-gray-400">
+              {tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className={cn(
+                    'bg-gray-700 text-gray-300 px-1 md:px-2 py-1 rounded-full',
+                    'text-xs overflow-hidden text-ellipsis whitespace-nowrap',
+                  )}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           )}
           {/* 날짜 */}
           <p className="text-sm text-gray-700 dark:text-gray-400 mt-2">
@@ -104,4 +109,4 @@ export default function ProjectCard ({
       </div>
     </Link>
   );
-};
+}

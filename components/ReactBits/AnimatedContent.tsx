@@ -1,12 +1,12 @@
 'use client';
 
-import { useRef, useEffect, useState } from "react";
-import { useSpring, animated } from "@react-spring/web";
+import { useRef, useEffect, useState } from 'react';
+import { useSpring, animated } from '@react-spring/web';
 
 interface AnimatedContentProps {
   children: React.ReactNode;
   distance?: number;
-  direction?: "vertical" | "horizontal";
+  direction?: 'vertical' | 'horizontal';
   reverse?: boolean;
   config?: { tension: number; friction: number };
   initialOpacity?: number;
@@ -18,7 +18,7 @@ interface AnimatedContentProps {
 const AnimatedContent = ({
   children,
   distance = 100,
-  direction = "vertical",
+  direction = 'vertical',
   reverse = false,
   config = { tension: 50, friction: 25 },
   initialOpacity = 0,
@@ -26,7 +26,6 @@ const AnimatedContent = ({
   scale = 1,
   threshold = 0.1,
 }: AnimatedContentProps) => {
-
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -40,7 +39,7 @@ const AnimatedContent = ({
           observer.unobserve(ref.current!);
         }
       },
-      { threshold }
+      { threshold },
     );
 
     observer.observe(ref.current);
@@ -49,8 +48,8 @@ const AnimatedContent = ({
   }, [threshold]);
 
   const directions = {
-    vertical: "Y",
-    horizontal: "X",
+    vertical: 'Y',
+    horizontal: 'X',
   };
 
   const springProps = useSpring({
@@ -58,14 +57,12 @@ const AnimatedContent = ({
       transform: `translate${directions[direction]}(${reverse ? `-${distance}px` : `${distance}px`}) scale(${scale})`,
       opacity: animateOpacity ? initialOpacity : 1,
     },
-    to: inView
-      ? { transform: "translateY(0px) scale(1)", opacity: 1 }
-      : undefined,
+    to: inView ? { transform: 'translateY(0px) scale(1)', opacity: 1 } : undefined,
     config,
   });
 
   return (
-    <div style={{ overflow: "hidden" }}>
+    <div style={{ overflow: 'hidden' }}>
       <animated.div ref={ref} style={springProps}>
         {children}
       </animated.div>

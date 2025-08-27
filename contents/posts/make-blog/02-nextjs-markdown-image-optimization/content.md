@@ -17,7 +17,6 @@ draft: false
 
 마크다운 렌더에 이미지 최적화를 적용하며 찾은 이미지 최적화 컴포넌트의 장점, 사용 방법, 적용기를 풀어보겠습니다!
 
-
 ## `next/image`란?
 
 > [Image Optimization - Next.js 공식문서](https://nextjs.org/docs/pages/building-your-application/optimizing/images)
@@ -25,7 +24,7 @@ draft: false
 
 next/image는 독특하게 동작합니다. 기본적으로 런타임에 최적화를 진행합니다.
 
-사용자 화면 크기에 맞게 이미지를 자동으로 리사이즈하여, 필요한 크기만 로드됩니다. 
+사용자 화면 크기에 맞게 이미지를 자동으로 리사이즈하여, 필요한 크기만 로드됩니다.
 
 모바일에서는 작은 크기의 이미지가 로드되고, 데스크탑에서는 큰 이미지가 로드됩니다.
 
@@ -33,20 +32,18 @@ next/image는 독특하게 동작합니다. 기본적으로 런타임에 최적�
 
 `next/image`는 이미지의 포맷을 최적화된 형태로 자동으로 변환합니다.
 
-이미지를 `webp` 혹은 `avif` 포맷 등 용량이 작고 품질은 그대로인 포맷중 하나를 골라 변환합니다. 
+이미지를 `webp` 혹은 `avif` 포맷 등 용량이 작고 품질은 그대로인 포맷중 하나를 골라 변환합니다.
 
 브라우저가 지원하는 최적의 포맷으로 자동 변환합니다.
 
-
 별도의 설정을 하지 않을 경우 75% 퀄리티로 이미지를 렌더하고, lazy 로딩이 적용됩니다.
 
-
-### 로컬 이미지 최적화 
+### 로컬 이미지 최적화
 
 ```tsx
-import Image from 'next/image'
-import profilePic from '../public/me.png'
- 
+import Image from 'next/image';
+import profilePic from '../public/me.png';
+
 export default function Page() {
   return (
     <Image
@@ -57,7 +54,7 @@ export default function Page() {
       // blurDataURL="data:..." automatically provided
       // placeholder="blur" // Optional blur-up while loading
     />
-  )
+  );
 }
 ```
 
@@ -66,7 +63,6 @@ export default function Page() {
 다만 마크다운 렌더링의 경우 로컬 임포트가 아니라 동적 임포트이기에 이부분에 추가작업이 필요합니다.
 
 그 내용은 글 아래에서 다뤄보겠습니다.
-
 
 ### Remote 이미지 최적화
 
@@ -89,8 +85,8 @@ export default const nextConfig = {
 ```
 
 ```tsx
-import Image from 'next/image'
- 
+import Image from 'next/image';
+
 export default function Page() {
   return (
     <Image
@@ -99,7 +95,7 @@ export default function Page() {
       width={500}
       height={500}
     />
-  )
+  );
 }
 ```
 
@@ -112,12 +108,12 @@ export default function Page() {
 기본 `<img>`태그의 래퍼답게 여러 기능들을 제공하고 있습니다.
 
 이중 주요 기능들을 보면
+
 - `width`, `height` 속성으로 이미지 로딩 전 공간을 차지하고 있어 화면 움찔걸미(레이아웃 시프트)를 방지합니다.
-- `placeholder`를  통해 로딩 전 가벼운 블러 이미지 등을 보여줄 수 있습니다.
+- `placeholder`를 통해 로딩 전 가벼운 블러 이미지 등을 보여줄 수 있습니다.
 - `loading` 속성에서 `loading="lazy"`를 통해 lazy로딩을 손쉽게 사용하여 초기 로딩 속도를 줄일 수 있습니다.
 
 그밖에도 로딩중이나 에러 헨들링도 쉽게 가능합니다.
-
 
 ## 블로그에 `next/image` 적용하기
 
@@ -135,17 +131,15 @@ export default function Page() {
 
 이를 해결하기 위해 몇가지 방법들이 있습니다.
 
-
 ### 시도 1) `.mdx` 사용하기
 
-MDX는 MarkDown wit JSX의 약자로, 마크다운과 컴포넌트를 같이 쓰는 파일 형식입니다. 
+MDX는 MarkDown wit JSX의 약자로, 마크다운과 컴포넌트를 같이 쓰는 파일 형식입니다.
 
 리액트 컴포넌트를 사용하므로, Markdown의 간결함과 React의 강력함을 활용할 수 있습니다.
 
 다만, mdx를 처음 써보기도 하고, 매번 `<Image />` 컴포넌트의 옵션들을 설정해야 할 것 같아서, 마음에 들지 않았습니다.
 
 그리고 제 게시글이 특정 문법에 종속되는게 싫었기에, 대부분이 지원하는 마크다운 표준 문법만 사용하고 싶었습니다.
-
 
 ### 시도 2) `/public` 폴더에 이미지 보관
 
@@ -165,7 +159,6 @@ MDX는 MarkDown wit JSX의 약자로, 마크다운과 컴포넌트를 같이 쓰
 
 GPT와 열띤 토론 끝에 세번째 방법을 고안했고, 나름 만족하고 있습니다.
 
-
 ### 시도 3) 이미지를 `/public`으로 복사 후 추가 JSON 파일 생성
 
 게시글 작성 시에는 `contents/posts/[시리즈]/[글제목]/` 폴더 안에서 상대 경로에 이미지를 저장해서 마크다운에서 상대경로로 불러오고, `next dev`, `next build`으로 빌드 시 사전 실행 스크립트를 작동 시켜 이미지들을 퍼블릭으로 복사했습니다.
@@ -180,24 +173,24 @@ GPT와 열띤 토론 끝에 세번째 방법을 고안했고, 나름 만족하�
 import sizeOf from 'image-size';
 import sharp from 'sharp';
 //...
-  const fileBuffer = fs.readFileSync(fullPath);
+const fileBuffer = fs.readFileSync(fullPath);
 
-  const dimensions = sizeOf(fileBuffer);
-  if (!dimensions.width || !dimensions.height) continue;
+const dimensions = sizeOf(fileBuffer);
+if (!dimensions.width || !dimensions.height) continue;
 
-  const blurBuffer = await sharp(fileBuffer)
-    .resize(80, 60, { fit: 'inside' })
-    .webp({ quality: 30 })
-    .toBuffer();
+const blurBuffer = await sharp(fileBuffer)
+  .resize(80, 60, { fit: 'inside' })
+  .webp({ quality: 30 })
+  .toBuffer();
 
-  const base64 = blurBuffer.toString('base64');
-  const blurDataURL = `data:image/webp;base64,${base64}`;
+const base64 = blurBuffer.toString('base64');
+const blurDataURL = `data:image/webp;base64,${base64}`;
 
-  imageInfo[target][relPath.replace(/\\/g, '/')] = {
-    width: dimensions.width,
-    height: dimensions.height,
-    blurDataURL,
-  };
+imageInfo[target][relPath.replace(/\\/g, '/')] = {
+  width: dimensions.width,
+  height: dimensions.height,
+  blurDataURL,
+};
 // ...
 ```
 
@@ -216,8 +209,8 @@ import sharp from 'sharp';
       let width = 1200;
       let height = 800;
       let blurDataURL: string | undefined = undefined;
-      // 글 폴더 안에 이미지가 있는 경우만 
-      const blurImageFlag = 
+      // 글 폴더 안에 이미지가 있는 경우만
+      const blurImageFlag =
         resolvedSrc.startsWith('./') || resolvedSrc.startsWith('../') ? true : false;
 
       if (blurImageFlag) {
@@ -225,7 +218,7 @@ import sharp from 'sharp';
           const relPath = `${series}/${postTitle}/${resolvedSrc.slice(2)}`;
           resolvedSrc = `/contents/posts/${relPath}`;
           const size = imageInfo.posts[relPath as keyof typeof imageInfo.posts];
-          
+
           if (size) {
             width = size.width;
             height = size.height;
@@ -275,4 +268,3 @@ import sharp from 'sharp';
 기존에는 HTML의 기본 img태그를 사용했기에 이미지 최적화, 레이아웃 밀림, 로딩 전략 등에서 한계가 있었습니다.
 
 살짝 복잡한 과정과, 사전 빌드 스크립트가 필요하긴 했지만, Next.js의 `Image` 컴포넌트로 교체한 후 지연 로딩(Lazy Loading), 레이아웃 안정화, 기기 해상도에 맞게 자동 리사이징 등의 장점을 얻을 수 있었습니다.
-

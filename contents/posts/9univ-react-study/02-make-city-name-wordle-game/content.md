@@ -8,7 +8,7 @@ series: 9univ-react-study
 seriesIndex: 1
 ---
 
-이번 주는 지난주에 배운 리액트의 기본 문법을 복습하고, 리액트로 간단한 사이드 프로젝트를 해보았습니다. 
+이번 주는 지난주에 배운 리액트의 기본 문법을 복습하고, 리액트로 간단한 사이드 프로젝트를 해보았습니다.
 
 리액트 문법으로는 비동기 처리에 중요한 async와 await 키워드를 알게 되었고, React Router로 링크를 만드는 방법도 알게되었습니다.
 
@@ -19,25 +19,25 @@ seriesIndex: 1
 <br>
 
 1. [**`async`-`await` 비동기 문법**](#async-await-비동기-문법)
-    1. [`async-await`의 사용 방법](#1-async-await의-사용-방법)
-    2. [fetch와 함께 사용하기](#2-fetch와-함께-사용하기)
+   1. [`async-await`의 사용 방법](#1-async-await의-사용-방법)
+   2. [fetch와 함께 사용하기](#2-fetch와-함께-사용하기)
 2. [**React Router와 `Link`**](#react-router와-link)
-    1. [라우터 설정하기](#1-라우터-설정하기)
-    2. [`Link` 컴포넌트 사용하기](#2-link-컴포넌트-사용하기)
+   1. [라우터 설정하기](#1-라우터-설정하기)
+   2. [`Link` 컴포넌트 사용하기](#2-link-컴포넌트-사용하기)
 3. [**다이나믹 URL**](#다이나믹-url)
-    1. [`useParams` 훅 사용하기](#1-useparams-훅-사용하기)
-    2. [동적 라우팅 처리](#2-동적-라우팅-처리)
+   1. [`useParams` 훅 사용하기](#1-useparams-훅-사용하기)
+   2. [동적 라우팅 처리](#2-동적-라우팅-처리)
 4. [**사이드 프로젝트 도들**](#사이드-프로젝트---도들)
-    1. [만들면서 배운 것](#1-만들면서-배운-것)
-    2. [사용한 기술 스택들에 관한 이야기](#2-사용한-기술-스택에-관한-이야기)
+   1. [만들면서 배운 것](#1-만들면서-배운-것)
+   2. [사용한 기술 스택들에 관한 이야기](#2-사용한-기술-스택에-관한-이야기)
 
 <hr>
 
 ## `async`-`await` 비동기 문법
 
-``` jsx
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+```jsx
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function Detail() {
   const { id } = useParams();
@@ -56,7 +56,9 @@ function Detail() {
 }
 export default Detail;
 ```
+
 > 배운 것들
+>
 > - async-await의 사용 방법
 > - fetch와 함께 사용하기
 
@@ -64,13 +66,13 @@ export default Detail;
 
 ### 1. `async`-`await`의 사용 방법
 
-`async`와 `await`는 자바스크립트의 비동기 처리를 보다 간결하고 읽기 쉽게 해주는 문법입니다. 
+`async`와 `await`는 자바스크립트의 비동기 처리를 보다 간결하고 읽기 쉽게 해주는 문법입니다.
 
 `async` 키워드는 함수 앞에 붙여서 해당 함수가 비동기 함수임을 나타내며, 함수 내부에서 `await` 키워드를 사용하여 프로미스의 완료를 기다릴 수 있습니다.
 
 ```jsx
 const getData = async () => {
-  const response = await fetch("API_URL");
+  const response = await fetch('API_URL');
   const data = await response.json();
   return data;
 };
@@ -82,7 +84,7 @@ const getData = async () => {
 
 #### 왜 쓰는가
 
-기존의 비동기 처리는 `.then()` 체인을 사용하여 콜백 지옥이 발생하거나 코드의 가독성이 떨어지는 경우가 있었습니다. 
+기존의 비동기 처리는 `.then()` 체인을 사용하여 콜백 지옥이 발생하거나 코드의 가독성이 떨어지는 경우가 있었습니다.
 
 `async`-`await`를 사용하면 동기 코드처럼 비동기 코드를 작성할 수 있어 가독성이 향상되고, 오류 처리도 더 간편해집니다.
 
@@ -106,7 +108,7 @@ useEffect(() => {
 }, [id]);
 ```
 
-위 코드에서는 `useEffect` 훅 내부에 `getMovie`라는 비동기 함수를 선언하고 즉시 호출합니다. `fetch`로 API 요청을 보내고, 그 결과를 `await`로 받아옵니다. 
+위 코드에서는 `useEffect` 훅 내부에 `getMovie`라는 비동기 함수를 선언하고 즉시 호출합니다. `fetch`로 API 요청을 보내고, 그 결과를 `await`로 받아옵니다.
 
 이렇게 하면 API 응답을 받아올 때까지 다음 코드의 실행을 잠시 중단하고, 응답을 받은 후에 `json()` 메서드를 사용하여 JSON 데이터를 파싱합니다.
 
@@ -115,9 +117,9 @@ useEffect(() => {
 ## React Router와 Link
 
 ```jsx
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Detail from "./routes/Detail";
-import Home from "./routes/Home";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Detail from './routes/Detail';
+import Home from './routes/Home';
 
 function App() {
   return (
@@ -139,7 +141,9 @@ function App() {
 
 export default App;
 ```
+
 > 배운 것들
+>
 > - 라우터 설정하기
 > - Link 컴포넌트 사용하기
 
@@ -152,7 +156,7 @@ export default App;
 `BrowserRouter`, `Switch`, `Route` 컴포넌트를 사용하여 라우팅을 설정합니다.
 
 ```jsx
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
@@ -170,6 +174,7 @@ function App() {
 <br>
 
 #### 왜 쓰는가
+
 SPA에서는 **페이지 전환 시 전체 페이지를 다시 로드하지 않고**도 URL에 따라 컴포넌트를 바꿔줄 수 있습니다.
 
 React Router를 사용하면 이러한 라우팅을 간편하게 구현할 수 있으며, 사용자 경험을 향상시킬 수 있습니다.
@@ -177,12 +182,13 @@ React Router를 사용하면 이러한 라우팅을 간편하게 구현할 수 �
 <br>
 
 ### 2. Link 컴포넌트 사용하기
-React Router에서 페이지 간 이동을 위해 `<a>` 태그 대신 `<Link>` 컴포넌트를 사용합니다. 
+
+React Router에서 페이지 간 이동을 위해 `<a>` 태그 대신 `<Link>` 컴포넌트를 사용합니다.
 
 이는 페이지 전체를 다시 로드하지 않고도 URL을 변경하고, 해당 컴포넌트를 렌더링할 수 있게 해줍니다.
 
 ```jsx
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
@@ -193,6 +199,7 @@ function Home() {
   );
 }
 ```
+
 위 코드에서는 `to` 속성을 사용하여 이동할 경로를 지정합니다.
 
 <br>
@@ -200,8 +207,8 @@ function Home() {
 ### 다이나믹 URL
 
 ```jsx
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function Detail() {
   const { id } = useParams();
@@ -220,7 +227,9 @@ function Detail() {
 }
 export default Detail;
 ```
+
 > 배운 것들
+>
 > - `useParams` 훅 사용하기
 > - 동적 라우팅 처리
 
@@ -229,7 +238,7 @@ export default Detail;
 ### 1. `useParams` 훅 사용하기
 
 ```jsx
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 function Detail() {
   const { id } = useParams();
@@ -242,6 +251,7 @@ function Detail() {
 <br>
 
 #### 왜 쓰는가
+
 동적 라우팅을 구현할 때 URL의 일부를 변수처럼 사용하여 각기 다른 데이터를 보여줄 필요가 있습니다. useParams를 사용하면 URL에서 필요한 파라미터를 손쉽게 추출할 수 있습니다.
 
 <br>
@@ -259,11 +269,13 @@ function Detail() {
   </Switch>
 </Router>
 ```
+
 위 코드에서는 `/movie/:id` 경로로 들어올 때마다 `Detail` 컴포넌트를 렌더링하며, `id` 파라미터를 받아옵니다.
 
 <br>
 
 ## 사이드 프로젝트 - 도들
+
 ![week02_01](./week02_01.webp)
 
 https://dodle.vercel.app/
@@ -285,15 +297,17 @@ https://dodle.vercel.app/
 
 ![week02_02](./week02_02.webp)
 
-코드가 복잡해 질수록 하나의 `.jsx` 파일에 작성하는 것이 아닌 컴포넌트로 쪼개서 관리하는 것이 더욱 편했다. 
+코드가 복잡해 질수록 하나의 `.jsx` 파일에 작성하는 것이 아닌 컴포넌트로 쪼개서 관리하는 것이 더욱 편했다.
 
-하지만 이 경우 `props`들이 복잡해져서 약간의 난항을 겪었다. `PropTypes`라는 라이브러리나 `TypeScript`를 사용하는 이유를 알 것 같았다. 
+하지만 이 경우 `props`들이 복잡해져서 약간의 난항을 겪었다. `PropTypes`라는 라이브러리나 `TypeScript`를 사용하는 이유를 알 것 같았다.
 
 ### 2. 사용한 기술 스택에 관한 이야기
-#### Vite
-리액트 프로젝트를 만들 때 전에는 `Create-React-App`이라는 것을 사용했다. 강의에서 그렇게 알려주었기 때문이다. 
 
-이번 사이드프로젝트를 해보며 그대로 `CRA`를 사용하려 했으나 유튜브 영상을 통해 `Vite`라는 빌드 툴을 알게 되었다. `Vite`를 사용해본 후기로는 기존 `CRA`보다 속도가 정말정말정말 빠르다는것이다. 
+#### Vite
+
+리액트 프로젝트를 만들 때 전에는 `Create-React-App`이라는 것을 사용했다. 강의에서 그렇게 알려주었기 때문이다.
+
+이번 사이드프로젝트를 해보며 그대로 `CRA`를 사용하려 했으나 유튜브 영상을 통해 `Vite`라는 빌드 툴을 알게 되었다. `Vite`를 사용해본 후기로는 기존 `CRA`보다 속도가 정말정말정말 빠르다는것이다.
 
 호스팅은 `Vercel`로 했는데, 깃허브에 커밋 한 변경사항이 약 10초 뒤쯤 빌드가 완료되어 `Vercel`에 반영되어 있었다. 해커톤이나 또다른 사이드 프로젝트를 진행할 때 팀원이 `CRA`를 쓰려한다면 `Vite`를 꼭 권하고 싶다.
 
@@ -309,19 +323,18 @@ export default function Header() {
     <header
       className="flex justify-center mb-10 md:mb-16 py-4"
       style={{
-        boxShadow: "0px 4px 29px 0px rgba(66, 68, 90, 0.14)",
+        boxShadow: '0px 4px 29px 0px rgba(66, 68, 90, 0.14)',
       }}
     >
       <p className="text-3xl font-bold select-none">🌁 Dodle</p>
     </header>
   );
 }
-
 ```
 
 위의 코드를 보면 `<header>` 태그의 `className`(JS의 경우 `class`라는 키워드가 이미 있어서, 리액트에서는 `className`이라고 한다)에 굉장히 긴 문자열이 있다.
 
-위의 문자열이 `tailwindcss`로 만든 스타일이다. 별도의 css 파일 없이 `className`에 작성하기만 하면 적용이 되어서 React에서 사용하기 굉장히 편리했다. 
+위의 문자열이 `tailwindcss`로 만든 스타일이다. 별도의 css 파일 없이 `className`에 작성하기만 하면 적용이 되어서 React에서 사용하기 굉장히 편리했다.
 
 다만, 기존 css문법도 숙지가 잘 안되어 있었는데, `tailwindcss`를 써보려니 헷갈리거나 구글링 시간이 오래걸리는 등 러닝커브가 좀 있었다.
 

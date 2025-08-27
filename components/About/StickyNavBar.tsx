@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 interface Section {
   id: string;
@@ -11,7 +11,7 @@ interface StickyNavBarProps {
 }
 
 export default function StickyNavBar({ sections }: StickyNavBarProps) {
-  const [activeSection, setActiveSection] = useState(sections[0]?.id || "");
+  const [activeSection, setActiveSection] = useState(sections[0]?.id || '');
   const [isSticky, setIsSticky] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true); // 부드러운 복귀를 위한 상태 추가
   const [tocHeight, setTocHeight] = useState(0); // 스티키 상태에서 레이아웃이 튀지 않도록 높이 설정
@@ -23,7 +23,7 @@ export default function StickyNavBar({ sections }: StickyNavBarProps) {
       const scrollPosition = window.scrollY;
 
       if (!tocInitialOffset) {
-        const tocElement = document.getElementById("toc");
+        const tocElement = document.getElementById('toc');
         if (tocElement) {
           tocInitialOffset = tocElement.offsetTop;
           setTocHeight(tocElement.offsetHeight);
@@ -53,61 +53,63 @@ export default function StickyNavBar({ sections }: StickyNavBarProps) {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [sections]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      window.scrollTo({ top: element.offsetTop - 80, behavior: "smooth" });
+      window.scrollTo({ top: element.offsetTop - 80, behavior: 'smooth' });
     }
   };
 
   return (
     <>
-    {/* Placeholder for sticky navbar */}
-    {isSticky && <div style={{ height: tocHeight }} />}
-    <div
-      id="toc"
-      className={`transition-all duration-300 ${
-        isSticky
-          ? "fixed pl-5 rounded-b-md shadow-lg backdrop-blur-xl top-0"
-          : isAtTop
-          ? "relative pl-2 top-0"
-          : "relative pl-2"
-      } w-full right-0 z-10 py-3`}
-    >
+      {/* Placeholder for sticky navbar */}
+      {isSticky && <div style={{ height: tocHeight }} />}
       <div
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}
-        className="max-w-3xl mx-auto overflow-x-auto"
+        id="toc"
+        className={`transition-all duration-300 ${
+          isSticky
+            ? 'fixed pl-5 rounded-b-md shadow-lg backdrop-blur-xl top-0'
+            : isAtTop
+              ? 'relative pl-2 top-0'
+              : 'relative pl-2'
+        } w-full right-0 z-10 py-3`}
       >
-        <ul
+        <div
           style={{
-            WebkitOverflowScrolling: "touch",
-            WebkitScrollbar: "none",
-          } as React.CSSProperties}
-          className="flex space-x-4 md:space-x-8 text-base md:text-lg whitespace-nowrap"
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}
+          className="max-w-3xl mx-auto overflow-x-auto"
         >
-          {sections.map((section) => (
-            <li
-              key={section.id}
-              className={`cursor-pointer ${
-                activeSection === section.id
-                  ? "font-bold text-blue-500 border-b-2 border-blue-500"
-                  : "text-gray-700 dark:text-gray-300"
-              }`}
-              onClick={() => scrollToSection(section.id)}
-            >
-              {section.label}
-            </li>
-          ))}
-        </ul>
+          <ul
+            style={
+              {
+                WebkitOverflowScrolling: 'touch',
+                WebkitScrollbar: 'none',
+              } as React.CSSProperties
+            }
+            className="flex space-x-4 md:space-x-8 text-base md:text-lg whitespace-nowrap"
+          >
+            {sections.map(section => (
+              <li
+                key={section.id}
+                className={`cursor-pointer ${
+                  activeSection === section.id
+                    ? 'font-bold text-blue-500 border-b-2 border-blue-500'
+                    : 'text-gray-700 dark:text-gray-300'
+                }`}
+                onClick={() => scrollToSection(section.id)}
+              >
+                {section.label}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
     </>
   );
 }

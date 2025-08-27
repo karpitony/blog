@@ -13,13 +13,11 @@ export default function SimpleBox({ children }: { children: React.ReactNode }) {
       scale={1.1}
       threshold={0.2}
     >
-      <div 
-        className={cn(
-          "bg-gray-300 dark:bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg"
-        )}
+      <div
+        className={cn('bg-gray-300 dark:bg-gray-900 bg-opacity-50 rounded-lg p-4 md:p-8 shadow-lg')}
       >
         {children}
       </div>
     </AnimatedContent>
-  )
+  );
 }

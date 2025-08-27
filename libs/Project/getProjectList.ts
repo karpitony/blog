@@ -6,15 +6,17 @@ import { ProjectData, ProjectJson, ProjectMeta } from '@/types/project';
 
 const projectDirectory = path.join(process.cwd(), 'contents/projects');
 
-export async function getAllProjectMarkdownFiles(): Promise<{ 
-  filePath: string;
-  fileName: string
-}[]> {
+export async function getAllProjectMarkdownFiles(): Promise<
+  {
+    filePath: string;
+    fileName: string;
+  }[]
+> {
   const projectFiles = await fs.readdir(projectDirectory, { withFileTypes: true });
 
-  const projectEntries: { 
+  const projectEntries: {
     filePath: string;
-    fileName: string
+    fileName: string;
   }[] = [];
 
   for (const projectEntry of projectFiles) {
@@ -25,7 +27,7 @@ export async function getAllProjectMarkdownFiles(): Promise<{
       await fs.access(contentPath);
       projectEntries.push({
         filePath: contentPath,
-        fileName: projectEntry.name
+        fileName: projectEntry.name,
       });
     } catch {
       continue;
@@ -35,7 +37,7 @@ export async function getAllProjectMarkdownFiles(): Promise<{
   return projectEntries;
 }
 
-export async function generateProjectList(): Promise< ProjectJson > {
+export async function generateProjectList(): Promise<ProjectJson> {
   const projectEntries = await getAllProjectMarkdownFiles();
 
   const projects: ProjectData[] = await Promise.all(
@@ -44,44 +46,44 @@ export async function generateProjectList(): Promise< ProjectJson > {
       const data = await parseProject(content, fileName);
       return {
         meta: data.meta,
-        slug: fileName
+        slug: fileName,
       };
-    })
+    }),
   );
 
   const tagsSet = new Set<string>();
-  projects.forEach((project) => {
-    project.meta.tags?.forEach((tag) => tagsSet.add(tag));
+  projects.forEach(project => {
+    project.meta.tags?.forEach(tag => tagsSet.add(tag));
   });
 
-  return { 
+  return {
     projects,
-    tags: Array.from(tagsSet) 
+    tags: Array.from(tagsSet),
   };
 }
 
-export const getProjectList = async (): Promise< ProjectJson > => {
-  const cached = await readJsonPublic< ProjectJson >('projectList.json');
+export const getProjectList = async (): Promise<ProjectJson> => {
+  const cached = await readJsonPublic<ProjectJson>('projectList.json');
   if (cached) return cached;
 
   return generateProjectList();
 };
 
 export const getProjectData = async (
-  slug: string
+  slug: string,
 ): Promise<{
   meta: ProjectMeta;
   body: string[];
 }> => {
   const cachedData = await getProjectList();
-  const project = cachedData.projects.find((project) => project.slug === slug);
+  const project = cachedData.projects.find(project => project.slug === slug);
   if (!project) {
     throw new Error(`Project with slug "${slug}" not found`);
   }
-  
+
   const fullPath = path.join(projectDirectory, slug, 'project.md');
   const content = await readFile(fullPath, 'utf-8');
   const { meta, body } = parseProject(content, project.meta.title);
-  
+
   return { meta, body };
-}
+};

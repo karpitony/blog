@@ -15,10 +15,7 @@ async function copyOnlyImages(src: string, dest: string) {
 
     if (entry.isDirectory()) {
       await copyOnlyImages(srcPath, destPath);
-    } else if (
-      entry.isFile() &&
-      /\.(webp|jpg|jpeg|png|gif|svg)$/i.test(entry.name)
-    ) {
+    } else if (entry.isFile() && /\.(webp|jpg|jpeg|png|gif|svg)$/i.test(entry.name)) {
       await fs.copyFile(srcPath, destPath);
     }
   }
@@ -26,4 +23,4 @@ async function copyOnlyImages(src: string, dest: string) {
 
 export default copyOnlyImages(srcDir, destDir)
   .then(() => console.log('✅ 이미지 파일만 복사 완료'))
-  .catch((err) => console.error('❌ 복사 실패:', err));
+  .catch(err => console.error('❌ 복사 실패:', err));

@@ -1,5 +1,5 @@
 'use client';
-import SplitText from "@/components/ReactBits/SplitText";
+import SplitText from '@/components/ReactBits/SplitText';
 
 interface SplitTextNoSSRProps {
   text: string;
@@ -7,9 +7,9 @@ interface SplitTextNoSSRProps {
 }
 
 export default function SplitTextNoSSR({
-  text, className = 'mb-4 text-2xl font-bold' 
+  text,
+  className = 'mb-4 text-2xl font-bold',
 }: SplitTextNoSSRProps) {
-
   return (
     <h2 className={className}>
       <SplitText

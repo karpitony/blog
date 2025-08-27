@@ -1,31 +1,30 @@
 import SplitTextNoSSR from '@/components/common/SplitTextNoSSR';
 import LinkBox from '@/components/About/LinkBox';
-import { PiGithubLogo, PiLinkedinLogo, PiGlobe } from "react-icons/pi";
-import { SiVelog } from "react-icons/si";
+import { PiGithubLogo, PiLinkedinLogo, PiGlobe } from 'react-icons/pi';
+import { SiVelog } from 'react-icons/si';
 
 const LinkData = [
   {
     icon: <PiGithubLogo />,
-    text: "Github",
-    url: "https://github.com/karpitony",
+    text: 'Github',
+    url: 'https://github.com/karpitony',
   },
   {
     icon: <PiLinkedinLogo />,
-    text: "Linkedin",
-    url: "https://www.linkedin.com/in/yunseok-song-549286261/",
+    text: 'Linkedin',
+    url: 'https://www.linkedin.com/in/yunseok-song-549286261/',
   },
   {
     icon: <PiGlobe />,
-    text: "Portfolio",
-    url: "https://yunseok.vercel.app/about",
+    text: 'Portfolio',
+    url: 'https://yunseok.vercel.app/about',
   },
   {
     icon: <SiVelog />,
-    text: "Velog",
-    url: "https://velog.io/@karpitony/posts",
-  }
+    text: 'Velog',
+    url: 'https://velog.io/@karpitony/posts',
+  },
 ];
-
 
 export default function Links() {
   return (

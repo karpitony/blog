@@ -22,7 +22,7 @@ const FadeContent = ({
           observer.unobserve(ref.current);
         }
       },
-      { threshold }
+      { threshold },
     );
 
     observer.observe(ref.current);

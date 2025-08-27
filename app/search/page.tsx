@@ -4,4 +4,4 @@ export default function Search() {
       <p>아직 준비중입니다!</p>
     </div>
   );
-};
+}

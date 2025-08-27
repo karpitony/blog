@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
@@ -9,11 +9,13 @@ export default function DynamicMarginLayout({ children }: { children: ReactNode 
   const isAboutPage = pathname === '/about';
 
   return (
-    <div className={cn(
-      'min-h-screen text-gray-100 flex flex-col items-center',
-      'p-3 md:p-6',
-      isAboutPage ? '' : 'mt-16',
-    )}>
+    <div
+      className={cn(
+        'min-h-screen text-gray-100 flex flex-col items-center',
+        'p-3 md:p-6',
+        isAboutPage ? '' : 'mt-16',
+      )}
+    >
       {children}
     </div>
   );

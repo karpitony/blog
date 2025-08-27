@@ -14,8 +14,7 @@ async function main() {
 
 export default main()
   .then(() => console.log('✅ 모든 작업 완료'))
-  .catch((err) => {
+  .catch(err => {
     console.error('❌ 작업 중 오류 발생:', err);
     process.exit(1);
-  }
-);
+  });

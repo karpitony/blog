@@ -61,10 +61,7 @@ async function collectImageSizes() {
   }
 
   // posts, projects 각각 walk
-  await Promise.all([
-    walk(srcDirs.posts, 'posts'),
-    walk(srcDirs.projects, 'projects'),
-  ]);
+  await Promise.all([walk(srcDirs.posts, 'posts'), walk(srcDirs.projects, 'projects')]);
 
   await fs.writeJson(output, imageInfo, { spaces: 2 });
   console.log('✅ 이미지 크기 정보 저장, blurBaseURL 생성 완료');

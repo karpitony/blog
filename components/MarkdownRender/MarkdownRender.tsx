@@ -1,55 +1,90 @@
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
-import rehypeRaw from 'rehype-raw'
+import rehypeRaw from 'rehype-raw';
 // import rehypeSlug from 'rehype-slug'
 import { rehypeCustomSlug } from '@/libs/rehypeCustomSlug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import cn from '@yeahx4/cn';
-import '@/styles/github-markdown-plus.css'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { TbExternalLink } from "react-icons/tb";
+import '@/styles/github-markdown-plus.css';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { TbExternalLink } from 'react-icons/tb';
 import MarkdownImage from './MarkdownImage';
 import StrongHighlight from './StrongHighlight';
 
 interface MarkdownRenderProps {
   markdownText: string;
-  renderType?: "POST" | "PROJECT" | "SNIPPET";
+  renderType?: 'POST' | 'PROJECT' | 'SNIPPET';
   enableGap?: boolean;
   series?: string;
   postTitle?: string;
   projectTitle?: string;
 }
 
-export default function MarkdownRender({ 
+export default function MarkdownRender({
   markdownText,
-  renderType="SNIPPET",
-  enableGap=true,
+  renderType = 'SNIPPET',
+  enableGap = true,
   series,
   postTitle,
-  projectTitle
+  projectTitle,
 }: MarkdownRenderProps) {
-
-  const isPost = renderType === "POST";
-  const isProject = renderType === "PROJECT";
-  const isSnippet = renderType === "SNIPPET";
+  const isPost = renderType === 'POST';
+  const isProject = renderType === 'PROJECT';
+  const isSnippet = renderType === 'SNIPPET';
 
   return (
     <div className="markdown-body bg-transparent text-black dark:text-gray-200 tracking-tight text-base md:text-lg">
       <ReactMarkdown
-        className={cn(`font-pretendard ${enableGap ? 'leading-7 space-y-6 md:leading-8.5 md:space-y-7' : ''}`)} 
-        remarkPlugins={[
-          remarkGfm,
-          ...(isSnippet ? [] : [remarkBreaks]),
-        ]}
+        className={cn(
+          `font-pretendard ${enableGap ? 'leading-7 space-y-6 md:leading-8.5 md:space-y-7' : ''}`,
+        )}
+        remarkPlugins={[remarkGfm, ...(isSnippet ? [] : [remarkBreaks])]}
         rehypePlugins={[rehypeRaw, rehypeCustomSlug, rehypeAutolinkHeadings]}
         components={{
-          h1: ({ ...props }) => <h1 className={cn("text-4xl md:text-4xl font-bold", !isSnippet ? "pt-6 md:pt-8" : "!mt-0 !mb-2")} {...props} />,
-          h2: ({ ...props }) => <h2 className={cn("text-3xl md:text-3xl font-bold", !isSnippet ? "pt-4 md:pt-6" : "!mt-0 !mb-2")} {...props} />,
-          h3: ({ ...props }) => <h3 className={cn("text-2xl md:text-2xl font-bold", !isSnippet ? "pt-4 md:pt-6" : "!mt-0 !mb-2")} {...props} />,
-          h4: ({ ...props }) => <h4 className={cn("text-xl md:text-xl font-semibold", !isSnippet ? "pt-3 md:pt-4" : "!mt-0 !mb-2")} {...props} />,
-          h5: ({ ...props }) => <h5 className={cn("text-lg font-semibold", !isSnippet ? "pt-2 md:pt-4" : "!mt-0 !mb-2")} {...props} />,
+          h1: ({ ...props }) => (
+            <h1
+              className={cn(
+                'text-4xl md:text-4xl font-bold',
+                !isSnippet ? 'pt-6 md:pt-8' : '!mt-0 !mb-2',
+              )}
+              {...props}
+            />
+          ),
+          h2: ({ ...props }) => (
+            <h2
+              className={cn(
+                'text-3xl md:text-3xl font-bold',
+                !isSnippet ? 'pt-4 md:pt-6' : '!mt-0 !mb-2',
+              )}
+              {...props}
+            />
+          ),
+          h3: ({ ...props }) => (
+            <h3
+              className={cn(
+                'text-2xl md:text-2xl font-bold',
+                !isSnippet ? 'pt-4 md:pt-6' : '!mt-0 !mb-2',
+              )}
+              {...props}
+            />
+          ),
+          h4: ({ ...props }) => (
+            <h4
+              className={cn(
+                'text-xl md:text-xl font-semibold',
+                !isSnippet ? 'pt-3 md:pt-4' : '!mt-0 !mb-2',
+              )}
+              {...props}
+            />
+          ),
+          h5: ({ ...props }) => (
+            <h5
+              className={cn('text-lg font-semibold', !isSnippet ? 'pt-2 md:pt-4' : '!mt-0 !mb-2')}
+              {...props}
+            />
+          ),
           a: ({ href, children, ...props }) => (
             <a
               className="text-blue-400 hover:text-blue-300 transition-colors duration-200 inline-flex items-center mr-1"
@@ -73,24 +108,21 @@ export default function MarkdownRender({
                 language={match[1]}
                 customStyle={{ background: 'none', padding: '0', margin: '0' }}
                 PreTag="pre"
-                className={cn(
-                  "!bg-[#202937] !p-4 !rounded-lg",
-                  "!overflow-x-auto !text-sm",
-                )}
+                className={cn('!bg-[#202937] !p-4 !rounded-lg', '!overflow-x-auto !text-sm')}
               >
                 {String(children).trim()}
               </SyntaxHighlighter>
             ) : (
-              <code 
+              <code
                 className={cn(
-                  className, 
-                  "bg-[#d9dce0] dark:bg-[#202937] px-1 py-0.5 rounded-sm", 
-                  "my-1 mx-0.5 text-black dark:text-white font-normal",
-                  "text-[0.90em] relative z-10",
+                  className,
+                  'bg-[#d9dce0] dark:bg-[#202937] px-1 py-0.5 rounded-sm',
+                  'my-1 mx-0.5 text-black dark:text-white font-normal',
+                  'text-[0.90em] relative z-10',
                 )}
                 {...props}
               >
-                <span className='relative z-20'>{children}</span>
+                <span className="relative z-20">{children}</span>
               </code>
             );
           },
@@ -98,10 +130,10 @@ export default function MarkdownRender({
             return (
               <blockquote
                 className={cn(
-                  "border-l-4 border-blue-400 pl-2 md:pl-4",
-                  "text-gray-600 dark:text-gray-400",
-                  "bg-[#c4c5c7] dark:bg-[#283342] p-2 md:p-4 rounded-lg",
-                  className
+                  'border-l-4 border-blue-400 pl-2 md:pl-4',
+                  'text-gray-600 dark:text-gray-400',
+                  'bg-[#c4c5c7] dark:bg-[#283342] p-2 md:p-4 rounded-lg',
+                  className,
                 )}
                 {...props}
               >
@@ -125,10 +157,7 @@ export default function MarkdownRender({
           strong({ className, children, ...props }) {
             if (isSnippet) {
               return (
-                <strong
-                  className={className}
-                  {...props}
-                >
+                <strong className={className} {...props}>
                   {children}
                 </strong>
               );
@@ -138,7 +167,7 @@ export default function MarkdownRender({
                 {children}
               </StrongHighlight>
             );
-          }
+          },
         }}
       >
         {markdownText}

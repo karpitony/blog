@@ -1,9 +1,9 @@
-"use client";
-import { useState, useEffect } from "react";
-import { ProjectJson } from "@/types/project";
-import Card from "@/components/common/Card";
-import { motion, AnimatePresence } from "framer-motion";
-import cn from "@yeahx4/cn";
+'use client';
+import { useState, useEffect } from 'react';
+import { ProjectJson } from '@/types/project';
+import Card from '@/components/common/Card';
+import { motion, AnimatePresence } from 'framer-motion';
+import cn from '@yeahx4/cn';
 
 export default function ProjectTagsAndList({ tags, projects }: ProjectJson) {
   const [selectedTag, setSelectedTag] = useState<string[]>([]);
@@ -20,7 +20,7 @@ export default function ProjectTagsAndList({ tags, projects }: ProjectJson) {
   useEffect(() => {
     if (selectedTag.length > 0) {
       const filteredProjects = projects.filter(project =>
-        project.meta.tags.some(tag => selectedTag.includes(tag))
+        project.meta.tags.some(tag => selectedTag.includes(tag)),
       );
       setFilteredProjects(filteredProjects);
     } else {
@@ -30,27 +30,27 @@ export default function ProjectTagsAndList({ tags, projects }: ProjectJson) {
   return (
     <>
       <h2 className="text-3xl font-bold">Tags</h2>
-        {tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-4">
-            {tags.map((tag, index) => (
-              <button
-                onClick={() => handleTagClick(tag)}
-                key={index}
-                className={cn(
-                  selectedTag.includes(tag) ? "bg-gray-500" : "bg-gray-700",
-                  "text-gray-300 px-2 py-1 rounded-full text-sm", 
-                  "font-semibold cursor-pointer transition duration-200 hover:bg-gray-400",
-                )}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
-        )}
+      {tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-4">
+          {tags.map((tag, index) => (
+            <button
+              onClick={() => handleTagClick(tag)}
+              key={index}
+              className={cn(
+                selectedTag.includes(tag) ? 'bg-gray-500' : 'bg-gray-700',
+                'text-gray-300 px-2 py-1 rounded-full text-sm',
+                'font-semibold cursor-pointer transition duration-200 hover:bg-gray-400',
+              )}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      )}
       <h2 className="text-3xl font-bold mt-8">Projects</h2>
       <div className="mt-8 flex flex-col gap-8 md:grid md:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence>
-          {filteredProjects.map((project) => (
+          {filteredProjects.map(project => (
             <motion.div
               key={project.slug}
               initial={{ opacity: 0, y: 20 }}
@@ -74,5 +74,4 @@ export default function ProjectTagsAndList({ tags, projects }: ProjectJson) {
       </div>
     </>
   );
-};
-
+}

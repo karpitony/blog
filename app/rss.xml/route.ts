@@ -6,10 +6,11 @@ const escapeCDATA = (str: string) => `<![CDATA[${str}]]>`;
 
 async function generateRssFeed() {
   const { posts } = await getPostList();
-  const rssItems = posts.map((post) => {
-    const { title, date, description } = post.meta;
-    const url = `https://yunseok.vercel.app/posts/${post.slug}`;
-    return `
+  const rssItems = posts
+    .map(post => {
+      const { title, date, description } = post.meta;
+      const url = `https://yunseok.vercel.app/posts/${post.slug}`;
+      return `
       <item>
         <title>${escapeCDATA(title)}</title>
         <link>${url}</link>
@@ -17,7 +18,8 @@ async function generateRssFeed() {
         <pubDate>${new Date(date).toUTCString()}</pubDate>
       </item>
     `;
-  }).join('');
+    })
+    .join('');
   return `
   <?xml version="1.0" encoding="UTF-8" ?>
   <rss version="2.0">
@@ -30,7 +32,7 @@ async function generateRssFeed() {
     </channel>
   </rss>
   `.trim();
-};
+}
 
 export async function GET() {
   const rssFeed = await generateRssFeed();
@@ -38,8 +40,7 @@ export async function GET() {
     status: 200,
     headers: {
       'Content-Type': 'application/rss+xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600'  // 1 hour
+      'Cache-Control': 'public, max-age=3600', // 1 hour
     },
   });
 }
-

@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap')
-layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap') layer(base);
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css')
 layer(base);
 
@@ -36,7 +35,7 @@ layer(base);
 
 @layer {
   .highlight-blue {
-    @apply tracking-tight text-transparent bg-clip-text bg-linear-to-r from-blue-300 to-teal-400
+    @apply tracking-tight text-transparent bg-clip-text bg-linear-to-r from-blue-300 to-teal-400;
   }
 }
 
@@ -44,14 +43,19 @@ layer(base);
   --animate-wave-text: wave 4s linear infinite;
 
   @keyframes wave {
-    0%, 100% { background-position: 0% 50%; }
-    50%      { background-position: 100% 50%; }
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
   }
 }
 
 @layer utilities {
   .gradient-wave {
-    background-image: linear-gradient(90deg,#38bdf8,#34d399,#a855f7);
+    background-image: linear-gradient(90deg, #38bdf8, #34d399, #a855f7);
     background-size: 200% 200%;
     background-clip: text;
     color: transparent;
@@ -59,5 +63,19 @@ layer(base);
 }
 
 body {
-  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family:
+    'Pretendard Variable',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
 }

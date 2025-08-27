@@ -2,7 +2,7 @@ import path from 'path';
 import fs, { readFile } from 'fs/promises';
 import { parsePost, parseSeries } from '@/libs/Post/metaDataParser';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
-import { PostMeta, PostData, SeriesMeta, SeriesSummary } from "@/types/post";
+import { PostMeta, PostData, SeriesMeta, SeriesSummary } from '@/types/post';
 
 const postsDirectory = path.join(process.cwd(), 'contents/posts');
 
@@ -19,7 +19,7 @@ interface SeriesInfo {
   seriesMeta: SeriesMeta;
 }
 
-async function getAllContentMarkdownFiles(): Promise<{ 
+async function getAllContentMarkdownFiles(): Promise<{
   PostFiles: PostFile[];
   seriesInfos: SeriesInfo[];
 }> {
@@ -68,9 +68,9 @@ async function getAllContentMarkdownFiles(): Promise<{
   return { PostFiles: postFiles, seriesInfos };
 }
 
-export async function generatePostList(): Promise<{ 
+export async function generatePostList(): Promise<{
   posts: PostData[];
-  series: SeriesSummary[]
+  series: SeriesSummary[];
 }> {
   const { PostFiles: postEntries, seriesInfos } = await getAllContentMarkdownFiles();
 
@@ -85,26 +85,26 @@ export async function generatePostList(): Promise<{
         meta: parsed.meta,
         slug,
       };
-    })
+    }),
   );
 
   const posts: PostData[] = rawPosts
-  .filter((post): post is PostData => post !== null)
-  .filter(post => {
-    if (process.env.NODE_ENV === 'production') {
-      return !post.meta.draft;
-    } else {
-      if (post.meta.draft && !post.meta.title.startsWith('(초고)')) {
-        post.meta.title = `(초고) ${post.meta.title}`;
+    .filter((post): post is PostData => post !== null)
+    .filter(post => {
+      if (process.env.NODE_ENV === 'production') {
+        return !post.meta.draft;
+      } else {
+        if (post.meta.draft && !post.meta.title.startsWith('(초고)')) {
+          post.meta.title = `(초고) ${post.meta.title}`;
+        }
+        return true;
       }
-      return true;
-    }
-  });
+    });
   posts.sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime());
 
   // 시리즈별로 포스트를 그룹화
   const seriesMap = new Map<string, string[]>();
-  
+
   posts.forEach(post => {
     const seriesName = post.meta.series;
     if (!seriesMap.has(seriesName)) {
@@ -116,7 +116,7 @@ export async function generatePostList(): Promise<{
   const series: SeriesSummary[] = Array.from(seriesMap, ([name, slugs]) => {
     const info = seriesInfos.find(s => s.seriesMeta.seriesSlug === name);
     return {
-      name: info?.seriesMeta.name || "",
+      name: info?.seriesMeta.name || '',
       seriesSlug: info?.seriesMeta.seriesSlug || name,
       description: info?.seriesMeta.description || '',
       slugs,
@@ -127,19 +127,23 @@ export async function generatePostList(): Promise<{
 }
 
 export const getPostList = async (): Promise<{ posts: PostData[]; series: SeriesSummary[] }> => {
-  const cached = await readJsonPublic<{ posts: PostData[]; series: SeriesSummary[] }>('postList.json');
+  const cached = await readJsonPublic<{ posts: PostData[]; series: SeriesSummary[] }>(
+    'postList.json',
+  );
   if (cached) return cached;
 
   return generatePostList();
 };
 
 export const getPostData = async (
-  slug: string
-): Promise<{ 
-  meta: PostMeta; 
-  body: string[] 
+  slug: string,
+): Promise<{
+  meta: PostMeta;
+  body: string[];
 }> => {
-  let cachedData = await readJsonPublic<{ posts: PostData[]; series: SeriesSummary[] }>('postList.json');
+  let cachedData = await readJsonPublic<{ posts: PostData[]; series: SeriesSummary[] }>(
+    'postList.json',
+  );
   if (!cachedData || !cachedData.series) {
     cachedData = await generatePostList();
   }
@@ -155,6 +159,6 @@ export const getPostData = async (
   const fullPath = path.join(postsDirectory, filePath, slug, 'content.md');
   const fileContents = await readFile(fullPath, 'utf8');
   const { meta, body } = parsePost(fileContents, slug, seriesEntry.seriesSlug);
-  
+
   return { meta, body };
 };

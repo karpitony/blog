@@ -19,6 +19,7 @@ seriesIndex: 6
 다만 기간이 3일 정도로 짧았기에 일반 블로그가 아닌 게시물을 하드코딩해서 보여주는 `미니 블로그`로 기획을 축소했습니다. 기존 스터디를 진행할 때는 게시글을 마크다운으로 작성 후, `github.io`에 정적 웹페이지로 호스팅했었는데 이를 리액트로 보여주기로 기획했습니다.
 
 **이를 위해 해야할 일을 리스트업 해봤고 다음과 같았습니다.**
+
 1. 게시글 호스팅 서버 마련 혹은 불러오기
 2. 마크다운 파싱 + 렌더링하기
 3. 게시글 목록 페이지 만들기
@@ -40,15 +41,18 @@ const { weekSlug } = useParams();
 
 useEffect(() => {
   fetch(
-    `https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/article/${weekSlug}.md`
+    `https://raw.githubusercontent.com/karpitony/9oormthonUniv-React-Study/refs/heads/main/article/${weekSlug}.md`,
   )
-  .then((response) => response.text())
-  .then((text) => {
-    setMarkdownText(text)
-  })
-  .catch((error) => {console.error(error)})
-}, [weekSlug])
+    .then(response => response.text())
+    .then(text => {
+      setMarkdownText(text);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}, [weekSlug]);
 ```
+
 url의 `slug`로 파일 명이 들어오면 `github raw`에 파일명을 넣어 요청을 보내는 식으로 코드를 작성했습니다. 이로서 마크다운 파일을 위한 서버 마련이나, 클라이언트에 같이 넘길 필요 없이 손쉽게 게시글을 불러올 수 있게 되었습니다.
 
 <img src="./week07_06.webp" width="400" />
@@ -93,15 +97,12 @@ useEffect(() => {
 
 로딩 시간동안 리액트 로고를 화면 중앙에서 빙글빙글 돌리게 만들었습니다.
 
-
 ## 머리 박으며 마크다운 렌더 구현하기
 
 마크다운 문법의 게시물을 불러오고 있으니 마크다운을 **파싱**해서 html로 만들거나 렌더링을 해주어야 합니다. 직접 마크다운 파서 및 렌더러를 만들면 좋은 경험이 되겠지만, 관련 지식도, 시간도 부족해서 `ReactMarkdown`이라는 오픈소스 패키지를 활용했습니다.
 
 ```tsx
-<ReactMarkdown>
-  {Text}
-</ ReactMarkdown>
+<ReactMarkdown>{Text}</ReactMarkdown>
 ```
 
 해당 라이브러리는 위와 같이 컴포넌트로 텍스트를 감싸주면 안에 있는 마크다운 텍스트를 화면에 렌더링해서 보여줍니다.
@@ -116,18 +117,19 @@ useEffect(() => {
   rehypePlugins={[rehypeRaw, rehypeSlug, rehypeAutolinkHeadings]}
   components={{
     h1: ({ node, ...props }) => <h1 className="text-4xl font-bold mb-4 text-blue-400" {...props} />,
-    h2: ({ node, ...props }) => <h2 className="text-3xl font-semibold mb-3 mt-6 text-blue-300" {...props} />,
-    h3: ({ node, ...props }) => <h3 className="text-2xl font-medium mb-2 mt-4 text-blue-200" {...props} />,
-    a: ({ node, ...props }) => <a className="text-blue-400 hover:text-blue-300 transition-colors duration-200" {...props} />,
+    h2: ({ node, ...props }) => (
+      <h2 className="text-3xl font-semibold mb-3 mt-6 text-blue-300" {...props} />
+    ),
+    h3: ({ node, ...props }) => (
+      <h3 className="text-2xl font-medium mb-2 mt-4 text-blue-200" {...props} />
+    ),
+    a: ({ node, ...props }) => (
+      <a className="text-blue-400 hover:text-blue-300 transition-colors duration-200" {...props} />
+    ),
     code({ node, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || '');
       return match ? (
-        <SyntaxHighlighter
-          style={nightOwl}
-          showLineNumbers
-          language={match[1]}
-          PreTag="pre"
-        >
+        <SyntaxHighlighter style={nightOwl} showLineNumbers language={match[1]} PreTag="pre">
           {String(children).trim()}
         </SyntaxHighlighter>
       ) : (
@@ -157,31 +159,56 @@ useEffect(() => {
 ```tsx
 const articleData = [
   { link: 'week01', week: '1주차', date: '9/02 ~ 9/08', title: '리액트 웹 예제 클론코딩' },
-  { link: 'week02', week: '2주차', date: '9/09 ~ 9/15', title: '리액트 복습 + 미니 사이드 프로젝트' },
+  {
+    link: 'week02',
+    week: '2주차',
+    date: '9/09 ~ 9/15',
+    title: '리액트 복습 + 미니 사이드 프로젝트',
+  },
   { link: 'week03', week: '3주차', date: '9/16 ~ 9/22', title: 'TypeScript 기본 문법과 활용' },
-  { link: 'week04', week: '4주차', date: '9/23 ~ 9/29', title: '🏆 구름톤 연합 해커톤 참가 및 대상 후기' },
-  { link: 'week05', week: '5주차', date: '9/30 ~ 10/06', title: ' Axios API 통신 라이브러리 + OpenAPI 사용해보기' },
-  { link: 'week06', week: '6주차', date: '10/07 ~ 10/13', title: '동국x숙명x경기 연합 CRUD 스터디 회고' },
-]
+  {
+    link: 'week04',
+    week: '4주차',
+    date: '9/23 ~ 9/29',
+    title: '🏆 구름톤 연합 해커톤 참가 및 대상 후기',
+  },
+  {
+    link: 'week05',
+    week: '5주차',
+    date: '9/30 ~ 10/06',
+    title: ' Axios API 통신 라이브러리 + OpenAPI 사용해보기',
+  },
+  {
+    link: 'week06',
+    week: '6주차',
+    date: '10/07 ~ 10/13',
+    title: '동국x숙명x경기 연합 CRUD 스터디 회고',
+  },
+];
 ```
 
 ```tsx
 <div>
   {articleData.map((article, index) => (
-    <Link
-      key={index}
-      to={`/${article.link}`}
-    >
+    <Link key={index} to={`/${article.link}`}>
       <div>
         <span>{article.week}</span>
         <span>{article.date}</span>
       </div>
-      <h3>
-        {article.title}
-      </h3>
+      <h3>{article.title}</h3>
       <div>
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        <svg
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M14 5l7 7m0 0l-7 7m7-7H3"
+          />
         </svg>
       </div>
     </Link>

@@ -13,7 +13,6 @@ draft: false
 
 첫 우분투 설치와 네트워크 설정, `Tailscale` 세팅까지 미니 PC 세팅 여정을 이야기 해보겠습니다.
 
-
 ## 1. Ubuntu Server 설치하기
 
 ![ubuntu-image](./ubuntu-image.webp)
@@ -28,7 +27,7 @@ https://rufus.ie/ko/
 
 ![rufus-setting](./rufus-setting.webp)
 
-설치한 우분투 서버 이미지 `.iso` 파일을 선택하고, USB도 잡아주면 끝납니다. 
+설치한 우분투 서버 이미지 `.iso` 파일을 선택하고, USB도 잡아주면 끝납니다.
 
 포맷 옵션, 속성 등은 rufus 사이트의 예시 이미지를 참고하여 설정하였습니다. 위 옵션으로 잘 설치하였으니 참고해서 설치하시면 됩니다.
 
@@ -37,7 +36,6 @@ https://rufus.ie/ko/
 미니 PC에 부팅 USB를 꽂고 전원을 켜준 뒤 모니터에 뜨는 대로 하나씩 설정하면 됩니다.
 
 연결한 모니터가 QHD라 글자가 너무 작아 따로 중간과정을 남기진 않았습니다.
-
 
 ## 2. 네트워크 연결 설정하기
 
@@ -57,7 +55,7 @@ ubuntu@yunseok-minipc:~$ ip link
 
 유선랜(`enp2s0`)과 무선랜(`wlp1s0`)이 있고, 유선랜을 꽂았지만, DHCP 설정등이 부족한 것 같았습니다.
 
-`nmcli`나 `dhclient`를 사용해 네트워크를 설정하려 했지만, 둘 모두 깔려있지 않았습니다. 
+`nmcli`나 `dhclient`를 사용해 네트워크를 설정하려 했지만, 둘 모두 깔려있지 않았습니다.
 
 인터넷을 연결하기 위해 패키지를 인터넷에서 설치해야 하는 상황에 직면했습니다. 우로보로스 같은 상황이 되어버렸습니다.
 
@@ -65,6 +63,7 @@ ubuntu@yunseok-minipc:~$ ip link
 sudo ip link set enp2s0 up
 sudo nano /etc/netplan/01-netcfg.yaml
 ```
+
 ```yaml
 network:
   version: 2
@@ -72,6 +71,7 @@ network:
     enp2s0:
       dhcp4: true
 ```
+
 ```sh
 sudo netplan apply
 ```
@@ -91,7 +91,7 @@ PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 rtt min/avg/max/mdev = 32.334/32.993/33.433/0.411 ms
 ```
 
-직접 변경한 `netplan` 설정을 적용하고 구글 서버에 `ping`을 날려보니 정상적으로 응답을 받아왔습니다. 
+직접 변경한 `netplan` 설정을 적용하고 구글 서버에 `ping`을 날려보니 정상적으로 응답을 받아왔습니다.
 
 ```cmd
 ** (generate:12390): WARNING **: 21:47:13.631: Permissions for /etc/netplan/01-network-manager-all.yaml are too open. Netplan configuration should NOT be accessible by others.
@@ -104,6 +104,7 @@ root@yunseok-minipc:/etc/netplan# ls -l
 total 4
 -rw-r--r-- root root 75 May 17 08:43 01-netcfg.yaml
 ```
+
 ```cmd
 root@yunseok-minipc:/etc/netplan# chmod 600 01-netcfg.yaml
 root@yunseok-minipc:/etc/netplan# ls -l
@@ -113,21 +114,18 @@ total 4
 
 권한 설정 명령어로 관리자에게만 read와 write 권한을 주는 `chmod 600`을 적용하고 다시 `netplan apply`를 시도하니 이제 경고가 뜨지 않게 됐습니다.
 
-
 ## 3. Tailscale 세팅
 
 `Tailscale`은 `WireGuard`를 기반으로 동작하는 VPN입니다.
-`WireGuard`는  오픈소스 VPN 프로토콜과 접속 프로그램이고, `Tailscale`이 위에 사용자가 직접 신경 쓸 필요 없이 기기 간 안전한 연결을 자동으로 구성해줍니다.
+`WireGuard`는 오픈소스 VPN 프로토콜과 접속 프로그램이고, `Tailscale`이 위에 사용자가 직접 신경 쓸 필요 없이 기기 간 안전한 연결을 자동으로 구성해줍니다.
 
 ![tailscale-node](./tailscale-node.svg)
-
 
 특히 인상적인 점은, 전통적인 VPN처럼 하나의 중앙 VPN 서버를 통해 연결되는 것이 아니라, 클라이언트끼리 직접 연결됩니다.
 
 게다가 물론 밖으로 공개하려면 필요하겠지만, 기기간 연결을 위해서 별도로 포트를 열 필요가 없습니다!
 
-집에 있는 미니PC, 노트북, 클라우드까지 하나의 네트워크에 있는 것처럼 통신할 수 있습니다. 
-
+집에 있는 미니PC, 노트북, 클라우드까지 하나의 네트워크에 있는 것처럼 통신할 수 있습니다.
 
 ### 세팅법
 

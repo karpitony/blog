@@ -1,8 +1,8 @@
 class Logger {
   private static isDevelopment(): boolean {
     return (
-      process.env.NODE_ENV === "development" ||
-      (typeof window !== "undefined" && window.location.hostname.startsWith("dev."))
+      process.env.NODE_ENV === 'development' ||
+      (typeof window !== 'undefined' && window.location.hostname.startsWith('dev.'))
     );
   }
 

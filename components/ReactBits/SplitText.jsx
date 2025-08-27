@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useSprings, animated } from '@react-spring/web';
 import { useEffect, useRef, useState } from 'react';
@@ -27,7 +27,7 @@ const SplitText = ({
           observer.unobserve(ref.current);
         }
       },
-      { threshold, rootMargin }
+      { threshold, rootMargin },
     );
 
     observer.observe(ref.current);
@@ -40,14 +40,14 @@ const SplitText = ({
     letters.map((_, i) => ({
       from: animationFrom,
       to: inView
-        ? async (next) => {
-          await next(animationTo);
-          animatedCount.current += 1;
-        }
+        ? async next => {
+            await next(animationTo);
+            animatedCount.current += 1;
+          }
         : animationFrom,
       delay: i * delay,
       config: { easing },
-    }))
+    })),
   );
 
   return (

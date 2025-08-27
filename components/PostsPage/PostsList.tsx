@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { PostData } from '@/types/post';
-import Card from "@/components/common/Card";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Card from '@/components/common/Card';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 interface PostsListProps {
   posts: PostData[];
@@ -49,7 +49,7 @@ export default function PostsList({ posts, postPerPage, showPrevNext }: PostsLis
             disabled={viewPage === 1}
             className="text-white hover:underline disabled:text-gray-500"
           >
-            <FaArrowLeft className='inline mr-2'/>
+            <FaArrowLeft className="inline mr-2" />
             Prev
           </button>
           <span className="text-gray-300">
@@ -61,7 +61,7 @@ export default function PostsList({ posts, postPerPage, showPrevNext }: PostsLis
             className="text-white hover:underline disabled:text-gray-500"
           >
             Next
-            <FaArrowRight className='inline ml-2'/>
+            <FaArrowRight className="inline ml-2" />
           </button>
         </div>
       )}

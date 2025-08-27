@@ -1,8 +1,7 @@
-
-import Link from "next/link";
+import Link from 'next/link';
 import { RiMoonClearLine, RiSunLine, RiSearch2Line, RiRssLine } from 'react-icons/ri';
 import { motion, AnimatePresence } from 'framer-motion';
-import cn from "@yeahx4/cn";
+import cn from '@yeahx4/cn';
 
 interface MobileFullScreenProps {
   isOpen: boolean;
@@ -12,8 +11,6 @@ interface MobileFullScreenProps {
   LinkData: { href: string; label: string }[];
   pathname: string;
 }
-
-
 
 export default function MobileFullScreen({
   isOpen,
@@ -40,10 +37,10 @@ export default function MobileFullScreen({
                 href={href}
                 onClick={() => setIsOpen(false)}
                 className={cn(
-                  "px-6 py-2 rounded-full transition-colors",
+                  'px-6 py-2 rounded-full transition-colors',
                   pathname === href
-                    ? "bg-black dark:bg-white text-white dark:text-black"
-                    : "text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/20"
+                    ? 'bg-black dark:bg-white text-white dark:text-black'
+                    : 'text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/20',
                 )}
               >
                 {label}
@@ -52,32 +49,32 @@ export default function MobileFullScreen({
           </div>
 
           <div className="flex gap-4 mt-8">
-            <Link 
+            <Link
               href="/search"
               onClick={() => setIsOpen(false)}
               className="p-3 rounded-full border border-black/10 dark:border-white/25 hover:bg-black/5 dark:hover:bg-white/20"
             >
               <RiSearch2Line size={24} />
             </Link>
-            <Link 
+            <Link
               href="/rss.xml"
               target="_blank"
               className="p-3 rounded-full border border-black/10 dark:border-white/25 hover:bg-black/5 dark:hover:bg-white/20"
             >
               <RiRssLine size={24} />
             </Link>
-            <button 
+            <button
               onClick={toggleTheme}
               className={cn(
-                "p-3 rounded-full border border-black dark:border-white", 
-                "hover:bg-black/30 dark:hover:bg-white/30 text-black dark:text-white"
-                )}
-              >
+                'p-3 rounded-full border border-black dark:border-white',
+                'hover:bg-black/30 dark:hover:bg-white/30 text-black dark:text-white',
+              )}
+            >
               {isDark ? <RiMoonClearLine size={24} /> : <RiSunLine size={24} />}
             </button>
-        </div>
-      </motion.div>
-    )}
-  </AnimatePresence>
-);
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 }

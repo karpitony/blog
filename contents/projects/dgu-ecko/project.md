@@ -7,8 +7,8 @@ status: Active
 tags: Chrome Extension, TypeScript, React
 description: 동국대학교 이클래스의 불편한 점 개선 프로젝트
 githubLink: https://github.com/karpitony/dgu-ecko
-demoLink: 
-videoLink: 
+demoLink:
+videoLink:
 ---
 
 TBD

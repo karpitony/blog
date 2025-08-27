@@ -11,7 +11,7 @@ draft: false
 
 ## "제대로 구현한다"는 무엇을 의미할까
 
-**모달**이나 **토스트** UI는 리액트에서 자주 사용되지만, 막상 직접 구현해보면 구조가 꼬이거나 이상하게 동작하는 경우가 많습니다. 
+**모달**이나 **토스트** UI는 리액트에서 자주 사용되지만, 막상 직접 구현해보면 구조가 꼬이거나 이상하게 동작하는 경우가 많습니다.
 
 `useState`와 `z-index`만으로 간단하게 만들 수 있지만, 구현 과정에서 다음과 같은 문제들을 겪게 됩니다.
 
@@ -22,8 +22,7 @@ draft: false
 - 포커스가 모달 내부에 갇히지 않거나, 아예 이동되지 않음
 - 스크린리더가 모달 내부를 제대로 읽지 못함
 
-
-동작할 뿐만 아니라 **UX**, **접근성**, **이벤트 처리**까지 고려되어야 합니다. 
+동작할 뿐만 아니라 **UX**, **접근성**, **이벤트 처리**까지 고려되어야 합니다.
 
 이런 문제들을 하나씩 해결하다 보면 코드가 복잡해지고, 재사용하기도 어려워집니다.
 
@@ -40,12 +39,7 @@ return (
   <div className="App">
     <Header />
     <Main />
-    {isModalOpen && (
-      <Modal 
-        isOpen={isModalOpen} 
-        onClose={() => setModalOpen(false)}
-      />
-    )}
+    {isModalOpen && <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />}
   </div>
 );
 ```
@@ -54,9 +48,9 @@ return (
 
 따라서 모달은 DOM 구조상으로도 별도로 분리되어야 하고, 그 역할을 수행해주는 것이 바로 `createPortal`입니다.
 
-
 ![react-portal-dom-image](./react-portal-dom-image.webp)
-> 이미지 출처: https://joong-sunny.github.io/react/react3/#createportal 
+
+> 이미지 출처: https://joong-sunny.github.io/react/react3/#createportal
 
 Portal을 사용하면 React 컴포넌트를 다른 DOM 위치에 이동시키는 렌더링이 가능합니다.
 
@@ -71,21 +65,19 @@ Portal을 사용하면 React 컴포넌트를 다른 DOM 위치에 이동시키�
 ### createPortal 기본 예제
 
 `createPortal(children, container)`
+
 - `children`: 렌더링할 React 엘리먼트
 - `container`: React 트리 외부에 있는 DOM 요소 (예: `document.getElementById("modal-root")`)
 
 ```tsx
-import { createPortal } from "react-dom";
+import { createPortal } from 'react-dom';
 // ...
-return createPortal(
-  <div className="modal">내용</div>,
-  document.body
-);
+return createPortal(<div className="modal">내용</div>, document.body);
 ```
 
 ### 웹 접근성 향상
 
-모달은 사용자 인터페이스의 중요한 부분으로, 스크린 리더 사용자나 키보드 네비게이션 사용자에게도 적절하게 제공되어야 합니다. 
+모달은 사용자 인터페이스의 중요한 부분으로, 스크린 리더 사용자나 키보드 네비게이션 사용자에게도 적절하게 제공되어야 합니다.
 
 `createPortal`을 사용하면 모달을 DOM의 루트 수준에 렌더링하고, `role="dialog"`와 `aria-modal="true"` 같은 ARIA 속성을 적용해 스크린 리더에게 모달의 의미를 정확히 전달하는 일은 중요합니다.
 
@@ -128,9 +120,9 @@ MDN의 [aria-modal](https://developer.mozilla.org/en-US/docs/Web/Accessibility/A
 컴포넌트를 테스트 하기 위해 각각의 트리커 버튼을 만들었고, 토스트의 경우 숫자 카운터 로직도 넣었습니다.
 
 ```tsx
-import { useRef, useState } from "react";
-import Modal from "./components/Modal";
-import ToastContainer, { ToastItem } from "./components/ToastContainer";
+import { useRef, useState } from 'react';
+import Modal from './components/Modal';
+import ToastContainer, { ToastItem } from './components/ToastContainer';
 
 export default function App() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -139,43 +131,30 @@ export default function App() {
   const toastId = useRef(0);
 
   const showToast = (message: string) => {
-    setToasts((prev) => [
-      ...prev,
-      { id: ++toastId.current, message }
-    ]);
+    setToasts(prev => [...prev, { id: ++toastId.current, message }]);
   };
 
   const handleToastClose = (id: number) => {
-    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+    setToasts(prev => prev.filter(toast => toast.id !== id));
   };
 
   return (
     <div className="...">
-      <button
-        className="..."
-        onClick={() => setModalOpen(true)}
-      >
+      <button className="..." onClick={() => setModalOpen(true)}>
         모달 열기
       </button>
       <button
         className="..."
         onClick={() => {
-          setCounter(prev => prev+1);
+          setCounter(prev => prev + 1);
           showToast(`안녕하세요! ${counter}번 토스트입니다.`);
         }}
       >
         토스트 띄우기
       </button>
 
-      <Modal 
-        open={isModalOpen}
-        onClose={() => setModalOpen(false)}
-      />
-      <ToastContainer 
-        toasts={toasts}
-        onClose={handleToastClose}
-        closeDelay={2000}
-      />
+      <Modal open={isModalOpen} onClose={() => setModalOpen(false)} />
+      <ToastContainer toasts={toasts} onClose={handleToastClose} closeDelay={2000} />
     </div>
   );
 }
@@ -185,16 +164,14 @@ TailwindCSS는 불필요하여 가려놓았습니다. 모달을 표시할 `<Moda
 
 다만, 두 컴포넌트들은 `createPortal`을 사용하므로 렌더링은 해당 위치에서 이루어지지 않습니다. 프롭과 상태 정보 등만 공유합니다.
 
-
 ### 1. 모달 (Modal)
 
 ![modal-example.gif](./modal-example.gif)
 
-모달 버튼을 클릭하면, 모달이 기존 요소 위에 뜹니다. 해당 모달 컴포넌트를 만들 때, `z-index` 옵션은 사용하지 않았습니다. 
-
+모달 버튼을 클릭하면, 모달이 기존 요소 위에 뜹니다. 해당 모달 컴포넌트를 만들 때, `z-index` 옵션은 사용하지 않았습니다.
 
 ```tsx
-import { createPortal } from "react-dom";
+import { createPortal } from 'react-dom';
 
 function Modal({ open, onClose }) {
   if (!open) return null;
@@ -203,17 +180,14 @@ function Modal({ open, onClose }) {
       <div className="...">
         <h2 className="...">모달창!</h2>
         <p className="...">createPortal로 만든 모달창입니다.</p>
-        <button
-          className="..."
-          onClick={onClose}
-        >
+        <button className="..." onClick={onClose}>
           닫기
         </button>
       </div>
     </div>,
-    document.body
+    document.body,
   );
-};
+}
 
 export default Modal;
 ```
@@ -224,7 +198,7 @@ export default Modal;
 
 ```ts
 // hooks/useScrollLock.ts
-import { useLayoutEffect } from "react";
+import { useLayoutEffect } from 'react';
 
 export const useScrollLock = (open: boolean) => {
   useLayoutEffect(() => {
@@ -240,9 +214,9 @@ export const useScrollLock = (open: boolean) => {
 
 ```tsx
 // components/Modal.tsx
-import { useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
-import { useScrollLock } from "../hooks/useScrollLock";
+import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { useScrollLock } from '../hooks/useScrollLock';
 
 function Modal({ open, onClose }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -254,18 +228,18 @@ function Modal({ open, onClose }: ModalProps) {
     if (!open) return;
 
     const focusableElements = modalRef.current?.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
     ) as NodeListOf<HTMLElement>;
 
     const first = focusableElements?.[0];
     const last = focusableElements?.[focusableElements.length - 1];
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         onClose();
       }
 
-      if (e.key === "Tab" && first && last) {
+      if (e.key === 'Tab' && first && last) {
         if (!e.shiftKey && document.activeElement === last) {
           e.preventDefault();
           first.focus();
@@ -276,11 +250,11 @@ function Modal({ open, onClose }: ModalProps) {
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
     closeButtonRef.current?.focus();
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [open, onClose]);
 
@@ -305,16 +279,12 @@ function Modal({ open, onClose }: ModalProps) {
         <p id="modal-desc" className="...">
           createPortal로 만든 웹 접근성 고려 모달입니다.
         </p>
-        <button
-          ref={closeButtonRef}
-          onClick={onClose}
-          className="..."
-        >
+        <button ref={closeButtonRef} onClick={onClose} className="...">
           닫기
         </button>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
 
@@ -327,29 +297,32 @@ export default Modal;
 
 ![toast-example](./toast-example.gif)
 
-토스트도 마찬가지로 DOM 상에서 고정된 위치(Ex. `body` 우측 상단)에 떠야 하므로,  Portal을 사용하는 것이 유리합니다.
+토스트도 마찬가지로 DOM 상에서 고정된 위치(Ex. `body` 우측 상단)에 떠야 하므로, Portal을 사용하는 것이 유리합니다.
 
 여러 개의 토스트가 쌓이는 경우를 고려해, 컨테이너 컴포넌트를 만들어 아래처럼 구성할 수 있습니다.
 
 ```tsx
 // components/ToastContainer.tsx
-import { createPortal } from "react-dom";
-import Toast from "./Toast";
+import { createPortal } from 'react-dom';
+import Toast from './Toast';
 
 function ToastContainer({ toasts, onClose, closeDelay }) {
   return createPortal(
     <div className="...">
-      {toasts.slice().reverse().map((toast) => (
-        <Toast
-          key={toast.id}
-          open={true}
-          message={toast.message}
-          onClose={() => onClose(toast.id)}
-          closeDelay={closeDelay}
-        />
-      ))}
+      {toasts
+        .slice()
+        .reverse()
+        .map(toast => (
+          <Toast
+            key={toast.id}
+            open={true}
+            message={toast.message}
+            onClose={() => onClose(toast.id)}
+            closeDelay={closeDelay}
+          />
+        ))}
     </div>,
-    document.body
+    document.body,
   );
 }
 
@@ -358,7 +331,7 @@ export default ToastContainer;
 
 ```tsx
 // components/Toast.tsx
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 function Toast({ open, message, onClose, closeDelay = 2000 }) {
   useEffect(() => {
@@ -372,11 +345,7 @@ function Toast({ open, message, onClose, closeDelay = 2000 }) {
   return (
     <div className="...">
       <span>{message}</span>
-      <button
-        className="..."
-        onClick={onClose}
-        aria-label="닫기"
-      >
+      <button className="..." onClick={onClose} aria-label="닫기">
         ×
       </button>
     </div>
@@ -392,6 +361,7 @@ export default Toast;
 
 > 스타일링된 코드와 전체 소스코드가 궁금하시면 깃허브 레포지토리에 올려놨으니 한번 확인해보세요. <br>
 > https://github.com/karpitonys-stash/example-createPortal
+
 ---
 
 ## 마무리

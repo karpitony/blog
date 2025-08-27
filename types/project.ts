@@ -3,7 +3,7 @@ export interface ProjectMeta {
   title: string;
   thumbnail: string;
   date: string;
-  status: "ACTIVE" | "MAINTENANCE" | "INACTIVE";
+  status: 'ACTIVE' | 'MAINTENANCE' | 'INACTIVE';
   tags: string[];
   description: string;
   githubLink?: string;
