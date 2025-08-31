@@ -3,9 +3,6 @@ import { getProjectList } from '@/libs/Project/getProjectList';
 import SimpleAboutMe from '@/components/common/SimpleAboutMe';
 import ArrowButton from '@/components/common/ArrowButton';
 import Card from '@/components/common/Card';
-import PostInfoHeader from '@/components/PostsPage/PostInfoHeader';
-import Link from 'next/link';
-import cn from '@yeahx4/cn';
 
 export default async function Home() {
   const { posts } = await getPostList();
@@ -34,7 +31,7 @@ export default async function Home() {
       <div>
         <h2 className="text-2xl font-bold mb-6">최신 글</h2>
         {/* 게시글 리스트 */}
-        <div className="hidden mt-8 mb-4 gap-8 md:grid md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 mb-4 flex flex-col gap-8 md:grid md:grid-cols-2 lg:grid-cols-3">
           {posts.map(({ meta, slug }) => (
             <Card
               key={slug}
@@ -48,23 +45,6 @@ export default async function Home() {
             />
           ))}
         </div>
-        <div className="flex md:hidden flex-col grow">
-          {posts.map(({ meta, slug }) => (
-            <Link
-              href={`/posts/${slug}`}
-              key={slug}
-              className={cn(
-                'block group relative bg-gray-900 bg-opacity-50 rounded-lg',
-                'transition duration-300 hover:bg-opacity-70 hover:shadow-lg hover:shadow-white/20',
-                'border border-gray-700 hover:border-white/50',
-                'mb-4',
-              )}
-            >
-              <PostInfoHeader key={slug} meta={meta} />
-            </Link>
-          ))}
-        </div>
-
         <ArrowButton text="게시글 더보기" href="/posts" />
       </div>
       <hr className="border-t-2 py-4 mt-8 border-gray-800 dark:border-white" />
