@@ -1,5 +1,5 @@
 ---
-title: 🏆 구름톤 연합 해커톤 참가 및 대상 후기
+title: 🏆구름톤 연합 해커톤 참가 및 대상 후기
 description: [3기 리액트 스터디 4주차] 해커톤 참가 및 수상 후기
 cover: ./week04_03.webp
 tags: react, 9oormthonuniv, hackerthon
