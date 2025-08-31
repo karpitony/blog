@@ -15,7 +15,7 @@ export default function parseToc(content: string): HeadingItem[] {
         heading
           .replace('# ', '')
           .replace('#', '')
-          .replace(/[\[\]:!@#$/%^&*()+=,.]/g, '')
+          .replace(/[`~!@#$%^&*()_+=\[\]{}|\\;:'",.<>/?]/g, '') // 모든 특수문자 제거
           .replace(/ /g, '-')
           .toLowerCase()
           .replace('?', '')
@@ -23,8 +23,9 @@ export default function parseToc(content: string): HeadingItem[] {
           .replace(/[^\w\s가-힣-]/g, '') // 영어/숫자/한글/하이픈/공백만 유지
           .trim()
           .toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/-+$/, ''),
+          .replace(/\s+/g, '-') // 공백 → 하이픈
+          .replace(/-+/g, '-') // 연속 하이픈 → 하나로
+          .replace(/^-+|-+$/g, ''), // 앞뒤 하이픈 제거
       indent: (heading.match(/#/g)?.length || 2) - 2,
     })) || []
   );

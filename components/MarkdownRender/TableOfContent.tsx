@@ -31,6 +31,7 @@ export default function TableOfContent({ content }: { content: string }) {
             } else if (item.indent === 4) {
               indentClass = 'ml-1';
             }
+            const parts = item.text.split(/(`[^`]+`)/g);
 
             return (
               <li key={index} className={cn('py-1 transition', indentClass)}>
@@ -44,7 +45,18 @@ export default function TableOfContent({ content }: { content: string }) {
                       'text-sm hover:text-blue-500 hover:underline transition-colors duration-200 cursor-pointer',
                     )}
                   >
-                    {item.text}
+                    {parts.map((part, i) =>
+                      part.startsWith('`') && part.endsWith('`') ? (
+                        <code
+                          key={i}
+                          className="bg-[#d9dce0] dark:bg-[#202937] text-black dark:text-white font-normal px-1 rounded mr-0.5"
+                        >
+                          {part.slice(1, -1)}
+                        </code>
+                      ) : (
+                        <span key={i}>{part}</span>
+                      ),
+                    )}
                   </p>
                 </a>
               </li>
