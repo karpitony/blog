@@ -1,22 +1,18 @@
-import { getProjectList } from '@/libs/Project/getProjectList';
-import ProjectTagsAndList from '@/components/Projects/ProjectTagsAndList';
+import { getProjectList, getProjectData } from '@/libs/Project/getProjectList';
+import ProjectsClient from './ProjectsClient';
 
-export const metadata = {
-  title: 'Projects | 프로젝트',
-  description: '그동안 한 프로젝트들',
-  openGraph: {
-    title: 'Projects',
-    description: 'Projects',
-  },
-};
-
-export default async function Projects() {
+export default async function ProjectsPage({ searchParams }: { searchParams: { modal?: string } }) {
   const { projects, tags } = await getProjectList();
   projects.sort((a, b) => a.meta.index - b.meta.index);
 
+  let modalProject = null;
+  if (searchParams.modal) {
+    modalProject = await getProjectData(searchParams.modal);
+  }
+
   return (
     <div className="w-full max-w-full md:max-w-3xl lg:max-w-5xl min-h-[80vh] text-black dark:text-gray-100">
-      <ProjectTagsAndList tags={tags} projects={projects} />
+      <ProjectsClient projects={projects} tags={tags} modalProject={modalProject} />
     </div>
   );
 }

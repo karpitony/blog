@@ -58,7 +58,7 @@ export default function ProjectCard({
         'group w-full overflow-hidden rounded-2xl border border-gray-600',
         'pb-6 shadow-xl flex flex-col h-full',
       )}
-      href={`/${type}s/${slug}`}
+      href={type === 'project' ? `/${type}s?modal=${slug}` : `/${type}s/${slug}`}
       prefetch={false}
     >
       <div className="relative h-[200px] w-full overflow-hidden border-b border-b-gray-200">
