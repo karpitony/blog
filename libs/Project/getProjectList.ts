@@ -43,7 +43,7 @@ export async function generateProjectList(): Promise<ProjectJson> {
   const projects: ProjectData[] = await Promise.all(
     projectEntries.map(async ({ filePath, fileName }) => {
       const content = await readFile(filePath, 'utf-8');
-      const data = await parseProject(content, fileName);
+      const data = await parseProject(content, filePath, fileName);
       return {
         meta: data.meta,
         slug: fileName,
@@ -83,7 +83,7 @@ export const getProjectData = async (
 
   const fullPath = path.join(projectDirectory, slug, 'project.md');
   const content = await readFile(fullPath, 'utf-8');
-  const { meta, body } = parseProject(content, project.meta.title);
+  const { meta, body } = parseProject(content, slug, project.meta.title);
 
   return { meta, body };
 };
