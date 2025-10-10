@@ -5,21 +5,19 @@ import Logger from '@/libs/logger';
 interface MarkdownImageProps {
   src?: string;
   alt?: string;
-  isPost?: boolean;
-  isProject?: boolean;
+  type: 'post' | 'project';
   series?: string;
   postTitle?: string;
-  projectTitle?: string;
+  projectSlug?: string;
 }
 
 export default function MarkdownImage({
   src,
   alt,
-  isPost,
-  isProject,
+  type,
   series,
   postTitle,
-  projectTitle,
+  projectSlug,
 }: MarkdownImageProps) {
   let resolvedSrc = src || '';
   let width = 1200;
@@ -29,7 +27,7 @@ export default function MarkdownImage({
   const blurImageFlag = resolvedSrc.startsWith('./') || resolvedSrc.startsWith('../');
 
   if (blurImageFlag) {
-    if (isPost && series && postTitle) {
+    if (type === 'post' && series && postTitle) {
       const relPath = `${series}/${postTitle}/${resolvedSrc.slice(2)}`;
       resolvedSrc = `/contents/posts/${relPath}`;
       const size = imageInfo.posts[relPath as keyof typeof imageInfo.posts];
@@ -41,8 +39,8 @@ export default function MarkdownImage({
       } else {
         Logger.warn('[Image] image-info.json에 해당 이미지 정보 없음:', relPath);
       }
-    } else if (isProject && projectTitle) {
-      const relPath = `${projectTitle}/${resolvedSrc.slice(2)}`;
+    } else if (type === 'project' && projectSlug) {
+      const relPath = `${projectSlug}/${resolvedSrc.slice(2)}`;
       resolvedSrc = `/contents/projects/${relPath}`;
       const size = imageInfo.projects[relPath as keyof typeof imageInfo.projects];
 

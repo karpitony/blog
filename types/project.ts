@@ -1,5 +1,6 @@
 export interface ProjectMeta {
   index: number;
+  slug: string;
   title: string;
   thumbnail: string;
   date: string;

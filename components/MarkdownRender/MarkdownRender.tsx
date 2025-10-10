@@ -19,7 +19,7 @@ interface MarkdownRenderProps {
   enableGap?: boolean;
   series?: string;
   postTitle?: string;
-  projectTitle?: string;
+  projectSlug?: string;
 }
 
 export default function MarkdownRender({
@@ -28,7 +28,7 @@ export default function MarkdownRender({
   enableGap = true,
   series,
   postTitle,
-  projectTitle,
+  projectSlug,
 }: MarkdownRenderProps) {
   const isPost = renderType === 'POST';
   const isProject = renderType === 'PROJECT';
@@ -146,11 +146,10 @@ export default function MarkdownRender({
               <MarkdownImage
                 src={src}
                 alt={alt}
-                isPost={isPost}
-                isProject={isProject}
+                type={isPost ? 'post' : isProject ? 'project' : 'post'}
                 series={series}
                 postTitle={postTitle}
-                projectTitle={projectTitle}
+                projectSlug={projectSlug}
               />
             );
           },

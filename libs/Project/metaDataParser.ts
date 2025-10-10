@@ -2,6 +2,7 @@ import { ProjectMeta } from '@/types/project';
 
 export const parseProject = (
   content: string,
+  slug: string,
   projectTitle: string,
 ): { meta: ProjectMeta; body: string[] } => {
   // 모든 줄바꿈 문자를 \n으로 통일
@@ -10,6 +11,7 @@ export const parseProject = (
 
   const meta: ProjectMeta = {
     index: 999,
+    slug,
     title: projectTitle || '',
     thumbnail: '',
     date: '',
