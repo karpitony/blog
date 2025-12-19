@@ -18,7 +18,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/public/*": ["./public/*"],
+      "@/contents/*": ["./contents/*"],
+      "@/scripts/*": ["./scripts/*"],
+      "@/*": ["./src/*"]
     },
     "target": "ES2017"
   },
