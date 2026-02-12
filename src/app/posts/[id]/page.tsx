@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: PostPageProps) {
 
 export default async function PostPage({ params }: PostPageProps) {
   const { id } = await params;
-  const { meta, body } = await getPostData(id);
+  const { meta, body, originalFileName} = await getPostData(id);
   return (
     <>
       <div className="w-full mx-auto max-w-full md:max-w-3xl relative">
@@ -81,7 +81,7 @@ export default async function PostPage({ params }: PostPageProps) {
         <div className={cn('mt-12 md:mt-18')}>
           <MarkdownRender
             markdownText={body.join('\n')}
-            postTitle={id}
+            postTitle={originalFileName}
             series={meta.series}
             renderType="POST"
           />

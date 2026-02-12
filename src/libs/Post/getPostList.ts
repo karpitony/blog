@@ -79,11 +79,15 @@ export async function generatePostList(): Promise<{
       const fileContents = await fs.readFile(filePath, 'utf8');
       const parsed = parsePost(fileContents, fileName, seriesSlug);
       if (!parsed) return null;
-      const slug = fileName;
+
+      // 변경: 폴더명(fileName)에서 앞의 날짜 패턴(예: 251212-)을 제거하여 slug 생성
+      // 251212-eng-name -> eng-name
+      const slug = fileName.replace(/^\d{6}-/, '');
 
       return {
         meta: parsed.meta,
-        slug,
+        slug, // URL로 쓰일 이름 (eng-name)
+        originalFileName: fileName, // 실제 폴더명 (251212-eng-name)
       };
     }),
   );
@@ -140,6 +144,7 @@ export const getPostData = async (
 ): Promise<{
   meta: PostMeta;
   body: string[];
+  originalFileName: string;
 }> => {
   let cachedData = await readJsonPublic<{ posts: PostData[]; series: SeriesSummary[] }>(
     'postList.json',
@@ -147,18 +152,32 @@ export const getPostData = async (
   if (!cachedData || !cachedData.series) {
     cachedData = await generatePostList();
   }
-  const { series } = cachedData;
+  const { posts } = cachedData;
 
-  const seriesEntry = series.find(s => s.slugs.includes(slug));
-  const filePath = seriesEntry ? seriesEntry.seriesSlug : undefined;
-  if (!filePath || !seriesEntry) {
-    console.error(`filePath: ${filePath}, seriesEntry: ${seriesEntry}`);
-    throw new Error(`해당 slug를 포함한 시리즈를 찾을 수 없습니다: ${slug}`);
+  // 2. 가공된 slug로 해당 포스트 데이터 찾기
+  const targetPost = posts.find(p => p.slug === slug);
+
+  if (!targetPost) {
+    throw new Error(`해당 slug를 찾을 수 없습니다: ${slug}`);
   }
 
-  const fullPath = path.join(postsDirectory, filePath, slug, 'content.md');
-  const fileContents = await readFile(fullPath, 'utf8');
-  const { meta, body } = parsePost(fileContents, slug, seriesEntry.seriesSlug);
+  // 3. targetPost에 저장된 originalFileName과 series 정보를 이용해 경로 조립
+  // targetPost.meta.series는 seriesSlug와 동일함
+  const fullPath = path.join(
+    postsDirectory,
+    targetPost.meta.series,
+    targetPost.originalFileName, // ✅ 날짜가 포함된 실제 폴더명 사용
+    'content.md',
+  );
 
-  return { meta, body };
+  try {
+    const fileContents = await readFile(fullPath, 'utf8');
+    // parsePost에 넘길 때도 원래는 fileName을 넘겼으나,
+    // 여기서는 일관성을 위해 slug를 넘기거나 상황에 맞춰 조절하세요.
+    const { meta, body } = parsePost(fileContents, slug, targetPost.meta.series);
+    return { meta, body, originalFileName: targetPost.originalFileName };
+  } catch (err) {
+    console.error(`파일을 읽는 중 오류 발생: ${fullPath}`, err);
+    throw new Error('포스트 파일을 읽을 수 없습니다.');
+  }
 };

@@ -12,6 +12,7 @@ export interface PostMeta {
 export interface PostData {
   meta: PostMeta;
   slug: string;
+  originalFileName: string;
 }
 
 export interface SeriesSummary {
