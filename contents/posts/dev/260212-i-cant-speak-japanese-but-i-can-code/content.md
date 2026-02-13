@@ -1,13 +1,17 @@
 ---
 title: 일본어는 못하지만, 코드는 짤수 있지 — 일본 가라오케 도우미 앱 제작기
 description: 일본 여행 중 노래방에서 마주한 불편함을 직접 코딩으로 해결해봤습니다.
-cover: /yuniverse_256.webp
-tags: Problem Solving
-date: 2026-02-12
+cover: ./karaoke.webp
+tags: Next.js
+date: 2026-02-13
 series: dev
 seriesIndex: 2
-draft: true
+draft: false
 ---
+
+![./karaoke.webp](./karaoke.webp)
+
+<br>
 
 혹시 일본 여행 중 가라오케에 가본 적 있으신가요?
 

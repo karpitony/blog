@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: PostPageProps) {
 
 export default async function PostPage({ params }: PostPageProps) {
   const { id } = await params;
-  const { meta, body, originalFileName} = await getPostData(id);
+  const { meta, body, originalFileName } = await getPostData(id);
   return (
     <>
       <div className="w-full mx-auto max-w-full md:max-w-3xl relative">
@@ -61,7 +61,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <h2
             className={cn(
               'text-4xl md:text-5xl font-bold text-black dark:text-white',
-              'tracking-tight',
+              'tracking-tight  leading-12 md:leading-16',
             )}
           >
             {meta.title}
