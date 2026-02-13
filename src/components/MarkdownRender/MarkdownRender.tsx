@@ -47,7 +47,7 @@ export default function MarkdownRender({
             <h1
               className={cn(
                 'text-4xl md:text-4xl font-bold',
-                !isSnippet ? 'pt-6 md:pt-8' : '!mt-0 !mb-2',
+                !isSnippet ? 'pt-6 md:pt-8' : 'mt-0! mb-2!',
               )}
               {...props}
             />
@@ -56,7 +56,7 @@ export default function MarkdownRender({
             <h2
               className={cn(
                 'text-3xl md:text-3xl font-bold',
-                !isSnippet ? 'pt-4 md:pt-6' : '!mt-0 !mb-2',
+                !isSnippet ? 'pt-4 md:pt-6' : 'mt-0! mb-2!',
               )}
               {...props}
             />
@@ -65,7 +65,7 @@ export default function MarkdownRender({
             <h3
               className={cn(
                 'text-2xl md:text-2xl font-bold',
-                !isSnippet ? 'pt-4 md:pt-6' : '!mt-0 !mb-2',
+                !isSnippet ? 'pt-4 md:pt-6' : 'mt-0! mb-2!',
               )}
               {...props}
             />
@@ -74,14 +74,14 @@ export default function MarkdownRender({
             <h4
               className={cn(
                 'text-xl md:text-xl font-semibold',
-                !isSnippet ? 'pt-3 md:pt-4' : '!mt-0 !mb-2',
+                !isSnippet ? 'pt-3 md:pt-4' : 'mt-0! mb-2!',
               )}
               {...props}
             />
           ),
           h5: ({ ...props }) => (
             <h5
-              className={cn('text-lg font-semibold', !isSnippet ? 'pt-2 md:pt-4' : '!mt-0 !mb-2')}
+              className={cn('text-lg font-semibold', !isSnippet ? 'pt-2 md:pt-4' : 'mt-0! mb-2!')}
               {...props}
             />
           ),
@@ -108,7 +108,7 @@ export default function MarkdownRender({
                 language={match[1]}
                 customStyle={{ background: 'none', padding: '0', margin: '0' }}
                 PreTag="pre"
-                className={cn('!bg-[#202937] !p-4 !rounded-lg', '!overflow-x-auto !text-sm')}
+                className={cn('bg-[#202937]! p-4! rounded-lg!', 'overflow-x-auto! text-sm!')}
               >
                 {String(children).trim()}
               </SyntaxHighlighter>
