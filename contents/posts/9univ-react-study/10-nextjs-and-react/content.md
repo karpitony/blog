@@ -6,7 +6,7 @@ tags: Next.js
 date: 2025-05-20
 series: 9univ-react-study
 seriesIndex: 9
-draft: false
+draft: true
 ---
 
 ## 1. React는 라이브러리일 뿐이다.
