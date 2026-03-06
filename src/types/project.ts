@@ -1,23 +1,2 @@
-export interface ProjectMeta {
-  index: number;
-  slug: string;
-  title: string;
-  thumbnail: string;
-  date: string;
-  status: 'ACTIVE' | 'MAINTENANCE' | 'INACTIVE';
-  tags: string[];
-  description: string;
-  githubLink?: string;
-  demoLink?: string;
-  videoLink?: string;
-}
-
-export interface ProjectData {
-  meta: ProjectMeta;
-  slug: string;
-}
-
-export interface ProjectJson {
-  projects: ProjectData[];
-  tags: string[];
-}
+// Zod 스키마 기반 타입을 re-export
+export type { ProjectMeta, ProjectData, ProjectJson } from '@/content/schemas/project.schema';

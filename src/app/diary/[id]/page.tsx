@@ -2,8 +2,7 @@ import path from 'path';
 import { readFile } from 'fs/promises';
 import Link from 'next/link';
 import { FiArrowLeft } from 'react-icons/fi';
-import { getDiaryList, findDiaryBySlug } from '@/libs/Diary/getDiaryList';
-import { parseDiary } from '@/libs/Diary/metaDataParser';
+import { getDiaryList, findDiaryBySlug, parseDiaryContent } from '@/content/diary.service';
 import cn from '@yeahx4/cn';
 import WongojiTitle from '@/components/Diary/WongojiTitle';
 import MarkdownRender from '@/components/MarkdownRender/MarkdownRender';
@@ -30,7 +29,7 @@ export async function generateMetadata({ params }: DiaryPageProps) {
   const diaryFilePath = await findDiaryBySlug(diarySlug);
   const fullPath = path.join(diaryFilePath);
   const fileContents = await readFile(fullPath, 'utf-8');
-  const { meta } = parseDiary(fileContents);
+  const { meta } = parseDiaryContent(fileContents);
 
   return {
     title: meta.title || 'Not Found',
@@ -53,7 +52,7 @@ export default async function DiaryPage({ params }: DiaryPageProps) {
   const diaryFilePath = await findDiaryBySlug(diarySlug);
   const fullPath = path.join(diaryFilePath);
   const fileContents = await readFile(fullPath, 'utf-8');
-  const { meta, body } = parseDiary(fileContents);
+  const { meta, body } = parseDiaryContent(fileContents);
 
   return (
     <>

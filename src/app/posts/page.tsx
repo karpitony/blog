@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { getPostList } from '@/libs/Post/getPostList';
+import { getPostList } from '@/content/post.service';
 import PostListLayout from '@/layouts/PostListLayout';
 
 export const metadata = {

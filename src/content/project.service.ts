@@ -1,10 +1,17 @@
 import path from 'path';
 import fs, { readFile } from 'fs/promises';
-import { parseProject } from '@/libs/Project/metaDataParser';
+import {
+  ProjectFrontmatterSchema,
+  type ProjectMeta,
+  type ProjectData,
+  type ProjectJson,
+} from './schemas/project.schema';
+import { parseMarkdown } from './parser';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
-import { ProjectData, ProjectJson, ProjectMeta } from '@/types/project';
 
 const projectDirectory = path.join(process.cwd(), 'contents/projects');
+
+// --- File Discovery ---
 
 export async function getAllProjectMarkdownFiles(): Promise<
   {
@@ -37,15 +44,35 @@ export async function getAllProjectMarkdownFiles(): Promise<
   return projectEntries;
 }
 
+// --- Transformers ---
+
+function transformThumbnailPath(thumbnail: string, projectTitle: string): string {
+  if (thumbnail.startsWith('./')) {
+    return `/contents/projects/${projectTitle}/${thumbnail.slice(2)}`;
+  }
+  return thumbnail;
+}
+
+// --- Public API ---
+
 export async function generateProjectList(): Promise<ProjectJson> {
   const projectEntries = await getAllProjectMarkdownFiles();
 
   const projects: ProjectData[] = await Promise.all(
     projectEntries.map(async ({ filePath, fileName }) => {
       const content = await readFile(filePath, 'utf-8');
-      const data = await parseProject(content, filePath, fileName);
+      const { frontmatter } = parseMarkdown(content, ProjectFrontmatterSchema, filePath);
+
+      // thumbnail 경로 변환
+      frontmatter.thumbnail = transformThumbnailPath(frontmatter.thumbnail, fileName);
+
+      const meta: ProjectMeta = {
+        ...frontmatter,
+        slug: fileName,
+      };
+
       return {
-        meta: data.meta,
+        meta,
         slug: fileName,
       };
     }),
@@ -83,7 +110,14 @@ export const getProjectData = async (
 
   const fullPath = path.join(projectDirectory, slug, 'project.md');
   const content = await readFile(fullPath, 'utf-8');
-  const { meta, body } = parseProject(content, slug, project.meta.title);
+  const { frontmatter, body } = parseMarkdown(content, ProjectFrontmatterSchema, fullPath);
 
-  return { meta, body };
+  frontmatter.thumbnail = transformThumbnailPath(frontmatter.thumbnail, slug);
+
+  const meta: ProjectMeta = {
+    ...frontmatter,
+    slug,
+  };
+
+  return { meta, body: body.split('\n') };
 };

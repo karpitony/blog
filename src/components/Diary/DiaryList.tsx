@@ -1,7 +1,7 @@
 'use client';
 import { useMemo } from 'react';
 import Link from 'next/link';
-import { getDiaryList } from '@/libs/Diary/getDiaryList';
+import { getDiaryList } from '@/content/diary.service';
 import cn from '@yeahx4/cn';
 
 // 연도-월 기준으로 그룹화

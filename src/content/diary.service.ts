@@ -1,10 +1,16 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { parseDiary } from '@/libs/Diary/metaDataParser';
+import {
+  DiaryFrontmatterSchema,
+  type DiaryMeta,
+  type DiaryData,
+} from './schemas/diary.schema';
+import { parseMarkdown } from './parser';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
-import { DiaryData } from '@/types/diary';
 
 const diaryDirectory = path.join(process.cwd(), 'contents/diary');
+
+// --- File Discovery ---
 
 async function getAllMarkdownFiles(dir: string): Promise<string[]> {
   const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -23,18 +29,23 @@ async function getAllMarkdownFiles(dir: string): Promise<string[]> {
   return files.flat().filter((f): f is string => f !== null);
 }
 
+// --- Public API ---
+
 export async function generateDiaryList(): Promise<DiaryData[]> {
   const markdownFiles = await getAllMarkdownFiles(diaryDirectory);
 
   const diary = await Promise.all(
     markdownFiles.map(async filePath => {
       const fileContents = await fs.readFile(filePath, 'utf8');
-      const { meta } = parseDiary(fileContents);
+      const { frontmatter } = parseMarkdown(fileContents, DiaryFrontmatterSchema, filePath);
 
       const relativePath = path.relative(diaryDirectory, filePath);
       const slug = relativePath.replace(/\.md$/, '').replace(/\\/g, '/');
 
-      return { meta, slug };
+      return {
+        meta: frontmatter as DiaryMeta,
+        slug,
+      };
     }),
   );
 
@@ -46,9 +57,7 @@ export const getDiaryList = async (): Promise<DiaryData[]> => {
   const cached = await readJsonPublic<DiaryData[]>('diaryList.json');
   if (cached) return cached;
 
-  const diary = await generateDiaryList();
-
-  return diary;
+  return generateDiaryList();
 };
 
 export const findDiaryBySlug = async (slug: string): Promise<string> => {
@@ -59,3 +68,15 @@ export const findDiaryBySlug = async (slug: string): Promise<string> => {
   const filePath = path.join(diaryDirectory, `${year}/${month}/${year}${month}${day}.md`);
   return filePath;
 };
+
+/**
+ * 단일 다이어리 파일을 파싱합니다.
+ * diary/[id]/page.tsx에서 직접 파싱이 필요한 경우 사용합니다.
+ */
+export function parseDiaryContent(content: string, filePath: string = 'unknown') {
+  const { frontmatter, body } = parseMarkdown(content, DiaryFrontmatterSchema, filePath);
+  return {
+    meta: frontmatter as DiaryMeta,
+    body: body.split('\n'),
+  };
+}

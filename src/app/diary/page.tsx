@@ -1,4 +1,4 @@
-import { getDiaryList } from '@/libs/Diary/getDiaryList';
+import { getDiaryList } from '@/content/diary.service';
 import DiaryList from '@/components/Diary/DiaryList';
 import WongojiTitle from '@/components/Diary/WongojiTitle';
 
