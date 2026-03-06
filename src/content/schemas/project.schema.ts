@@ -13,11 +13,10 @@ export const ProjectFrontmatterSchema = z.object({
       z.enum(['ACTIVE', 'MAINTENANCE', 'INACTIVE']),
     )
     .default('INACTIVE'),
-  tags: z
-    .preprocess(
-      val => (typeof val === 'string' ? val.split(',').map(s => s.trim()) : val),
-      z.array(z.string()).default([]),
-    ),
+  tags: z.preprocess(
+    val => (typeof val === 'string' ? val.split(',').map(s => s.trim()) : val),
+    z.array(z.string()).default([]),
+  ),
   description: z.string().default(''),
   githubLink: z.string().nullable(),
   demoLink: z.string().nullable(),

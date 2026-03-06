@@ -3,13 +3,10 @@ import { z } from 'zod';
 // --- Post Frontmatter ---
 export const PostFrontmatterSchema = z.object({
   title: z.string().min(1, 'title은 필수입니다'),
-  description: z.preprocess(
-    val => {
-      if (Array.isArray(val)) return val.join(', ');
-      return val;
-    },
-    z.string().default(''),
-  ),
+  description: z.preprocess(val => {
+    if (Array.isArray(val)) return val.join(', ');
+    return val;
+  }, z.string().default('')),
   cover: z.string().default(''),
   date: z.preprocess(
     val => {
@@ -18,11 +15,10 @@ export const PostFrontmatterSchema = z.object({
     },
     z.string().min(1, 'date는 필수입니다'),
   ),
-  tags: z
-    .preprocess(
-      val => (typeof val === 'string' ? val.split(',').map(s => s.trim()) : val),
-      z.array(z.string()).default([]),
-    ),
+  tags: z.preprocess(
+    val => (typeof val === 'string' ? val.split(',').map(s => s.trim()) : val),
+    z.array(z.string()).default([]),
+  ),
   series: z.string().default(''),
   seriesIndex: z.number().int().default(-1),
   draft: z.boolean().default(false),

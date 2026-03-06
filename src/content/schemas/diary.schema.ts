@@ -2,13 +2,10 @@ import { z } from 'zod';
 
 export const DiaryFrontmatterSchema = z.object({
   title: z.string().min(1, 'title은 필수입니다'),
-  description: z.preprocess(
-    val => {
-      if (Array.isArray(val)) return val.join(', ');
-      return val;
-    },
-    z.string().nullable(),
-  ),
+  description: z.preprocess(val => {
+    if (Array.isArray(val)) return val.join(', ');
+    return val;
+  }, z.string().nullable()),
   cover: z.string().nullable(),
   date: z.preprocess(
     val => {

@@ -1,10 +1,6 @@
 import path from 'path';
 import fs from 'fs/promises';
-import {
-  DiaryFrontmatterSchema,
-  type DiaryMeta,
-  type DiaryData,
-} from './schemas/diary.schema';
+import { DiaryFrontmatterSchema, type DiaryMeta, type DiaryData } from './schemas/diary.schema';
 import { parseMarkdown } from './parser';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
 
