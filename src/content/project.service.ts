@@ -1,14 +1,13 @@
 import path from 'path';
-import fs, { readFile } from 'fs/promises';
+import fs from 'fs/promises';
 import {
   ProjectFrontmatterSchema,
   type ProjectMeta,
   type ProjectData,
   type ProjectJson,
 } from './schemas/project.schema';
-import { parseMarkdown } from './parser';
+import { processMarkdownFile, processMarkdownFiles } from './pipeline';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
-
 const projectDirectory = path.join(process.cwd(), 'contents/projects');
 
 // --- File Discovery ---
@@ -57,12 +56,13 @@ function transformThumbnailPath(thumbnail: string, projectTitle: string): string
 
 export async function generateProjectList(): Promise<ProjectJson> {
   const projectEntries = await getAllProjectMarkdownFiles();
+  const filePaths = projectEntries.map(e => e.filePath);
 
-  const projects: ProjectData[] = await Promise.all(
-    projectEntries.map(async ({ filePath, fileName }) => {
-      const content = await readFile(filePath, 'utf-8');
-      const { frontmatter } = parseMarkdown(content, ProjectFrontmatterSchema, filePath);
-
+  const projects: ProjectData[] = await processMarkdownFiles(
+    filePaths,
+    ProjectFrontmatterSchema,
+    (frontmatter, _body, filePath) => {
+      const fileName = path.basename(path.dirname(filePath));
       // thumbnail 경로 변환
       frontmatter.thumbnail = transformThumbnailPath(frontmatter.thumbnail, fileName);
 
@@ -75,7 +75,7 @@ export async function generateProjectList(): Promise<ProjectJson> {
         meta,
         slug: fileName,
       };
-    }),
+    }
   );
 
   const tagsSet = new Set<string>();
@@ -109,15 +109,19 @@ export const getProjectData = async (
   }
 
   const fullPath = path.join(projectDirectory, slug, 'project.md');
-  const content = await readFile(fullPath, 'utf-8');
-  const { frontmatter, body } = parseMarkdown(content, ProjectFrontmatterSchema, fullPath);
+  
+  return processMarkdownFile(
+    fullPath,
+    ProjectFrontmatterSchema,
+    (frontmatter, body, _filePath) => {
+      frontmatter.thumbnail = transformThumbnailPath(frontmatter.thumbnail, slug);
 
-  frontmatter.thumbnail = transformThumbnailPath(frontmatter.thumbnail, slug);
+      const meta: ProjectMeta = {
+        ...frontmatter,
+        slug,
+      };
 
-  const meta: ProjectMeta = {
-    ...frontmatter,
-    slug,
-  };
-
-  return { meta, body: body.split('\n') };
+      return { meta, body: body.split('\n') };
+    }
+  );
 };

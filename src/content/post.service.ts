@@ -8,7 +8,7 @@ import {
   type SeriesMeta,
   type SeriesSummary,
 } from './schemas/post.schema';
-import { parseMarkdown } from './parser';
+import { processMarkdownFile, processMarkdownFiles } from './pipeline';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
 
 const postsDirectory = path.join(process.cwd(), 'contents/posts');
@@ -50,13 +50,15 @@ async function getAllContentMarkdownFiles(): Promise<{
     const seriesMdPath = path.join(seriesDir, 'series.md');
     let seriesMeta: SeriesMeta;
     try {
-      const seriesMdContent = await fs.readFile(seriesMdPath, 'utf-8');
-      const { frontmatter } = parseMarkdown(seriesMdContent, SeriesFrontmatterSchema, seriesMdPath);
-      seriesMeta = {
-        name: frontmatter.seriesName,
-        seriesSlug,
-        description: frontmatter.description,
-      };
+      seriesMeta = await processMarkdownFile(
+        seriesMdPath,
+        SeriesFrontmatterSchema,
+        (frontmatter) => ({
+          name: frontmatter.seriesName,
+          seriesSlug,
+          description: frontmatter.description,
+        })
+      );
     } catch {
       console.warn(`No series meta found for ${seriesSlug}`);
       seriesMeta = {
@@ -99,12 +101,14 @@ export async function generatePostList(): Promise<{
   series: SeriesSummary[];
 }> {
   const { PostFiles: postEntries, seriesInfos } = await getAllContentMarkdownFiles();
+  const filePaths = postEntries.map(e => e.filePath);
 
-  const rawPosts = await Promise.all(
-    postEntries.map(async ({ filePath, fileName, seriesSlug }) => {
-      const fileContents = await fs.readFile(filePath, 'utf8');
-      const { frontmatter } = parseMarkdown(fileContents, PostFrontmatterSchema, filePath);
-
+  const rawPosts = await processMarkdownFiles(
+    filePaths,
+    PostFrontmatterSchema,
+    (frontmatter, _body, filePath) => {
+      const fileName = path.basename(path.dirname(filePath));
+      const seriesSlug = path.basename(path.dirname(path.dirname(filePath)));
       // cover 경로 변환
       frontmatter.cover = transformCoverPath(frontmatter.cover, seriesSlug, fileName);
 
@@ -116,7 +120,7 @@ export async function generatePostList(): Promise<{
         slug,
         originalFileName: fileName,
       };
-    }),
+    }
   );
 
   const posts: PostData[] = rawPosts
@@ -195,16 +199,19 @@ export const getPostData = async (
   );
 
   try {
-    const fileContents = await fs.readFile(fullPath, 'utf8');
-    const { frontmatter, body } = parseMarkdown(fileContents, PostFrontmatterSchema, fullPath);
+    return await processMarkdownFile(
+      fullPath,
+      PostFrontmatterSchema,
+      (frontmatter, body, _filePath) => {
+        frontmatter.cover = transformCoverPath(frontmatter.cover, targetPost.meta.series, slug);
 
-    frontmatter.cover = transformCoverPath(frontmatter.cover, targetPost.meta.series, slug);
-
-    return {
-      meta: frontmatter as PostMeta,
-      body: body.split('\n'),
-      originalFileName: targetPost.originalFileName,
-    };
+        return {
+          meta: frontmatter as PostMeta,
+          body: body.split('\n'),
+          originalFileName: targetPost.originalFileName,
+        };
+      }
+    );
   } catch (err) {
     console.error(`파일을 읽는 중 오류 발생: ${fullPath}`, err);
     throw new Error('포스트 파일을 읽을 수 없습니다.');

@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import { DiaryFrontmatterSchema, type DiaryMeta, type DiaryData } from './schemas/diary.schema';
 import { parseMarkdown } from './parser';
+import { processMarkdownFiles } from './pipeline';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
 
 const diaryDirectory = path.join(process.cwd(), 'contents/diary');
@@ -30,11 +31,10 @@ async function getAllMarkdownFiles(dir: string): Promise<string[]> {
 export async function generateDiaryList(): Promise<DiaryData[]> {
   const markdownFiles = await getAllMarkdownFiles(diaryDirectory);
 
-  const diary = await Promise.all(
-    markdownFiles.map(async filePath => {
-      const fileContents = await fs.readFile(filePath, 'utf8');
-      const { frontmatter } = parseMarkdown(fileContents, DiaryFrontmatterSchema, filePath);
-
+  const diary = await processMarkdownFiles(
+    markdownFiles,
+    DiaryFrontmatterSchema,
+    (frontmatter, _body, filePath) => {
       const relativePath = path.relative(diaryDirectory, filePath);
       const slug = relativePath.replace(/\.md$/, '').replace(/\\/g, '/');
 
@@ -42,7 +42,7 @@ export async function generateDiaryList(): Promise<DiaryData[]> {
         meta: frontmatter as DiaryMeta,
         slug,
       };
-    }),
+    }
   );
 
   diary.sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime());
