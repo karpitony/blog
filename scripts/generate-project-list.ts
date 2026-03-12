@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { generateProjectList } from '@/libs/Project/getProjectList';
+import { generateProjectList } from '@/content/project.service';
 
 async function writeJsonPublic<T>(filename: string, data: T) {
   const filePath = path.join(process.cwd(), 'public', filename);

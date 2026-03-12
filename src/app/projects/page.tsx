@@ -1,4 +1,4 @@
-import { getProjectList } from '@/libs/Project/getProjectList';
+import { getProjectList } from '@/content/project.service';
 import ProjectTagsAndList from '@/components/Projects/ProjectTagsAndList';
 
 export default async function ProjectsPage() {

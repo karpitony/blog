@@ -1,5 +1,5 @@
-import { getPostList } from '@/libs/Post/getPostList';
-import { getProjectList } from '@/libs/Project/getProjectList';
+import { getPostList } from '@/content/post.service';
+import { getProjectList } from '@/content/project.service';
 import SimpleAboutMe from '@/components/common/SimpleAboutMe';
 import ArrowButton from '@/components/common/ArrowButton';
 import Card from '@/components/common/Card';

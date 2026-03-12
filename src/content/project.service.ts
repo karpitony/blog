@@ -1,10 +1,16 @@
 import path from 'path';
-import fs, { readFile } from 'fs/promises';
-import { parseProject } from '@/libs/Project/metaDataParser';
+import fs from 'fs/promises';
+import {
+  ProjectFrontmatterSchema,
+  type ProjectMeta,
+  type ProjectData,
+  type ProjectJson,
+} from './schemas/project.schema';
+import { processMarkdownFile, processMarkdownFiles } from './pipeline';
 import { readJsonPublic } from '@/libs/jsonPublicCache';
-import { ProjectData, ProjectJson, ProjectMeta } from '@/types/project';
-
 const projectDirectory = path.join(process.cwd(), 'contents/projects');
+
+// --- File Discovery ---
 
 export async function getAllProjectMarkdownFiles(): Promise<
   {
@@ -37,18 +43,39 @@ export async function getAllProjectMarkdownFiles(): Promise<
   return projectEntries;
 }
 
+// --- Transformers ---
+
+function transformThumbnailPath(thumbnail: string, projectTitle: string): string {
+  if (thumbnail.startsWith('./')) {
+    return `/contents/projects/${projectTitle}/${thumbnail.slice(2)}`;
+  }
+  return thumbnail;
+}
+
+// --- Public API ---
+
 export async function generateProjectList(): Promise<ProjectJson> {
   const projectEntries = await getAllProjectMarkdownFiles();
+  const filePaths = projectEntries.map(e => e.filePath);
 
-  const projects: ProjectData[] = await Promise.all(
-    projectEntries.map(async ({ filePath, fileName }) => {
-      const content = await readFile(filePath, 'utf-8');
-      const data = await parseProject(content, filePath, fileName);
-      return {
-        meta: data.meta,
+  const projects: ProjectData[] = await processMarkdownFiles(
+    filePaths,
+    ProjectFrontmatterSchema,
+    (frontmatter, _body, filePath) => {
+      const fileName = path.basename(path.dirname(filePath));
+      // thumbnail 경로 변환
+      frontmatter.thumbnail = transformThumbnailPath(frontmatter.thumbnail, fileName);
+
+      const meta: ProjectMeta = {
+        ...frontmatter,
         slug: fileName,
       };
-    }),
+
+      return {
+        meta,
+        slug: fileName,
+      };
+    }
   );
 
   const tagsSet = new Set<string>();
@@ -82,8 +109,19 @@ export const getProjectData = async (
   }
 
   const fullPath = path.join(projectDirectory, slug, 'project.md');
-  const content = await readFile(fullPath, 'utf-8');
-  const { meta, body } = parseProject(content, slug, project.meta.title);
+  
+  return processMarkdownFile(
+    fullPath,
+    ProjectFrontmatterSchema,
+    (frontmatter, body, _filePath) => {
+      frontmatter.thumbnail = transformThumbnailPath(frontmatter.thumbnail, slug);
 
-  return { meta, body };
+      const meta: ProjectMeta = {
+        ...frontmatter,
+        slug,
+      };
+
+      return { meta, body: body.split('\n') };
+    }
+  );
 };

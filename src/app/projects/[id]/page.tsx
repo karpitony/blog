@@ -3,7 +3,7 @@ import { FiArrowLeft } from 'react-icons/fi';
 import cn from '@yeahx4/cn';
 import MarkdownRender from '@/components/MarkdownRender/MarkdownRender';
 
-import { getProjectList, getProjectData } from '@/libs/Project/getProjectList';
+import { getProjectList, getProjectData } from '@/content/project.service';
 
 export const dynamic = 'force-static';
 

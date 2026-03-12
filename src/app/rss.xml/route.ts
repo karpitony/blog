@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getPostList } from '@/libs/Post/getPostList';
+import { getPostList } from '@/content/post.service';
 
 export const dynamic = 'force-static';
 const escapeCDATA = (str: string) => `<![CDATA[${str}]]>`;

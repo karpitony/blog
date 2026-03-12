@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getPostList, getPostData } from '@/libs/Post/getPostList';
+import { getPostList, getPostData } from '@/content/post.service';
 import { FiArrowLeft } from 'react-icons/fi';
 import MarkdownRender from '@/components/MarkdownRender/MarkdownRender';
 import TableOfContent from '@/components/MarkdownRender/TableOfContent';

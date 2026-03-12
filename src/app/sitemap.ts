@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { getPostList } from '@/libs/Post/getPostList';
+import { getPostList } from '@/content/post.service';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://yunseok.vercel.app';
