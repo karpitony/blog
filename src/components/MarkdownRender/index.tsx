@@ -2,7 +2,6 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import rehypeRaw from 'rehype-raw';
-// import rehypeSlug from 'rehype-slug'
 import { rehypeCustomSlug } from '@/libs/rehypeCustomSlug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import cn from '@yeahx4/cn';
@@ -11,7 +10,6 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { TbExternalLink } from 'react-icons/tb';
 import MarkdownImage from './MarkdownImage';
-import StrongHighlight from './StrongHighlight';
 
 interface MarkdownRenderProps {
   markdownText: string;
@@ -87,7 +85,7 @@ export default function MarkdownRender({
           ),
           a: ({ href, children, ...props }) => (
             <a
-              className="text-blue-400 hover:text-blue-300 transition-colors duration-200 inline-flex items-center mr-1"
+              className="text-blue-400 hover:text-blue-300 transition-colors duration-200 items-center mr-1"
               href={href}
               target="_blank"
               rel="noopener noreferrer"
@@ -100,6 +98,7 @@ export default function MarkdownRender({
             </a>
           ),
           code({ className, children, ...props }) {
+            // 코드 블럭
             const match = /language-(\w+)/.exec(className || '');
             return match ? (
               <SyntaxHighlighter
@@ -113,19 +112,21 @@ export default function MarkdownRender({
                 {String(children).trim()}
               </SyntaxHighlighter>
             ) : (
+              // 인라인 코드
               <code
                 className={cn(
                   className,
-                  'bg-[#d9dce0] dark:bg-[#202937] px-1 py-0.5 rounded-sm',
-                  'my-1 mx-0.5 text-black dark:text-white font-normal',
-                  'text-[0.90em] relative z-10',
+                  'bg-[#d9dce0] dark:bg-[#202937] px-1.5 py-1 rounded-sm',
+                  'my-1 mx-0.5 text-current font-normal',
+                  'text-[0.90em]',
                 )}
                 {...props}
               >
-                <span className="relative z-20">{children}</span>
+                {children}
               </code>
             );
           },
+          // 인용
           blockquote({ className, children, ...props }) {
             return (
               <blockquote
@@ -154,19 +155,10 @@ export default function MarkdownRender({
             );
           },
           strong({ className, children, ...props }) {
-            if (isSnippet) {
-              return (
-                <strong className={className} {...props}>
-                  {children}
-                </strong>
-              );
-            }
-            return (
-              <StrongHighlight className={className} {...props}>
-                {children}
-              </StrongHighlight>
-            );
-          },
+            return <strong className={className + " font-bold"} {...props}>
+              {children}
+            </strong>
+          }
         }}
       >
         {markdownText}

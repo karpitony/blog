@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { FiArrowLeft } from 'react-icons/fi';
 import cn from '@yeahx4/cn';
-import MarkdownRender from '@/components/MarkdownRender/MarkdownRender';
+import MarkdownRender from '@/components/MarkdownRender';
 import BlogLinkButtons from '@/components/Projects/BlogLinkButtons';
 
 import { getProjectList, getProjectData } from '@/content/project.service';
