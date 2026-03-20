@@ -1,4 +1,4 @@
-import type { BoxData } from '@/types/BoxData';
+import type { BoxData } from '@/types/about';
 
 export const ACTIVITY_DATA: BoxData[] = [
   {
@@ -42,7 +42,7 @@ export const ACTIVITY_DATA: BoxData[] = [
       {
         description: '### GDG on Campus DGU 4기\n' + '- ... 제 활약을 기대해주세요!',
         year: '2025.09 ~ 2026.04',
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];

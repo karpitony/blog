@@ -155,10 +155,12 @@ export default function MarkdownRender({
             );
           },
           strong({ className, children, ...props }) {
-            return <strong className={className + " font-bold"} {...props}>
-              {children}
-            </strong>
-          }
+            return (
+              <strong className={className + ' font-bold'} {...props}>
+                {children}
+              </strong>
+            );
+          },
         }}
       >
         {markdownText}

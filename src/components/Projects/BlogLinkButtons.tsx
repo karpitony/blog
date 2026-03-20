@@ -20,7 +20,7 @@ export default function BlogLinkButtons({ blogLinks }: BlogLinkButtonsProps) {
 
   return (
     <div className="flex flex-col gap-3">
-      {blogLinks.map((post) => (
+      {blogLinks.map(post => (
         <Link
           key={post.slug}
           href={`/posts/${post.slug}`}
@@ -88,12 +88,7 @@ export default function BlogLinkButtons({ blogLinks }: BlogLinkButtonsProps) {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </div>
         </Link>

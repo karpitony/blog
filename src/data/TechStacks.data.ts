@@ -1,4 +1,4 @@
-import type { BoxData } from '@/types/BoxData';
+import type { BoxData } from '@/types/about';
 
 export const TECH_STACK_DATA: BoxData[] = [
   {

@@ -53,11 +53,11 @@ async function getAllContentMarkdownFiles(): Promise<{
       seriesMeta = await processMarkdownFile(
         seriesMdPath,
         SeriesFrontmatterSchema,
-        (frontmatter) => ({
+        frontmatter => ({
           name: frontmatter.seriesName,
           seriesSlug,
           description: frontmatter.description,
-        })
+        }),
       );
     } catch {
       console.warn(`No series meta found for ${seriesSlug}`);
@@ -120,7 +120,7 @@ export async function generatePostList(): Promise<{
         slug,
         originalFileName: fileName,
       };
-    }
+    },
   );
 
   const posts: PostData[] = rawPosts
@@ -210,7 +210,7 @@ export const getPostData = async (
           body: body.split('\n'),
           originalFileName: targetPost.originalFileName,
         };
-      }
+      },
     );
   } catch (err) {
     console.error(`파일을 읽는 중 오류 발생: ${fullPath}`, err);
