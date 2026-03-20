@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FiArrowLeft } from 'react-icons/fi';
 import cn from '@yeahx4/cn';
 import MarkdownRender from '@/components/MarkdownRender/MarkdownRender';
+import BlogLinkButtons from '@/components/Projects/BlogLinkButtons';
 
 import { getProjectList, getProjectData } from '@/content/project.service';
 
@@ -15,6 +16,10 @@ export async function generateStaticParams() {
 export default async function ProjectsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { meta, body } = await getProjectData(id);
+
+  const hasBody = body.some(line => line.trim().length > 0);
+  const hasBlogLinks = meta.blogLinks && meta.blogLinks.length > 0;
+
   return (
     <>
       <div className="w-full mx-auto max-w-full md:max-w-3xl relative">
@@ -41,12 +46,25 @@ export default async function ProjectsPage({ params }: { params: Promise<{ id: s
           <p className={cn('text-gray-500 dark:text-gray-400 mt-6', 'text-base md:text-lg')}>
             {meta.description}
           </p>
-          <div className={cn('mt-12 md:mt-18')}></div>
-          <MarkdownRender
-            markdownText={body.join('\n')}
-            projectSlug={meta.slug}
-            renderType="PROJECT"
-          />
+
+          {/* 블로그 링크 버튼 — 본문 위에 강조 배치 */}
+          {hasBlogLinks && (
+            <div className="mt-8">
+              <BlogLinkButtons blogLinks={meta.blogLinks} />
+            </div>
+          )}
+
+          {/* 마크다운 본문 (과도기 혼합 모드: blogLinks와 함께 표시 가능) */}
+          {hasBody && (
+            <>
+              <div className={cn('mt-12 md:mt-18')}></div>
+              <MarkdownRender
+                markdownText={body.join('\n')}
+                projectSlug={meta.slug}
+                renderType="PROJECT"
+              />
+            </>
+          )}
         </div>
       </div>
     </>

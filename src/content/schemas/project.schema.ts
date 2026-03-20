@@ -21,6 +21,15 @@ export const ProjectFrontmatterSchema = z.object({
   githubLink: z.string().nullable(),
   demoLink: z.string().nullable(),
   videoLink: z.string().nullable(),
+  blogLinks: z.preprocess(
+    val =>
+      typeof val === 'string' && val.trim() !== ''
+        ? val.split(',').map(s => s.trim())
+        : Array.isArray(val)
+          ? val
+          : [],
+    z.array(z.string()).default([]),
+  ),
 });
 
 export type ProjectFrontmatter = z.infer<typeof ProjectFrontmatterSchema>;
