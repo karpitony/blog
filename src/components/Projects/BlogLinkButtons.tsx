@@ -1,8 +1,18 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import cn from '@yeahx4/cn';
 
+export interface ResolvedBlogLink {
+  slug: string;
+  title: string;
+  cover: string;
+  description: string;
+  date: string;
+  series: string;
+}
+
 interface BlogLinkButtonsProps {
-  blogLinks: string[];
+  blogLinks: ResolvedBlogLink[];
 }
 
 export default function BlogLinkButtons({ blogLinks }: BlogLinkButtonsProps) {
@@ -10,12 +20,12 @@ export default function BlogLinkButtons({ blogLinks }: BlogLinkButtonsProps) {
 
   return (
     <div className="flex flex-col gap-3">
-      {blogLinks.map((link, index) => (
+      {blogLinks.map((post) => (
         <Link
-          key={index}
-          href={link}
+          key={post.slug}
+          href={`/posts/${post.slug}`}
           className={cn(
-            'group relative block w-full overflow-hidden rounded-xl p-[1px]',
+            'group relative block w-full overflow-hidden rounded-xl p-0.5',
             'transition-transform duration-200 hover:scale-[1.01] active:scale-[0.99]',
           )}
         >
@@ -28,33 +38,49 @@ export default function BlogLinkButtons({ blogLinks }: BlogLinkButtonsProps) {
               'opacity-80 group-hover:opacity-100 transition-opacity duration-200',
             )}
           />
-          {/* 내부 배경 */}
+          {/* 내부 카드 */}
           <div
             className={cn(
-              'relative flex items-center justify-between rounded-[11px] px-5 py-4',
+              'relative flex items-center gap-4 rounded-[11px] px-5 py-4',
               'bg-white dark:bg-gray-900',
               'group-hover:bg-gray-50 dark:group-hover:bg-gray-800',
               'transition-colors duration-200',
             )}
           >
-            <div className="flex items-center gap-3">
-              <span className="text-lg">📝</span>
-              <span
+            {/* 썸네일 */}
+            {post.cover && (
+              <div className="shrink-0 w-16 h-16 md:w-20 md:h-20 relative rounded-lg overflow-hidden">
+                <Image
+                  src={post.cover}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  sizes="80px"
+                />
+              </div>
+            )}
+            {/* 텍스트 영역 */}
+            <div className="flex-1 min-w-0">
+              <p
                 className={cn(
-                  'font-semibold',
+                  'font-semibold text-lg',
                   'text-gray-800 dark:text-gray-100',
                   'group-hover:text-blue-600 dark:group-hover:text-blue-300',
                   'transition-colors duration-200',
                 )}
               >
-                {blogLinks.length > 1
-                  ? `관련 블로그 글 보러가기 (${index + 1})`
-                  : '관련 블로그 글 보러가기'}
-              </span>
+                {post.title}
+              </p>
+              {post.description && (
+                <p className="text-sm text-gray-500 dark:text-gray-400 truncate mt-0.5">
+                  {post.description}
+                </p>
+              )}
             </div>
+            {/* 화살표 */}
             <svg
               className={cn(
-                'w-5 h-5 text-gray-400 dark:text-gray-500',
+                'shrink-0 w-5 h-5 text-gray-400 dark:text-gray-500',
                 'group-hover:text-blue-500 dark:group-hover:text-blue-300',
                 'group-hover:translate-x-1 transition-all duration-200',
               )}

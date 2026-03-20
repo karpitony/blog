@@ -2,9 +2,9 @@ import Link from 'next/link';
 import { FiArrowLeft } from 'react-icons/fi';
 import cn from '@yeahx4/cn';
 import MarkdownRender from '@/components/MarkdownRender';
-import BlogLinkButtons from '@/components/Projects/BlogLinkButtons';
-
+import BlogLinkButtons, { type ResolvedBlogLink } from '@/components/Projects/BlogLinkButtons';
 import { getProjectList, getProjectData } from '@/content/project.service';
+import { getPostList } from '@/content/post.service';
 
 export const dynamic = 'force-static';
 
@@ -19,6 +19,28 @@ export default async function ProjectsPage({ params }: { params: Promise<{ id: s
 
   const hasBody = body.some(line => line.trim().length > 0);
   const hasBlogLinks = meta.blogLinks && meta.blogLinks.length > 0;
+
+  // blogLinks 슬러그를 기반으로 포스트 메타데이터 resolve
+  let resolvedBlogLinks: ResolvedBlogLink[] = [];
+  if (hasBlogLinks) {
+    const { posts } = await getPostList();
+    resolvedBlogLinks = meta.blogLinks
+      .map(slug => {
+        const cleanSlug = slug.replace(/^\/posts\//, '');
+        const slugSegment = cleanSlug.split('/').pop() || cleanSlug;
+        const post = posts.find(p => p.slug === slugSegment);
+        if (!post) return null;
+        return {
+          slug: post.slug,
+          title: post.meta.title,
+          cover: post.meta.cover,
+          description: post.meta.description,
+          date: post.meta.date,
+          series: post.meta.series,
+        };
+      })
+      .filter((link): link is ResolvedBlogLink => link !== null);
+  }
 
   return (
     <>
@@ -47,10 +69,11 @@ export default async function ProjectsPage({ params }: { params: Promise<{ id: s
             {meta.description}
           </p>
 
-          {/* 블로그 링크 버튼 — 본문 위에 강조 배치 */}
-          {hasBlogLinks && (
+          {/* 블로그 링크 카드 — 본문 위에 강조 배치 */}
+          {resolvedBlogLinks.length > 0 && (
             <div className="mt-8">
-              <BlogLinkButtons blogLinks={meta.blogLinks} />
+              <h3 className="text-2xl font-bold text-black dark:text-white mb-4">관련 블로그 글</h3>
+              <BlogLinkButtons blogLinks={resolvedBlogLinks} />
             </div>
           )}
 
