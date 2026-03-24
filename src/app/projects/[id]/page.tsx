@@ -24,11 +24,13 @@ export default async function ProjectsPage({ params }: { params: Promise<{ id: s
   let resolvedBlogLinks: ResolvedBlogLink[] = [];
   if (hasBlogLinks) {
     const { posts } = await getPostList();
+    // Map을 사용해 O(n+m) 조회
+    const postMap = new Map(posts.map(p => [p.slug, p]));
     resolvedBlogLinks = meta.blogLinks
       .map(slug => {
         const cleanSlug = slug.replace(/^\/posts\//, '');
         const slugSegment = cleanSlug.split('/').pop() || cleanSlug;
-        const post = posts.find(p => p.slug === slugSegment);
+        const post = postMap.get(slugSegment);
         if (!post) return null;
         return {
           slug: post.slug,
