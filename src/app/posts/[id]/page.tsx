@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getPostList, getPostData } from '@/content/post.service';
 import { FiArrowLeft } from 'react-icons/fi';
-import MarkdownRender from '@/components/MarkdownRender/MarkdownRender';
+import MarkdownRender from '@/components/MarkdownRender';
 import TableOfContent from '@/components/MarkdownRender/TableOfContent';
 import Comments from '@/components/PostsPage/Comments';
 import cn from '@yeahx4/cn';

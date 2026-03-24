@@ -213,3 +213,39 @@ body {
     @apply bg-background text-foreground;
   }
 }
+body,
+header,
+footer,
+main,
+nav,
+section,
+div,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+button,
+li,
+ul,
+ol {
+  transition:
+    background-color 0.3s ease,
+    color 0.2s ease,
+    border-color 0.3s ease;
+}
+
+/* 코드 블록, 이미지, 캔버스 등은 테마 전환 transition 제외 */
+pre,
+code,
+.syntax-highlighter,
+canvas,
+video,
+svg,
+img {
+  transition: none !important;
+}

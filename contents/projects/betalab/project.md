@@ -9,6 +9,7 @@ description: 베타테스트의 전 과정을 연결하는 웹 기반 플랫폼,
 githubLink: https://github.com/PROJECT-NEXUS-JS/betalab-frontend
 demoLink:
 videoLink:
+blogLinks: 11-nexus-project-betalab
 ---
 
 ## 프로젝트 소개

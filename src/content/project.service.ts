@@ -75,7 +75,7 @@ export async function generateProjectList(): Promise<ProjectJson> {
         meta,
         slug: fileName,
       };
-    }
+    },
   );
 
   const tagsSet = new Set<string>();
@@ -109,19 +109,15 @@ export const getProjectData = async (
   }
 
   const fullPath = path.join(projectDirectory, slug, 'project.md');
-  
-  return processMarkdownFile(
-    fullPath,
-    ProjectFrontmatterSchema,
-    (frontmatter, body, _filePath) => {
-      frontmatter.thumbnail = transformThumbnailPath(frontmatter.thumbnail, slug);
 
-      const meta: ProjectMeta = {
-        ...frontmatter,
-        slug,
-      };
+  return processMarkdownFile(fullPath, ProjectFrontmatterSchema, (frontmatter, body, _filePath) => {
+    frontmatter.thumbnail = transformThumbnailPath(frontmatter.thumbnail, slug);
 
-      return { meta, body: body.split('\n') };
-    }
-  );
+    const meta: ProjectMeta = {
+      ...frontmatter,
+      slug,
+    };
+
+    return { meta, body: body.split('\n') };
+  });
 };

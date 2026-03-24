@@ -1,7 +1,7 @@
 import cn from '@yeahx4/cn';
 import AnimatedContent from '@/components/ReactBits/AnimatedContent';
-import MarkdownRender from '@/components/MarkdownRender/MarkdownRender';
-import { BoxData } from '@/types/BoxData';
+import MarkdownRender from '@/components/MarkdownRender';
+import { BoxData } from '@/types/about';
 
 export default function SimpleBox({ data }: { data?: BoxData }) {
   if (!data) {

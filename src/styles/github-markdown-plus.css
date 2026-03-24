@@ -7,3 +7,14 @@
   list-style-type: decimal; /* 숫자 리스트 */
   padding-left: 1.5rem; /* 왼쪽에 여백 추가 */
 }
+
+/* 드래그 시 노란 형광펜 효과 */
+.markdown-body ::selection {
+  background-color: rgba(250, 204, 21, 0.75);
+  color: #1a1a1a;
+}
+
+.dark .markdown-body ::selection {
+  background-color: rgba(250, 204, 21, 0.55);
+  color: #fff;
+}

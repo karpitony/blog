@@ -5,7 +5,7 @@ import { FiArrowLeft } from 'react-icons/fi';
 import { getDiaryList, findDiaryBySlug, parseDiaryContent } from '@/content/diary.service';
 import cn from '@yeahx4/cn';
 import WongojiTitle from '@/components/Diary/WongojiTitle';
-import MarkdownRender from '@/components/MarkdownRender/MarkdownRender';
+import MarkdownRender from '@/components/MarkdownRender';
 
 export const dynamic = 'force-static';
 

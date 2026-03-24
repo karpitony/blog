@@ -1,37 +1,13 @@
 import SplitTextNoSSR from '@/components/common/SplitTextNoSSR';
 import SimpleBox from '@/components/About/SimpleBox';
-
-const EducationData = [
-  {
-    title: '동국대학교',
-    programs: [
-      {
-        description: '경영정보학과',
-        year: '2024.03 ~ 2025.03',
-      },
-      {
-        description: '컴퓨터 AI학부',
-        year: '2025.03 ~ 재학중',
-      },
-    ],
-  },
-  {
-    title: '자격증',
-    programs: [
-      {
-        description: '정보처리기능사',
-        year: '2025.04.18',
-      },
-    ],
-  },
-];
+import { EDUCATION_DATA } from '@/data/Educations.data';
 
 export default function Educations() {
   return (
     <div>
       <SplitTextNoSSR text="교육" />
       <div className="flex flex-col space-y-6">
-        {EducationData.map((education, index) => (
+        {EDUCATION_DATA.map((education, index) => (
           <SimpleBox key={index}>
             {/* 큰 제목 */}
             <div className="flex flex-col md:flex-row items-start w-full md:space-x-4">
