@@ -1,9 +1,11 @@
 import Link from 'next/link';
-import { getPostList, getPostData } from '@/content/post.service';
+import { getPostList, getPostData, getSeriesContext, getPostNavContext } from '@/content/post.service';
 import { FiArrowLeft } from 'react-icons/fi';
 import MarkdownRender from '@/components/MarkdownRender';
 import TableOfContent from '@/components/MarkdownRender/TableOfContent';
 import Comments from '@/components/PostsPage/Comments';
+import SeriesNav from '@/components/PostsPage/SeriesNav';
+import PostNav from '@/components/PostsPage/PostNav';
 import cn from '@yeahx4/cn';
 
 export const dynamic = 'force-static';
@@ -42,6 +44,9 @@ export async function generateMetadata({ params }: PostPageProps) {
 export default async function PostPage({ params }: PostPageProps) {
   const { id } = await params;
   const { meta, body, originalFileName } = await getPostData(id);
+  const seriesContext = meta.series ? await getSeriesContext(meta.series, id) : null;
+  const postNavContext = await getPostNavContext(id);
+
   return (
     <>
       <div className="w-full mx-auto max-w-full md:max-w-3xl relative">
@@ -77,6 +82,8 @@ export default async function PostPage({ params }: PostPageProps) {
               {meta.series ? `${meta.series}` : 'No Series'}
             </p>
           </div>
+          {/* 시리즈 헤더 (제목 아래, 접혀있는 전체 목록) */}
+          {seriesContext && <SeriesNav context={seriesContext} variant="header" />}
         </div>
         <div className={cn('mt-12 md:mt-18')}>
           <MarkdownRender
@@ -85,6 +92,10 @@ export default async function PostPage({ params }: PostPageProps) {
             series={meta.series}
             renderType="POST"
           />
+          {/* 시리즈 네비게이션 (글 아래, 페이지네이션) */}
+          {seriesContext && <SeriesNav context={seriesContext} variant="footer" />}
+          {/* 전체 글 네비게이션 */}
+          <PostNav context={postNavContext} />
           <Comments />
         </div>
         <TableOfContent content={body.join('\n')} />
@@ -92,3 +103,4 @@ export default async function PostPage({ params }: PostPageProps) {
     </>
   );
 }
+

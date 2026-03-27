@@ -217,3 +217,96 @@ export const getPostData = async (
     throw new Error('포스트 파일을 읽을 수 없습니다.');
   }
 };
+
+// --- Series Context ---
+
+export interface SeriesPostItem {
+  slug: string;
+  title: string;
+  seriesIndex: number;
+}
+
+export interface SeriesContext {
+  seriesName: string;
+  seriesSlug: string;
+  posts: SeriesPostItem[];
+  currentIndex: number;
+  /** 현재 글 중심 5개 윈도우 (네이버 블로그 스타일) */
+  window: SeriesPostItem[];
+}
+
+export const getSeriesContext = async (
+  seriesSlug: string,
+  currentSlug: string,
+): Promise<SeriesContext | null> => {
+  if (!seriesSlug) return null;
+
+  const { posts, series } = await getPostList();
+
+  const seriesPosts = posts
+    .filter(p => p.meta.series === seriesSlug)
+    .sort((a, b) => a.meta.seriesIndex - b.meta.seriesIndex)
+    .map(p => {
+      if (p.meta.draft) return null;
+      return {
+        slug: p.slug,
+        title: p.meta.title,
+        seriesIndex: p.meta.seriesIndex,
+      }
+    }).filter((p) => p !== null);
+
+  if (seriesPosts.length === 0) return null;
+
+  const currentIndex = seriesPosts.findIndex(p => p.slug === currentSlug);
+  if (currentIndex === -1) return null;
+
+  const seriesInfo = series.find(s => s.seriesSlug === seriesSlug);
+
+  // 5개 윈도우: 현재 글을 가운데에 배치
+  const totalPosts = seriesPosts.length;
+  let windowStart: number;
+
+  if (totalPosts <= 5) {
+    windowStart = 0;
+  } else if (currentIndex <= 2) {
+    windowStart = 0;
+  } else if (currentIndex >= totalPosts - 3) {
+    windowStart = totalPosts - 5;
+  } else {
+    windowStart = currentIndex - 2;
+  }
+
+  const window = seriesPosts.slice(windowStart, windowStart + 5);
+
+  return {
+    seriesName: seriesInfo?.name || seriesSlug,
+    seriesSlug,
+    posts: seriesPosts,
+    currentIndex,
+    window,
+  };
+};
+
+// --- Post Nav Context (전체 글 기준) ---
+
+export interface PostNavContext {
+  posts: SeriesPostItem[];
+  currentIndex: number;
+}
+
+export const getPostNavContext = async (currentSlug: string): Promise<PostNavContext> => {
+  const { posts } = await getPostList();
+  // posts는 날짜 내림차순 정렬 (최신이 먼저)
+  const allPosts: SeriesPostItem[] = posts.map((p, i) => {
+    if (p.meta.draft) return null;
+    return {
+      slug: p.slug,
+      title: p.meta.title,
+      seriesIndex: i,
+    }
+  }).filter((p) => p !== null);
+
+  const currentIndex = allPosts.findIndex(p => p.slug === currentSlug);
+
+  return { posts: allPosts, currentIndex: Math.max(currentIndex, 0) };
+};
