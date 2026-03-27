@@ -21,7 +21,14 @@ draft: false
 > 추후 데이터 포맷이 유사하다면 확장도 가능하겠지만, 우선은 제 학교 중심으로 빠르게 만들어보는 데 집중했습니다.
 
 - 🚀 서비스 바로가기: https://timetable-wizard.vercel.app
+
+<!-- og-only-->
+https://timetable-wizard.vercel.app
+
 - 🛠 GitHub 저장소: https://github.com/karpitony/timetable-wizard
+
+<!-- og-only -->
+https://github.com/karpitony/timetable-wizard
 
 ## 기획 배경
 
