@@ -27,16 +27,17 @@ export default function NavPostList({
   pageSize = 5,
   label,
 }: NavPostListProps) {
-  // 현재 글이 포함된 페이지로 초기화
-  const initialPage = Math.floor(currentIndex / pageSize);
-  const [page, setPage] = useState(initialPage);
+  // 현재 글을 가운데에 두는 슬라이딩 윈도우 (4번째 글이면 2,3,4,5,6)
+  const half = Math.floor(pageSize / 2);
+  const clampStart = (idx: number) =>
+    Math.max(0, Math.min(idx, posts.length - pageSize));
+  const initialStart = clampStart(currentIndex - half);
+  const [start, setStart] = useState(initialStart);
 
-  const totalPages = Math.ceil(posts.length / pageSize);
-  const start = page * pageSize;
   const visiblePosts = posts.slice(start, start + pageSize);
 
-  const canPrev = page > 0;
-  const canNext = page < totalPages - 1;
+  const canPrev = start > 0;
+  const canNext = start + pageSize < posts.length;
 
   return (
     <div
@@ -52,10 +53,10 @@ export default function NavPostList({
           {label || '📝 전체 글'}
         </p>
         {/* 페이지네이션 */}
-        {totalPages > 1 && (
+        {posts.length > pageSize && (
           <div className="flex items-center gap-1">
             <button
-              onClick={() => setPage(p => p - 1)}
+              onClick={() => setStart(s => clampStart(s - pageSize))}
               disabled={!canPrev}
               className={cn(
                 'p-1 rounded transition-colors',
@@ -70,7 +71,7 @@ export default function NavPostList({
               {start + 1}–{Math.min(start + pageSize, posts.length)} / {posts.length}
             </span>
             <button
-              onClick={() => setPage(p => p + 1)}
+              onClick={() => setStart(s => clampStart(s + pageSize))}
               disabled={!canNext}
               className={cn(
                 'p-1 rounded transition-colors',
