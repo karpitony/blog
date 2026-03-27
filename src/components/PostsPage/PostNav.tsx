@@ -12,11 +12,7 @@ export default function PostNav({ context }: PostNavProps) {
 
   return (
     <div className="mb-4">
-      <NavPostList
-        posts={posts}
-        currentIndex={currentIndex}
-        label="📝 전체 글"
-      />
+      <NavPostList posts={posts} currentIndex={currentIndex} label="📝 전체 글" />
     </div>
   );
 }

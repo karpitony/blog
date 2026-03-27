@@ -29,8 +29,7 @@ export default function NavPostList({
 }: NavPostListProps) {
   // 현재 글을 가운데에 두는 슬라이딩 윈도우 (4번째 글이면 2,3,4,5,6)
   const half = Math.floor(pageSize / 2);
-  const clampStart = (idx: number) =>
-    Math.max(0, Math.min(idx, posts.length - pageSize));
+  const clampStart = (idx: number) => Math.max(0, Math.min(idx, posts.length - pageSize));
   const initialStart = clampStart(currentIndex - half);
   const [start, setStart] = useState(initialStart);
 
@@ -88,7 +87,7 @@ export default function NavPostList({
 
       {/* 포스트 리스트 */}
       <div className="divide-y divide-gray-200 dark:divide-gray-700/30">
-        {visiblePosts.map((post) => {
+        {visiblePosts.map(post => {
           const globalIndex = posts.findIndex(p => p.slug === post.slug);
           const isCurrent = globalIndex === currentIndex;
           return (

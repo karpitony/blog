@@ -22,11 +22,7 @@ export default function SeriesNav({ context, variant }: SeriesNavProps) {
   // footer
   return (
     <div className="mt-16 mb-4">
-      <NavPostList
-        posts={posts}
-        currentIndex={currentIndex}
-        label={`📚 ${seriesName} 시리즈`}
-      />
+      <NavPostList posts={posts} currentIndex={currentIndex} label={`📚 ${seriesName} 시리즈`} />
     </div>
   );
 }
@@ -57,8 +53,8 @@ function SeriesHeader({
       {/* 헤더 */}
       <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-700/40">
         <p className="text-sm font-medium text-gray-500 dark:text-gray-400 m-0!">
-          📚 <span className="text-gray-700 dark:text-gray-200 font-semibold">{seriesName}</span>
-          {' '}시리즈 · {currentIndex + 1}/{posts.length}
+          📚 <span className="text-gray-700 dark:text-gray-200 font-semibold">{seriesName}</span>{' '}
+          시리즈 · {currentIndex + 1}/{posts.length}
         </p>
       </div>
 

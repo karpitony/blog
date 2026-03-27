@@ -35,9 +35,10 @@ export function preprocessMarkdownForOg(text: string): string {
  * - p 태그에 단일 외부 링크만 있고 href === text인 경우 → 카드 렌더링
  * - data-og-control="no-og" 마커가 있으면 → 카드 렌더링 제외
  */
-export function detectBareUrlInParagraph(
-  children: React.ReactNode,
-): { shouldRenderCard: boolean; href: string | null } {
+export function detectBareUrlInParagraph(children: React.ReactNode): {
+  shouldRenderCard: boolean;
+  href: string | null;
+} {
   const childArray = React.Children.toArray(children);
 
   let hasNoOgMarker = false;

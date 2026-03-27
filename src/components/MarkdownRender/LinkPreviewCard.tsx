@@ -118,7 +118,7 @@ export default function LinkPreviewCard({ url }: LinkPreviewCardProps) {
                 'group-hover:scale-105 transition-transform duration-300',
               )}
               loading="lazy"
-              onError={(e) => {
+              onError={e => {
                 (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
@@ -162,14 +162,12 @@ export default function LinkPreviewCard({ url }: LinkPreviewCardProps) {
                 alt=""
                 className="w-4 h-4 rounded-sm m-0!"
                 loading="lazy"
-                onError={(e) => {
+                onError={e => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
             )}
-            <span className="text-xs! text-gray-400 dark:text-gray-500 truncate">
-              {hostname}
-            </span>
+            <span className="text-xs! text-gray-400 dark:text-gray-500 truncate">{hostname}</span>
             <TbExternalLink
               className={cn(
                 'w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0',

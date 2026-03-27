@@ -252,8 +252,9 @@ export const getSeriesContext = async (
         slug: p.slug,
         title: p.meta.title,
         seriesIndex: p.meta.seriesIndex,
-      }
-    }).filter((p) => p !== null);
+      };
+    })
+    .filter(p => p !== null);
 
   if (seriesPosts.length === 0) return null;
 
@@ -297,14 +298,16 @@ export interface PostNavContext {
 export const getPostNavContext = async (currentSlug: string): Promise<PostNavContext> => {
   const { posts } = await getPostList();
   // posts는 날짜 내림차순 정렬 (최신이 먼저)
-  const allPosts: SeriesPostItem[] = posts.map((p, i) => {
-    if (p.meta.draft) return null;
-    return {
-      slug: p.slug,
-      title: p.meta.title,
-      seriesIndex: i,
-    }
-  }).filter((p) => p !== null);
+  const allPosts: SeriesPostItem[] = posts
+    .map((p, i) => {
+      if (p.meta.draft) return null;
+      return {
+        slug: p.slug,
+        title: p.meta.title,
+        seriesIndex: i,
+      };
+    })
+    .filter(p => p !== null);
 
   const currentIndex = allPosts.findIndex(p => p.slug === currentSlug);
 

@@ -1,5 +1,10 @@
 import Link from 'next/link';
-import { getPostList, getPostData, getSeriesContext, getPostNavContext } from '@/content/post.service';
+import {
+  getPostList,
+  getPostData,
+  getSeriesContext,
+  getPostNavContext,
+} from '@/content/post.service';
 import { FiArrowLeft } from 'react-icons/fi';
 import MarkdownRender from '@/components/MarkdownRender';
 import TableOfContent from '@/components/MarkdownRender/TableOfContent';
@@ -103,4 +108,3 @@ export default async function PostPage({ params }: PostPageProps) {
     </>
   );
 }
-

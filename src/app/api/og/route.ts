@@ -11,22 +11,10 @@ interface OgData {
 function extractMetaContent(html: string, property: string): string {
   // Match both property="og:..." and name="..." patterns
   const patterns = [
-    new RegExp(
-      `<meta[^>]*property=["']${property}["'][^>]*content=["']([^"']*)["']`,
-      'i',
-    ),
-    new RegExp(
-      `<meta[^>]*content=["']([^"']*)["'][^>]*property=["']${property}["']`,
-      'i',
-    ),
-    new RegExp(
-      `<meta[^>]*name=["']${property}["'][^>]*content=["']([^"']*)["']`,
-      'i',
-    ),
-    new RegExp(
-      `<meta[^>]*content=["']([^"']*)["'][^>]*name=["']${property}["']`,
-      'i',
-    ),
+    new RegExp(`<meta[^>]*property=["']${property}["'][^>]*content=["']([^"']*)["']`, 'i'),
+    new RegExp(`<meta[^>]*content=["']([^"']*)["'][^>]*property=["']${property}["']`, 'i'),
+    new RegExp(`<meta[^>]*name=["']${property}["'][^>]*content=["']([^"']*)["']`, 'i'),
+    new RegExp(`<meta[^>]*content=["']([^"']*)["'][^>]*name=["']${property}["']`, 'i'),
   ];
 
   for (const pattern of patterns) {
@@ -71,8 +59,7 @@ export async function GET(request: NextRequest) {
     const response = await fetch(url, {
       signal: controller.signal,
       headers: {
-        'User-Agent':
-          'Mozilla/5.0 (compatible; Yuniversebot/1.0; +https://yunseok.vercel.app)',
+        'User-Agent': 'Mozilla/5.0 (compatible; Yuniversebot/1.0; +https://yunseok.vercel.app)',
         Accept: 'text/html',
       },
     });
