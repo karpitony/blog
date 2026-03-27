@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
@@ -10,6 +11,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { TbExternalLink } from 'react-icons/tb';
 import MarkdownImage from './MarkdownImage';
+import LinkPreviewCard from './LinkPreviewCard';
+import { preprocessMarkdownForOg, detectBareUrlInParagraph } from '@/libs/ogLinkPreview';
 
 interface MarkdownRenderProps {
   markdownText: string;
@@ -31,6 +34,8 @@ export default function MarkdownRender({
   const isPost = renderType === 'POST';
   const isProject = renderType === 'PROJECT';
   const isSnippet = renderType === 'SNIPPET';
+
+  const processedMarkdown = preprocessMarkdownForOg(markdownText);
 
   return (
     <div className="markdown-body bg-transparent text-black dark:text-gray-200 tracking-tight text-base md:text-lg">
@@ -83,6 +88,41 @@ export default function MarkdownRender({
               {...props}
             />
           ),
+          // 인라인 <!-- og -->URL 처리: data-link-preview span을 카드로 변환
+          span({ ...props }) {
+            const previewUrl = (props as Record<string, unknown>)['data-link-preview'];
+            if (previewUrl && typeof previewUrl === 'string') {
+              return <LinkPreviewCard url={previewUrl} />;
+            }
+            return <span {...props} />;
+          },
+          // p 내부의 link-preview 마커 또는 독립형 베어 URL → 카드로 교체
+          p({ children, ...props }) {
+            // data-link-preview 마커가 있으면 p 자체를 카드로 교체
+            const childArray = React.Children.toArray(children);
+            for (const child of childArray) {
+              if (React.isValidElement(child)) {
+                const el = child as React.ReactElement<Record<string, unknown>>;
+                const previewUrl = el.props?.['data-link-preview'];
+                if (previewUrl && typeof previewUrl === 'string') {
+                  return <LinkPreviewCard url={previewUrl} />;
+                }
+              }
+            }
+            // 베어 URL 자동 감지 → 링크 유지 + 아래에 카드 추가
+            const { shouldRenderCard, href } = detectBareUrlInParagraph(children);
+            if (shouldRenderCard && href) {
+              return (
+                <>
+                  <p {...props} className={cn(props.className, 'mb-0! pb-0!')}>
+                    {children}
+                  </p>
+                  <LinkPreviewCard url={href} />
+                </>
+              );
+            }
+            return <p {...props}>{children}</p>;
+          },
           a: ({ href, children, ...props }) => (
             <a
               className="text-blue-400 hover:text-blue-300 transition-colors duration-200 items-center mr-1"
@@ -163,7 +203,7 @@ export default function MarkdownRender({
           },
         }}
       >
-        {markdownText}
+        {processedMarkdown}
       </ReactMarkdown>
     </div>
   );
